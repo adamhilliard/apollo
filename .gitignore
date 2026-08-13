@@ -1,0 +1,6 @@
+# Built handoff package, regenerate with build_package.py
+apollo.zip
+
+__pycache__/
+*.py[cod]
+.DS_Store

@@ -1,0 +1,8 @@
+{
+  "name": "apollo",
+  "description": "Apollo builds and runs a recurring job search on Claude Code. A setup interview writes your profile and scoring rubric; a scheduled task then sources, verifies, scores, and ranks roles into a tracking file and hands you a digest. Includes an optional private web dashboard. You name your own copy during setup.",
+  "version": "1.2.0",
+  "author": {
+    "name": "Adam Hilliard"
+  }
+}

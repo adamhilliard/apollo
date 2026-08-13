@@ -1,0 +1,136 @@
+# -*- coding: utf-8 -*-
+"""Tests for quality_audit.py.  Apollo, by Adam Hilliard (MIT).
+
+    python test_quality_audit.py
+
+Each case builds a throwaway project folder that contains exactly one defect,
+then asserts the matching check trips and that a clean folder trips nothing.
+The audit exists to catch a broken recipe reporting success, so an audit that
+silently stops checking is the same failure one level up.
+"""
+
+import io
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+AUDIT = os.path.join(HERE, "quality_audit.py")
+
+CLEAN_CYCLES = u"""
+### 2026-08-04 · cycle 1
+COVERAGE: linkedin COMPLETE 933 · lever 6 · icims 3
+CANARY: icims PASS
+
+### 2026-08-05 · cycle 2
+COVERAGE: linkedin COMPLETE 901 · lever 7 · icims 4
+CANARY: icims PASS
+
+### 2026-08-06 · cycle 3
+COVERAGE: linkedin COMPLETE 880 · lever 5 · icims 2
+CANARY: icims PASS
+"""
+
+METHODOLOGY = u"""# Methodology
+
+### Queries
+
+| Stem | Filter to | State |
+|---|---|---|
+| `"Chief People"` | exec | live |
+
+```
+"Chief People"
+```
+"""
+
+DECISIONS = u"""# Decisions Log
+
+## Open Trials
+
+| Trial | Opened | Review due | Kill criteria | Status |
+|---|---|---|---|---|
+| A stem family | 2026-08-01 | 2099-01-01 | flood | open |
+
+## T · Targets and Scope
+"""
+
+
+def build(tmp, cycles=CLEAN_CYCLES, methodology=METHODOLOGY, decisions=DECISIONS,
+          apply_link=u"https://boards.greenhouse.io/acme/jobs/1"):
+    def w(name, text):
+        io.open(os.path.join(tmp, name), "w", encoding="utf-8").write(text)
+    w("Reference_Profile.md", u"# Profile\n")
+    w("Operating_Procedures.md", u"# Procedures\n")
+    w("Methodology.md", methodology)
+    w("Decisions_Log.md", decisions)
+    w("Tracking_HR.md", u"# Tracking\n\n## ACTIVE/ROLLING\n\n| Score | Apply |\n"
+                        u"|---|---|\n| 4/6 | %s |\n\n## Search Notes\n%s"
+                        % (apply_link, cycles))
+
+
+def run(tmp, *extra):
+    p = subprocess.run([sys.executable, AUDIT, "--project", tmp] + list(extra),
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    return p.returncode, (p.stdout or "") + (p.stderr or "")
+
+
+def case(name, expect_trip, **kw):
+    tmp = tempfile.mkdtemp()
+    try:
+        extra = kw.pop("extra", ())
+        build(tmp, **kw)
+        code, out = run(tmp, *extra)
+        tripped = [ln.split("]")[0].split()[-1] for ln in out.splitlines() if "[TRIP" in ln]
+        if expect_trip is None:
+            assert code == 0, "%s: expected clean, got trips %s\n%s" % (name, tripped, out)
+        else:
+            assert expect_trip in tripped, ("%s: expected %s to trip, got %s\n%s"
+                                            % (name, expect_trip, tripped, out))
+            assert code == 1, "%s: trips must exit 1" % name
+        print("  ok  %-28s %s" % (name, expect_trip or "clean"))
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def main():
+    print("quality_audit self-test")
+
+    case("clean project", None)
+
+    case("member dark 3 cycles", "S1", cycles=CLEAN_CYCLES.replace(
+        u"icims 3", u"icims 0").replace(u"icims 4", u"icims 0").replace(u"icims 2", u"icims 0"),
+        apply_link=u"https://example.com/1")
+
+    case("round-number count", "S2",
+         cycles=CLEAN_CYCLES.replace(u"linkedin COMPLETE 880", u"getro 20/25000"))
+
+    # Owed on the most recent cycle. Owed-then-passed is debt cleared, not debt.
+    head, _, tail = CLEAN_CYCLES.rpartition(u"CANARY: icims PASS")
+    case("canary owed", "S5", cycles=head + u"CANARY: icims OWED" + tail)
+
+    case("COMPLETE at zero", "S6", cycles=CLEAN_CYCLES
+         .replace(u"icims 3", u"icims 0 COMPLETE")
+         .replace(u"icims 4", u"icims 0 COMPLETE")
+         .replace(u"icims 2", u"icims 0 COMPLETE"),
+         apply_link=u"https://example.com/1")
+
+    case("role on a source that swept empty", "S8", cycles=CLEAN_CYCLES
+         .replace(u"lever 6", u"greenhouse 0").replace(u"lever 7", u"greenhouse 0")
+         .replace(u"lever 5", u"greenhouse 0"))
+
+    case("stem documented, not in query", "E1", methodology=METHODOLOGY.replace(
+        u'```\n"Chief People"\n```', u'```\n"VP People"\n```'))
+
+    case("trial with no review date", "E5", decisions=DECISIONS.replace(
+        u"2099-01-01", u"after two cycles"))
+
+    case("trial overdue", "E5", decisions=DECISIONS.replace(u"2099-01-01", u"2020-01-01"))
+
+    print("all cases passed")
+
+
+if __name__ == "__main__":
+    main()

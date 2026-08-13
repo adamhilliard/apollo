@@ -1,0 +1,14 @@
+{
+  "name": "apollo",
+  "owner": {
+    "name": "Adam Hilliard",
+    "url": "https://github.com/adamhilliard"
+  },
+  "plugins": [
+    {
+      "name": "apollo",
+      "source": "./apollo",
+      "description": "Builds and runs a recurring job search on Claude Code. A setup interview writes your profile and scoring rubric; a scheduled task then sources, verifies, scores, and ranks roles into a tracking file and hands you a digest. Includes an optional private web dashboard and a weekly self-check that catches sources failing silently. Works at any career level."
+    }
+  ]
+}
