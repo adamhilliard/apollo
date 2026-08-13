@@ -22,8 +22,8 @@ Turns a job search's tracking files into a private, interactive web dashboard th
 Read, in full: `Reference_Profile.md`, `Operating_Procedures.md`, and every `Tracking_*.md` in the project folder. (Older setups keep all of this in one profile file; read whatever exists.) From them, derive rather than asking the user for anything readable:
 
 - **The search's name**, from the profile's Bot Name field. It goes in the masthead and the page title.
-- **The palette and accessibility variant**, from the profile's Customization section: accent color, and whether they asked for high contrast, larger type, or reduced motion. **Setup already asked. Don't ask again.**
-- **Discretion mode and where the link should go**, also from Customization. Both change what this skill does at publish time.
+- **The palette and any accessibility adjustments**, from the profile's Customization section: accent color, plus whichever of larger text, higher contrast, reduced motion, and colorblind-safe colors they asked for. **Setup already asked. Don't ask again.**
+- **Confidential mode and where the link should go**, also from Customization. Both change what this skill does at publish time.
 - **Track names** (one per tracking file) and a short label for each.
 - **The bucket list.** However many scoring buckets their rubric has, in their rank order. The dashboard renders *their* buckets, not a hard-coded set.
 - **Career level / volume.** A senior search renders every active row as a full card. A high-volume search (a BELOW THE CAP section exists) renders full cards only for ACTIVE/ROLLING and a compact one-line list for below-the-cap rows, never a full card per row for two hundred roles.
@@ -36,9 +36,16 @@ Read, in full: `Reference_Profile.md`, `Operating_Procedures.md`, and every `Tra
 
 - **Only ask if the profile has no Customization section**, which means an older setup. Then, one question: *"Pick an accent color for the dashboard, or say 'surprise me.'"* Write the answer back into the profile so it's asked once, ever.
 - **If they name a brand or hand over brand guidelines**, extract that palette and typography and use it. Otherwise pick a clean accent and validate it (see Step 3 checks).
-- **Honor the accessibility variant** if one is recorded: higher contrast ratios, larger base type, and no transitions or hover lifts under reduced motion.
+- **Honor every accessibility adjustment recorded**, and treat them as independent rather than as one mode:
 
-> **With discretion mode on, this page is private and stays private.** Don't link it anywhere shared, don't put employer names in the artifact title, and don't offer to share it. **Where the link goes was decided at setup**; wire it into that destination on first publish and record that it's done.
+| Adjustment | What changes |
+|---|---|
+| **Larger text** | Raise the base size and every step above it. Don't just scale the body and leave 11px micro-labels behind |
+| **Higher contrast** | Push text and border contrast well past the minimum, and drop the soft elevation that depends on low-contrast shadow |
+| **Reduced motion** | No transitions, no hover lifts, no animated score rings. Render the final state directly |
+| **Colorblind-safe colors** | Pick track tones that separate on lightness, not hue, and never use red against green. **The text label on every mark stays either way**; it is the thing that makes color a redundant channel rather than the only one |
+
+> **With confidential mode on, this page is private and stays private.** Don't link it anywhere shared, don't put employer names in the artifact title, and don't offer to share it. **Where the link goes was decided at setup**; wire it into that destination on first publish and record that it's done.
 
 ### Step 3: Build `dashboard.html` in the project folder
 

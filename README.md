@@ -61,8 +61,8 @@ Ported from the live search after five weeks of corrections. Three of these are 
 - **A new weekly quality audit**, `references/quality-audit.md` plus `scripts/quality_audit.py`, whose whole target is a broken recipe that reports success. Every case in the file looked exactly like a quiet week from inside a cycle.
 - **Search Integrity grew from five rules to seven**, around one idea: anything that can return "nothing" has to distinguish *nothing was there* from *I didn't look*. Per-source status vocabulary, canaries, per-member result counts, and address verification.
 - **Read contracts and a split threshold** in `scaffolding.md`, so a tracking file's growth is a measurement rather than a judgment call, plus a character cap on the free-text table column and a fixed shape for the notes log.
-- **A customization block at the front of setup.** Naming moves into it, the dashboard palette moves up from the dashboard skill so it's asked once, and it adds the optional integrations: digest delivery including Slack, calendar events for review blocks and dated commitments, read-only email intake that keeps the tracker honest, locale, between-cycle alerts, and pause windows. **Everything is optional and every default works.**
-- **Discretion mode**, one switch for anyone searching while employed. It governs the Slack workspace, calendar event titles, dashboard sharing, commit messages, browser profile, and whether their current employer is excluded. A leaked search is the only failure here with consequences outside the search.
+- **A customization block at the front of setup.** Naming moves into it, the dashboard palette moves up from the dashboard skill so it's asked once, and it adds the optional integrations: digest delivery including Slack, calendar events for review blocks and dated commitments, read-only email intake that keeps the tracker honest, locale, and pause windows. **Everything is optional and every default works.**
+- **Confidential mode**, one switch for anyone searching while employed. It governs the Slack workspace, calendar event titles, dashboard sharing, commit messages, browser profile, and whether their current employer is excluded. A leaked search is the only failure here with consequences outside the search.
 - **The scheduled prompt now states no rule it does not own.** A stale cadence table inside a prompt reverted a decision hours after it was made, and no repo-wide search reaches a file that lives outside the project.
 
 ## Status
@@ -75,6 +75,8 @@ By **Adam Hilliard**, [linkedin.com/in/adamhilliard](https://linkedin.com/in/ada
 
 MIT, see [LICENSE](LICENSE). Free for anyone to use, modify, and redistribute, with the copyright line kept.
 
-**Attribution lives in four places, and nowhere else on purpose:** this file, the plugin README recipients read at install, the `author` field in `plugin.json`, and a one-line header in each bundled script. Setup also writes a single credit line into the profile it generates, which lands once in each user's own repo.
+**Attribution lives in five places, and nowhere else on purpose:** this file, the plugin README recipients read at install, the `author` field in `plugin.json`, a one-line header in each bundled script, and **a short signed letter shown once at the top of setup**. Setup also writes a single credit line into the profile it generates, which lands once in each user's own repo.
+
+**The letter is the only verbatim block in the setup interview**, and the only place the tool speaks in the author's voice rather than the user's search's. It runs once, at setup. **Never on a cycle, never in a digest, never on the dashboard**, because a credit that reappears every run reads as an ad.
 
 Deliberately not watermarked: the reference files, because Claude loads them into context every cycle and a credit line there is noise inside search instructions; and the digest, because it's someone's private job search and a recurring credit reads as an ad.

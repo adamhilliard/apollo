@@ -84,14 +84,16 @@ output conventions in Operating_Procedures.md, and the reasoning behind any
 rule in Decisions_Log.md. Live results live in the tracking file(s).
 
 ### Bot Name                -> the opening question (a named field, not only a heading)
-### Customization           -> the opening block: palette + accessibility, digest
-###                            channel, integrations and their scopes, discretion
-###                            mode, locale, alert rule, pause windows
+### Customization           -> the opening block: palette + accessibility, cadence,
+###                            RIGOR (light/standard/deep), digest channel,
+###                            integrations and their scopes, confidential mode,
+###                            country (sets currency/dates/spelling), pause windows
 ### Built With              -> one line, verbatim (see below)
 ### Career Level            -> Q0 (band + table cap + research-depth rule)
 ### Current Role            -> Q1
 ### Full Career History     -> Q1 (table: period | role | company | highlights)
-### Key Positioning Point   -> Q1
+### Key Positioning Point   -> left empty at setup; filled from the first real
+###                            screening call, never guessed in the interview
 
 ### Target Roles            -> Q2 (priority-ordered, per track if Q3 split)
 ### Hard Excludes           -> Q7 (three items, no more)
@@ -105,7 +107,7 @@ rule in Decisions_Log.md. Live results live in the tracking file(s).
 ### Stage-Tied Rules        -> Q7 (what each is tied to, what triggers the review)
 ```
 
-> **Customization lives in the profile, and it is the one copy.** The dashboard skill reads the palette from there rather than asking again, the cycle reads the digest channel from there, and discretion mode governs commit messages, event titles, and what may be shared. **Record the defaults they accepted, not only the ones they changed**, or a later cycle cannot tell an accepted default from an unasked question.
+> **Customization lives in the profile, and it is the one copy.** The dashboard skill reads the palette from there rather than asking again, the cycle reads the digest channel from there, and confidential mode governs commit messages, event titles, and what may be shared. **Record the defaults they accepted, not only the ones they changed**, or a later cycle cannot tell an accepted default from an unasked question.
 
 **The Built With line, written once at setup and then left alone:**
 
@@ -345,9 +347,15 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
    last confirmed live and how it was found gone.
 
 4. SOURCE new roles from every source Methodology.md schedules for
-   today. Run the full title list against each, chained into one query
-   per host or domain. Use the skill's scripts rather than hand-rolling
+   today, at the RIGOR set in the profile's Customization section: light
+   runs Tier A only and skips the catch-up sweep, standard runs the
+   tiers on their cadence, deep runs everything every cycle. Run the
+   full title list against each source, chained into one query per host
+   or domain. Use the skill's scripts rather than hand-rolling
    pagination. Do not delegate a sweep to a sub-agent.
+
+   Rigor changes WHICH sources run. It never changes step 5: a light
+   cycle still reports coverage for everything it skipped.
 
 5. REPORT COVERAGE for every source, in the vocabulary in
    search-techniques.md: COMPLETE, INCOMPLETE, CUT AT n, SAMPLED,

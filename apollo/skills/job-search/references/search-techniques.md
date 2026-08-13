@@ -133,6 +133,18 @@ Nothing here is candidate-specific, which is why it lives in the skill and is re
 | **B** | Two fixed weekdays | 15 more cycles with nothing tracked | 2 tracked roles |
 | **C** | Weekly, or on a re-probe condition | | 2 tracked roles |
 
+**Seed the tiers at setup, because tiering is measured and a new search has measured nothing.** Until a source has a `last tracked role` to judge, use this:
+
+| Tier | Seed membership |
+|---|---|
+| **A** | The logged-in job-board session, and ATS site-search |
+| **B** | Named-employer sweeps, the user's certifying-body or association board, VC portfolio boards where the field overlaps with venture-backed employers |
+| **C** | Aggregators mined for company names, role-list posters, and anything vetted in during Q11 |
+
+> **Re-tier on measurement, not on the seed.** The seed is a guess about which sources pay off, and it is wrong for some fields: in trades, healthcare, education, and most local employment, the VC boards belong nowhere and an association board is Tier A from day one. **Q11's verdicts override the seed immediately.**
+
+- **The profile's rigor setting decides which tiers run at all.** Light is Tier A only, standard runs each tier on its day, deep runs everything every cycle. **Tiering still measures every source it runs**, so a light search keeps promoting and demoting normally and will say when its Tier A dries up.
+- **A skipped tier is `OFF-CADENCE`, never a nil.** Rigor narrows what gets looked at; it never narrows what gets reported.
 - **Record `last tracked role` per source.** That single field is what makes the rule executable instead of aspirational.
 - **A scheduled skip is not a nil.** Report `OFF-CADENCE`, or a Tier B source's quiet Wednesday reads as a dead source.
 - **Never demote on an unvouched zero.** One source was demoted on a yield count taken while four of its eleven hosts were pointed at the wrong address, so the yield figure was measuring a defect in the host list. **Fix the address, then re-measure, then decide.**
@@ -350,7 +362,7 @@ Expect these mechanics:
 
 > **Note what the bot verified and what it didn't.** Some sources, community forums among them, aren't fetchable by these tools, so an allegation the user brings from one is the user's read rather than a confirmed finding. Verify the posting pattern independently, record that separately from the allegation, and say which is which. **If a blocked firm is ever cleared, delete the entry rather than editing the reason**, so the record doesn't read as a standing accusation.
 
-**Anonymised reposters defeat the dedupe key, and the failure is structural rather than a quirk of one board.** A dedupe index keyed on company plus title cannot catch a reposter that publishes neither, however well the index is maintained.
+**Anonymized reposters defeat the dedupe key, and the failure is structural rather than a quirk of one board.** A dedupe index keyed on company plus title cannot catch a reposter that publishes neither, however well the index is maintained.
 
 - **Match on the disclosed comp band plus the reporting line.** A band like `$193,200-$345,000` is not a round number and will not collide by chance; pair it with the reporting line and the match is settled. Three confirmed cases in two days were all resolved this way, two against roles already live in the table.
 - **Index the repost's own job ID under the reposter's name**, with the underlying role named in the write-up. That is what lets the next cycle's ID grep catch it, and it's the only mechanism that works when the company string is useless.
@@ -540,7 +552,7 @@ Two cautions:
 
 ### Rule: an undisclosed employer inherits the poster's geography, as a presumption
 
-**When a requisition hides the employer and the poster owns the company, the poster's metro is the row's presumptive location.** One anonymised role named no city, no state, and no work arrangement, so the location filter could not run at all and the row went to the user with location as the open question. The posting's own author was the talent lead at the private-equity firm that owns the company, and that firm's metro was sitting in plain sight.
+**When a requisition hides the employer and the poster owns the company, the poster's metro is the row's presumptive location.** One anonymized role named no city, no state, and no work arrangement, so the location filter could not run at all and the row went to the user with location as the open question. The posting's own author was the talent lead at the private-equity firm that owns the company, and that firm's metro was sitting in plain sight.
 
 - **Write it as a presumption, not a finding:** `presumed <metro>, inherited from the posting's owner`. Screen the row on it, and reopen immediately if a posting names a city or a remote arrangement.
 - **It applies only when the poster owns the company.** A third-party recruiter's metro says nothing about the client's, so this never extends to search firms or reposters.
