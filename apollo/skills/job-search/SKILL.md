@@ -7,7 +7,7 @@ description: Apollo builds a recurring, self-running job search digest on Claude
 
 A recurring job-search digest that runs itself. The search techniques here are battle-tested and portable; everything candidate-specific comes out of the setup interview.
 
-> **Apollo is the tooling; the user's copy gets its own name.** The interview opens by asking for it, and every file the search writes uses their name from then on. Someone talking about "Bard" or "Scout" or just "the bot" means their own search, and this skill is what runs it. Reserve "Apollo" for the tooling itself, and never rename a search that already has a name.
+> **Apollo is the tooling; the user's copy gets its own name.** The interview opens by asking for it, and every file the search writes uses their name from then on. Someone talking about "Scout" or "Wall-E" or just "the bot" means their own search, and this skill is what runs it. Reserve "Apollo" for the tooling itself, and never rename a search that already has a name.
 
 **Works at any career level, from first job to executive search.** The mechanics don't change; the calibration does, and Q0 of the interview sets it.
 

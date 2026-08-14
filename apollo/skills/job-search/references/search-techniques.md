@@ -364,7 +364,7 @@ Expect these mechanics:
 
 **Anonymized reposters defeat the dedupe key, and the failure is structural rather than a quirk of one board.** A dedupe index keyed on company plus title cannot catch a reposter that publishes neither, however well the index is maintained.
 
-- **Match on the disclosed comp band plus the reporting line.** A band like `$193,200-$345,000` is not a round number and will not collide by chance; pair it with the reporting line and the match is settled. Three confirmed cases in two days were all resolved this way, two against roles already live in the table.
+- **Match on the disclosed comp band plus the reporting line.** A band like `$96,600-$172,500` is not a round number and will not collide by chance; pair it with the reporting line and the match is settled. Three confirmed cases in two days were all resolved this way, two against roles already live in the table.
 - **Index the repost's own job ID under the reposter's name**, with the underlying role named in the write-up. That is what lets the next cycle's ID grep catch it, and it's the only mechanism that works when the company string is useless.
 - **This doesn't make reposters a rejected channel.** They republish real requisitions and occasionally carry one nothing else reached. **The cost is that a role already in play arrives looking net-new**, which wastes a research pass and, worse, can put the user in front of a role they already applied to as though it were fresh.
 
