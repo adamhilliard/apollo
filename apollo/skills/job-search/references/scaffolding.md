@@ -140,12 +140,14 @@ Apollo, a free job-search plugin by Adam Hilliard
 
 | Stem | Filter results to | State |
 |---|---|---|
-| `"Chief People"` | exec seats only | live |
-| `"Director of People"` | above the comp bar | trial, review {{DATE}} |
+| `"Operations Coordinator"` | entry and mid seats | live |
+| `"Director of Operations"` | above the comp bar | trial, review {{DATE}} |
 
 ```
-"Chief People" OR "Director of People" OR ...
+"Operations Coordinator" OR "Director of Operations" OR ...
 ```
+
+> **The examples in this file deliberately span rungs.** A file whose every example is an executive title reads as a tool for executives, and it is not one.
 ````
 
 - **The table is what makes the check mechanical.** "Every documented stem is present in the query string" is a reading exercise against prose and a one-line diff against a column, and `scripts/quality_audit.py` runs it as check E1. **That is the check that catches a stem adopted and never added.**

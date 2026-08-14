@@ -39,10 +39,10 @@ METHODOLOGY = u"""# Methodology
 
 | Stem | Filter to | State |
 |---|---|---|
-| `"Chief People"` | exec | live |
+| `"Operations Manager"` | mid | live |
 
 ```
-"Chief People"
+"Operations Manager"
 ```
 """
 
@@ -122,7 +122,7 @@ def main():
          .replace(u"lever 5", u"greenhouse 0"))
 
     case("stem documented, not in query", "E1", methodology=METHODOLOGY.replace(
-        u'```\n"Chief People"\n```', u'```\n"VP People"\n```'))
+        u'```\n"Operations Manager"\n```', u'```\n"Director of Operations"\n```'))
 
     case("trial with no review date", "E5", decisions=DECISIONS.replace(
         u"2099-01-01", u"after two cycles"))

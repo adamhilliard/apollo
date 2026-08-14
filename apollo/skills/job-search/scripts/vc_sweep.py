@@ -25,7 +25,7 @@ Every board ends with COMPLETE, INCOMPLETE or UNREADABLE, plus a CANARY line.
 Surface anything other than COMPLETE as a coverage gap.
 
 Usage:
-    python vc_sweep.py --stems "chief people,vp people,head of operations"
+    python vc_sweep.py --stems "operations coordinator,operations manager,head of operations"
     python vc_sweep.py --stems-file stems.txt --board accel
     python vc_sweep.py --all-titles          # no filter; inspection only
 """

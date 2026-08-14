@@ -35,10 +35,10 @@ Title filters come from an HTML comment anywhere in the index, so they stay
 invisible in the rendered document:
 
     <!-- sweep-config
-    seniority = chief|svp|vice president|\\bvp\\b|head of
-    function  = people|human resource|\\bhr\\b|talent
+    seniority = manager|supervisor|lead|head of
+    function  = operations|logistics|supply chain
     stretch   = (senior )?director
-    stretch_comp_floor = 320
+    stretch_comp_floor = 120
     -->
 
 `seniority` and `function` must BOTH match a title for it to be reported.
@@ -70,8 +70,10 @@ if hasattr(sys.stdout, "reconfigure"):
     # truncation the STATUS line exists to catch.
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-DEFAULT_SENIORITY = r"chief|\bsvp\b|senior vice president|vice president|\bvp\b|head of"
-DEFAULT_FUNCTION = r"."          # match anything; the index should narrow this
+DEFAULT_SENIORITY = r"."         # match anything; the index should narrow this.
+DEFAULT_FUNCTION = r"."          # A shipped default matching only senior titles
+                                 # hides every other rung from anyone who never
+                                 # writes a sweep-config.
 
 CONFIG_RE = re.compile(r"<!--\s*sweep-config(.*?)-->", re.S | re.I)
 HEADING_RE = re.compile(r"^#{2,4}\s+(.*?)\s*$")

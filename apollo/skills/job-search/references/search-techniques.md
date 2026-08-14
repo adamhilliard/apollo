@@ -151,15 +151,15 @@ Nothing here is candidate-specific, which is why it lives in the skill and is re
 
 > **The structural-invisibility exemption, and it is what saves the named-employer sweep.** A source whose job is to surface what the rubric structurally *cannot* score is judged on whether it surfaces those roles at all, never on what they score. A role a mile from home scores identically to one an hour away against a binary remote bucket; a top-preference industry that isn't a bucket scores nothing at all. **The roles that sweep exists to catch are low scorers by construction**, so tracked-role counts will always undersell it. **Exempt it from demotion on score, never from demotion on silence.**
 
-> **Aggregator job search was measured and is not worth a channel of its own.** On a logged-in session with no bot challenge and working URL filters, an exec title stem returned 17 results of which about 2 were the actual title, a quoted `"VP People"` returned 1 nationally over 30 days, and net-new qualifying roles were **zero**. There is no true phrase gate, so quoting narrows without enforcing. **Being logged in bought nothing**: everything that rendered was public job-board content. The index also carries dead reqs, which kills the fallback case for using it as an expiry check. **Re-probe condition: the site shipping real exact-phrase or boolean search.** Nothing else changes the arithmetic, and "we should try logging in" has been tested and closed.
+> **Aggregator job search was measured and is not worth a channel of its own.** On a logged-in session with no bot challenge and working URL filters, a senior title stem returned 17 results of which about 2 were the actual title, and a quoted two-word version of it returned 1 nationally over 30 days, and net-new qualifying roles were **zero**. There is no true phrase gate, so quoting narrows without enforcing. **Being logged in bought nothing**: everything that rendered was public job-board content. The index also carries dead reqs, which kills the fallback case for using it as an expiry check. **Re-probe condition: the site shipping real exact-phrase or boolean search.** Nothing else changes the arithmetic, and "we should try logging in" has been tested and closed.
 
 ### Technique: query design, stems over full titles
 
 **Quote your search terms, but quote the shortest distinctive stem rather than the whole title.**
 
-Quoting matters: one test dropped a result set from 97 loose matches to 4 tight ones, and that collapse is the goal at senior levels. What breaks is quoting the *full* title. **Exact-phrase matching requires the words contiguous**, so a decorated title ("Vice President, People & Culture"), a connector ("VP of Operations"), or a spelled-out form ("Vice President" against a query for "VP") all fail to match. **Enumerating every full-title variant is whack-a-mole**, and each miss is silent.
+Quoting matters: one test dropped a result set from 97 loose matches to 4 tight ones, and that collapse is the goal at senior levels. What breaks is quoting the *full* title. **Exact-phrase matching requires the words contiguous**, so a decorated title ("Coordinator, Regional Operations"), a connector ("Manager of Operations"), or a spelled-out form ("Registered Nurse" against a query for "RN") all fail to match. **Enumerating every full-title variant is whack-a-mole**, and each miss is silent.
 
-- **Quote the stem that survives decoration.** `"Chief People"` catches the Global and Regional forms that `"Chief People Officer"` drops. A standalone functional phrase catches every title built around it.
+- **Quote the stem that survives decoration.** `"Operations Manager"` catches the Regional and Assistant forms that `"Regional Operations Manager"` drops. A standalone functional phrase catches every title built around it.
 - **The cost, accepted:** broader stems pull in roles below the target level. Filter those locally, on the posting text you already have.
 - **Different tokens are not synonyms.** An abbreviation and its expansion ("Ops" and "Operations") match nothing of each other. Include both.
 - **Run one loose, unquoted sweep alongside the quoted ones.** Titles with a word inserted mid-phrase are invisible to every quoted stem, and the loose pass is the only thing that catches them.
@@ -212,7 +212,7 @@ Most employers post to their applicant tracking system directly, and those pages
 | Tier | Hosts |
 |---|---|
 | **Core** | `jobs.lever.co` · `job-boards.greenhouse.io` **and** `boards.greenhouse.io` · `jobs.ashbyhq.com` · `myworkdayjobs.com` · `apply.workable.com` · `jobs.smartrecruiters.com` · `ats.rippling.com` |
-| **Mid-market**, where VP-level seats concentrate | `icims.com` · `bamboohr.com` · `applytojob.com` · `workforcenow.adp.com` · `myjobs.adp.com` · `recruiting.paylocity.com` · `paycomonline.net` · `jobs.dayforcehcm.com` · `recruiting.ultipro.com` · `breezy.hr` · `jobs.gem.com` |
+| **Mid-market**, where mid-size employers and their senior seats concentrate | `icims.com` · `bamboohr.com` · `applytojob.com` · `workforcenow.adp.com` · `myjobs.adp.com` · `recruiting.paylocity.com` · `paycomonline.net` · `jobs.dayforcehcm.com` · `recruiting.ultipro.com` · `breezy.hr` · `jobs.gem.com` |
 | **Enterprise**, slower turnover, carries the top seats | `taleo.net` · `oraclecloud.com` · `csod.com` · `avature.net` · `eightfold.ai` · `teamtailor.com` (EU-skewed) |
 
 **Four host names that look right and are wrong.** Each serves the vendor's own site or nothing at all, and each returned a clean-looking nil for months:
@@ -536,7 +536,7 @@ Two cautions:
 
 **A keyword match on a firm's website is not evidence of an open role.** Recurring false positives, all of which have burned a cycle at least once:
 
-- A **testimonial byline** ("Chief People Officer, {{COMPANY}}"), naming a past placement.
+- A **testimonial byline** ("Director of Operations, {{COMPANY}}"), naming a past placement.
 - An entry in a **function or practice-area menu**, listing what the firm recruits for.
 - A **soft 404**, which returns the full site navigation (often 100KB of it, exec titles included) instead of a status code, so a keyword hit means nothing.
 
