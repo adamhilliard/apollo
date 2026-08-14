@@ -29,6 +29,8 @@
 
 Do not accept "whatever you think is best" on Q0, Q4, Q5, Q6, or Q8. Those five are where a generic bot becomes their bot.
 
+**One question per turn, and never ask again what a picker already answered.** An answer that comes back as a follow-up question reads as not having listened, and it's the fastest way to lose someone in part 2. **Two things asked in one sentence get one answer**, so the second half is lost either way.
+
 **Several questions carry a "By level" note.** Read Q0's answer first and follow the matching row; skip the rest rather than reading all three at them.
 
 > **Propose once, then record the answer.** This file has opinions, and several of its defaults are ones a given user will reject. When they do, write the rejection into the decisions log with their reasoning and stop raising it. A template default re-proposed every few cycles is the single most common way this system wastes attention.
@@ -98,7 +100,7 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 
 ### The customization block
 
-**Two exchanges, before Q0.** The name on its own, then one table for everything else.
+**Four exchanges, before Q0.** The letter and roadmap, then the three picker calls in §3.
 
 **Nothing in this block blocks setup**, every row has a working default, and anything here can be turned on later in one sentence. A user who says "defaults are fine" is done in a line.
 
@@ -108,7 +110,7 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 
 #### 1. The welcome, and the settings
 
-**One exchange. Say what this is, then show the settings with the name as the first row.**
+**One exchange. Say what this is, then go straight into the pickers in §3.**
 
 **Open with the author's letter, then the roadmap. Two blocks, one exchange.**
 
@@ -240,7 +242,7 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 
 **Picker,** single-select, header `Color`. **Question text:**
 
-> Pick a color for your dashboard, or choose Other to paste a hex code. Need one? htmlcolorcodes.com/color-picker
+> Pick a color for your dashboard, or choose Other and just name the color you want.
 
 | Option | Description |
 |---|---|
@@ -249,7 +251,9 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 | **🟧 Amber** | `#C77D2A` |
 | **⬛ Graphite** | `#4A4A55`, nearly neutral |
 
-- **Put the hex in the description**, so nobody has to copy anything to see what they're choosing. **The automatic Other takes a pasted hex** for anyone who wants a specific shade.
+- **Put the hex in the description**, so nobody has to copy anything to see what they're choosing. **The automatic Other is the text box** for anyone who wants a shade that isn't listed.
+- **Other takes a color, not a color code.** "Teal," "the blue in my logo," or `#2A6F7A` all work: **convert whatever they give you to a hex yourself**, then show the hex back in one line so they can see what they got. **Never ask someone to go find a hex code**; that's a homework assignment in the middle of a setup interview.
+- **Only offer the color picker if they want to browse shades**, and only in chat, where it's a real link: [htmlcolorcodes.com/color-picker](https://htmlcolorcodes.com/color-picker/). **A URL in the picker's question text renders as unclickable plain text**, so it can't go there.
 - **Four is the tool's ceiling**, so two more sit in reserve: **🟥 Crimson `#B3413E`** and **🟪 Violet `#6B4E9B`**. Offer them in one line only if they ask for more.
 - **"Whatever you think" is a fine answer.** Use slate blue and move on; nobody should stall here.
 - **A brand or brand guidelines beats the palette.** If they offer one, take the palette and typography from it instead.
@@ -272,21 +276,30 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 
 **`Adjustments` question text:**
 
-> Anything I should build into the dashboard to make it easier to use? Pick any that apply.
+> Any accommodations I should build into the dashboard? Pick any that apply.
 
-- **Frame it as accommodations, not preferences.** "Any display preferences?" reads as decoration and gets skipped by the people who need it. **Asking what would make it easier to use gets a real answer.**
+- **Use the word "accommodations."** "Display preferences" reads as decoration and gets skipped by the people who need it, and "easier to use" is vague enough that most people answer no. **Naming it as an accommodation says the need is expected and already budgeted for**, which is what gets a real answer.
+- **The header stays `Adjustments`** only because the picker caps headers at 12 characters. **The question text is what they read**, and it says accommodations.
 - **If they pick "larger text or higher contrast," ask which**, in one line. They're different needs and the fix differs; they share a slot only because "None needed" has to have one.
 - **"None needed" is the common answer.** Don't push, don't ask twice, and don't explain the options unless asked.
 - **The accent color is not the colorblind risk.** A single accent is fine at any color; the risk is a second track's tone read against the first. **The dashboard skill validates that pairing regardless**, so someone picking colorblind-safe here is tightening a check that already runs.
 
 **Call 2, `How it reaches you`.** **Say the cadence and rigor recommendations in one line before this call**, so the `(Recommended)` labels arrive with a reason attached rather than as bare defaults.
 
-| Multi-select `Early week` | Multi-select `Late week` | `Rigor` | `Digest` |
-|---|---|---|---|
-| Monday | Thursday | Light: the big boards (Recommended) | Chat and a file (Recommended) |
-| Tuesday | Friday | Standard: adds specialist sources | Just here in chat |
-| Wednesday | Saturday | Deep: everything, every run | Chat, a file, and a Slack DM |
-| | Sunday | | Slack DM only |
+| `Schedule` | `Rigor` | `Digest` |
+|---|---|---|
+| Every weekday, Monday to Friday (Recommended) | Light: the big boards (Recommended) | Chat and a file (Recommended) |
+| Monday, Wednesday, and Friday | Standard: adds specialist sources | Just here in chat |
+| Tuesday and Thursday | Deep: everything, every run | Chat, a file, and a Slack DM |
+| Once a week, on Monday | | Slack DM only |
+
+**`Schedule` question text:**
+
+> How often should I run?
+
+**`Rigor` question text:**
+
+> How much should each run dig? Lighter digs are lower token demand but source fewer opportunities.
 
 **Rigor needs its descriptions spelled out. Nobody knows what a source tier is, and on day one there isn't one yet.** Use these:
 
@@ -296,10 +309,11 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 | **Standard: adds specialist sources** | Adds your field's own boards, VC portfolio boards, and any employers you name, on a rotation |
 | **Deep: everything, every run** | Every source every time, plus culture and stability research on every role |
 
-- **Days are a multi-select split across two questions because four options is the tool's ceiling** and a week has seven. Both render in the same call, so they read as one question about the week.
-- **Recommend every weekday**, which is all three early-week days plus Thursday and Friday. **Say it before the call**; the tool cannot pre-select anything.
-- **An empty selection is not an answer here.** Every other picker treats empty as a clean no, but a search that runs on no days is a search that never runs. **Ask once more if both come back empty.**
-- **Weekend days are offered and rarely wanted.** Postings publish on weekdays. Don't talk anyone out of it, and don't suggest it either.
+- **The rigor question carries the tradeoff, so the line before the call doesn't repeat it.** Say the recommendation and its reason there, not the mechanics.
+- **Offer named schedules, never a checklist of seven days.** Nobody has an opinion about Wednesday. **They have an opinion about how often**, and four ready-made answers get that in one click where a day-by-day multi-select makes them design a calendar.
+- **Recommend every weekday** and say why in one line before the call; the tool cannot pre-select anything.
+- **The automatic Other takes any custom answer**, including weekends and specific days. **Weekends are never suggested**: postings publish on weekdays. Take it without comment if they ask for it.
+- **Read the answer back as days** once, when you write the task, so nobody has to guess what "once a week" resolved to.
 
 **Call 3, `The rest`.**
 
@@ -511,9 +525,15 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 
 **Parse out and echo back for confirmation:** every role with employer, title, dates, and stated accomplishments, plus education, certifications, and licenses.
 
+- **The echo-back invites corrections in its own line and asks nothing else.** "Anything wrong or out of date?" is complete. **Never fuse it onto the next question**; a compound question gets one answer and loses half of it.
+
 **Then ask one thing, and only one. Say:**
 
 > What do you actually own day to day? {{UNITS_FOR_THEIR_TRACK}}
+
+> **Present tense, about the job they have. Q0 already settled the job they want.** The `Aiming for` picker asked same level, step up, or step down, and re-asking it here as "the scope you'd want a role to match or beat" tells someone who just answered it that nothing they say is being kept. **Never phrase the scope question in terms of what a role should match or beat.**
+>
+> **The target rung is applied silently.** A step up means Q2 builds titles a rung above the scope they just described; it is not a second question.
 
 **Scope is the only gap here that changes the search.** It drives the title forms in Q2 and it is what the scope-ownership test compares a posting against, which is how a "Director of X" that is really a manager job gets flagged instead of tabled.
 
@@ -780,7 +800,7 @@ Usually the answer is fully remote. That arrangement then earns a **premium in t
 | Depends on the title |
 
 - **"What's your step-down number?" is abstract and gets a shrug.** "Would you take a lower title for {{TARGET}}?" is a real question about a real figure they just named, and people answer it immediately.
-- **This is what expectations unlock.** Once a target exists, every trade can be asked as a conditional against it: a lower title, a longer commute, a smaller company. **Salary history can't anchor any of those**, because what they used to earn says nothing about what a trade is worth to them now.
+- **This is what asking for expectations buys.** Once a target exists, every trade can be asked as a conditional against it: a lower title, a longer commute, a smaller company. **Salary history can't anchor any of those**, because what they used to earn says nothing about what a trade is worth to them now.
 - **"Depends on the title" means go back to #3** and pin the floor, rather than leaving it open.
 
 - **#3 is the one people skip, and skipping it breaks the search.** "I'd take a lower title above $X" with no floor surfaces roles four rungs down that happen to pay well.
@@ -1325,7 +1345,7 @@ Mid adds:
 Senior / exec adds:
 
 - **Executive search firms** that place in your function
-- **Industry-specific VC or PE firms** whose portfolio board isn't in the standard twenty
+- **Industry-specific VC or PE firms** whose portfolio board isn't in the standard list
 - **Board and advisory networks**
 
 **Picker,** multi-select, header `Sources`, **after showing the category list above.** The list is the memory aid; the picker carries **"None of these" first**, then the three most likely at their level, with everything else arriving through Other.
@@ -1343,7 +1363,7 @@ Senior / exec adds:
 
 > **Their own job search has been measured and is not worth a slot.** Access was never the blocker: on a logged-in session with working URL filters, a quoted senior title returned single digits nationally over 30 days and **zero net-new qualifying roles**, because there is no true phrase gate and the exec inventory is thin. Mine them for company names and move on. Don't re-propose this on the "we should try logging in" theory; that was tested and closed.
 
-> **Turn off the VC portfolio boards for searches they don't serve.** The twenty boards in `search-techniques.md` are strong for tech and startup-adjacent roles at any level, and near-useless for trades, healthcare, education, government, retail, hospitality, and most local employment. Check fit in cycle one and record the verdict rather than burning a chunk of every run on them.
+> **Turn off the VC portfolio boards for searches they don't serve.** The portfolio boards in `search-techniques.md` are strong for tech and startup-adjacent roles at any level, and near-useless for trades, healthcare, education, government, retail, hospitality, and most local employment. Check fit in cycle one and record the verdict rather than burning a chunk of every run on them.
 
 **Vet each one once and write the verdict into the decisions log**, so no future cycle re-chases a dead end. The failure modes worth checking for:
 - **Aggregator with no listings of its own** (a directory of other boards).

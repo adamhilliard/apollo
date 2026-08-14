@@ -65,11 +65,11 @@ Load these as needed; there is no reason to read all of them for a single task.
 
 | File | Read it when | Size |
 |---|---|---|
-| `references/setup-interview.md` | Setting up a new bot. The picker convention, the customization block, then Q0 through Q12, each naming what it configures. | ~830 lines |
-| `references/scaffolding.md` | Writing the files and the two task prompts, read contracts, or changing the table format. | ~390 lines |
-| `references/search-techniques.md` | Running a cycle, or fixing a search that is missing roles. Integrity rules, sourcing, verification. | ~610 lines |
-| `references/quality-audit.md` | The weekly audit only. **No daily cycle reads this.** | ~110 lines |
-| `references/feedback-loop.md` | Correcting the bot, writing a decisions-log entry, opening a trial, or stating limitations. | ~90 lines |
+| `references/setup-interview.md` | Setting up a new bot. The picker convention, the customization block, then Q0 through Q12, each naming what it configures. | ~1,440 lines |
+| `references/scaffolding.md` | Writing the files and the two task prompts, read contracts, or changing the table format. | ~440 lines |
+| `references/search-techniques.md` | Running a cycle, or fixing a search that is missing roles. Integrity rules, sourcing, verification. | ~590 lines |
+| `references/quality-audit.md` | The weekly audit only. **No daily cycle reads this.** | ~120 lines |
+| `references/feedback-loop.md` | Correcting the bot, writing a decisions-log entry, opening a trial, or stating limitations. | ~85 lines |
 
 ## Bundled scripts
 

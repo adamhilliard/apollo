@@ -347,11 +347,11 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
    last confirmed live and how it was found gone.
 
 4. SOURCE new roles from every source Methodology.md schedules for
-   today, at the RIGOR set in the profile's Customization section: light
-   runs Tier A only and skips the catch-up sweep, standard runs the
-   tiers on their cadence, deep runs everything every cycle. Run the
-   full title list against each source, chained into one query per host
-   or domain. Use the skill's scripts rather than hand-rolling
+   today, at the RIGOR set in the profile's Customization section.
+   What each rigor setting runs is defined in search-techniques.md
+   under source tiering; do not restate it here. Run the full title
+   list against each source, chained into one query per host or
+   domain. Use the skill's scripts rather than hand-rolling
    pagination. Do not delegate a sweep to a sub-agent.
 
    Rigor changes WHICH sources run. It never changes step 5: a light
