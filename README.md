@@ -6,9 +6,23 @@ Free, MIT licensed, and it works at any career level, from first job to executiv
 
 ## Install
 
-**You need [Claude Code](https://claude.com/claude-code).** Everything else is optional.
+**You need [Claude](https://claude.com) on desktop, or the [Claude Code](https://claude.com/claude-code) CLI.** Everything else is optional.
 
-**Two commands, typed in Claude Code:**
+### In Claude Desktop, by clicking
+
+1. Open Claude Desktop.
+2. Click **Customize** in the left sidebar.
+3. Click **Plugins**.
+4. Click **Add plugin**.
+5. Click **Add marketplace**.
+6. Choose **Add from repo**.
+7. Paste this into the dialog: `adamhilliard/apollo`
+8. Click **Sync**.
+9. Click **Install** on **Apollo Job Search**.
+10. Start a new conversation. It won't appear in one that's already open.
+11. Say: *"Help me set up a job search."*
+
+### In Claude Code, by typing
 
 ```
 /plugin marketplace add adamhilliard/apollo
@@ -20,7 +34,7 @@ Free, MIT licensed, and it works at any career level, from first job to executiv
 
 If the install summary says `Run /reload-plugins to activate`, run that. Otherwise you're done.
 
-**To update later:** `/plugin marketplace update`.
+**To update later:** `/plugin marketplace update`, or click **Sync** again in Desktop.
 
 <details>
 <summary><b>No marketplace? Drop the folder in instead.</b></summary>
@@ -49,9 +63,11 @@ claude --plugin-dir apollo.zip
 
 ## Start a search
 
-Make a folder for your search, start Claude Code in it, and say:
+In a new conversation, say:
 
-> Help me set up Apollo.
+> Help me set up a job search.
+
+**Setup writes your profile and tracking files into the folder you're working in.** On the Claude Code CLI, make a folder for your search first and start Claude Code inside it. In Desktop, tell setup which folder to use.
 
 **The interview takes about fifteen minutes.** Have your resume or a PDF of your LinkedIn profile handy; it makes the interview much shorter. No resume yet is fine, there's a path for that. Most questions are click-to-pick, and "defaults are fine" is a valid answer to the whole customization step.
 

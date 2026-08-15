@@ -31,7 +31,7 @@ build_package.py                     builds the handoff zip
 ## Releasing
 
 1. Port whatever the live search has learned that generalizes. The test: would this help a stranger with a different career, in a different field, at a different level?
-2. Bump `version` in `apollo/.claude-plugin/plugin.json`.
+2. Bump `version` in `apollo/.claude-plugin/plugin.json`, **and the matching `version` in `.claude-plugin/marketplace.json`.** Two files carry it: the plugin manifest gates updates, the marketplace entry is what the Desktop plugin card shows.
 3. `python build_package.py`.
 4. Tag the commit and cut a GitHub Release with `apollo.zip` attached, so the "no marketplace" path in `apollo/README.md` resolves.
 
