@@ -583,13 +583,28 @@ Claude Code's `AskUserQuestion` renders real selectable options. Every question 
 | Tier | Meaning | How the bot treats it |
 |---|---|---|
 | **1. Step up** | A genuine level increase | Searched every cycle, ranked first |
-| **2. Lateral** | Same level, better situation | Searched every cycle |
+| **2. Lateral** | Same level: a better situation in the same job, or the peer title next to it | Searched every cycle |
 | **3. Wide-net** | Title whose seniority varies wildly by company | Searched, but every hit carries a **level-ambiguity flag** |
 | **4. Incidental-only** | Would take it under the right conditions, but the keyword floods a query | Never searched directly; tracked only if it surfaces on its own |
+
+> **Tier 2 is two different things and the draft usually shows only one.** A better version of the job they have is the easy half. The peer title is the half that gets missed: the function next door that hires the same person under a different name, like an operations lead who is also a chief of staff, or a data analyst who is also a business analyst. **Draft at least one peer title at every level**, not just early career.
 
 > **Early career has no rung below, so re-label tiers 1 and 2.** Tier 1 becomes **target** (the job they're actually aiming at) and tier 2 becomes **adjacent** (same skills, different title or department, a real way in). Tier 3 and 4 work as written. Everything downstream, the ranking and the query design, is unchanged.
 
 **Title variants matter more the more junior the search is.** The same job is posted as Coordinator, Associate, Analyst, Specialist, and Assistant depending on the employer, and missing one variant silently drops a chunk of the market. Generate the variant list yourself from the Q1 parse, show it, and have them cut what's wrong. At senior levels the opposite is true: variants are few and precision matters more than coverage.
+
+**Then show the flat list and ask what's missing. This is the only point in the interview where a title you would not have guessed can get in.**
+
+Everything above came out of the Q1 parse, so it reaches only titles adjacent to the one they already hold. Someone moving sideways into another function, or whose market calls the job something you have not seen, has had no way to say so.
+
+**Say:** *"Here's every title I'll actually search for. Anything missing? Including ones that aren't a step up or down from what you do now."*
+
+**Show all four tiers flattened into one list, in the words a posting would use.** Not the tier table again; they just edited that. The list they are adding to has to look like the thing that gets searched.
+
+- **Ask for additions in so many words.** The variant list was handed over to be cut from, and someone who has only been asked to delete will not volunteer.
+- **An added title is tier 2 unless it obviously outranks their current scope.** They named it, so it is wanted. Only ask which tier when the answer changes the ranking.
+- **A peer-function title is a real answer, not a misunderstanding.** Take it and put it in the query.
+- **Do not talk them out of one.** A title that floods the query shows up as noise in cycle one and gets a condition attached then. That is what tier 4 is for.
 
 **Then apply these three, which are rules for you rather than questions for them:**
 
