@@ -33,6 +33,19 @@ COVERAGE: linkedin COMPLETE 880 · lever 5 · icims 2
 CANARY: icims PASS
 """
 
+GATE_CYCLES = u"""
+### 2026-08-04 · cycle 1
+COVERAGE: linkedin COMPLETE 933 · lever 6 · icims 3
+CANARY: icims PASS
+EVENTS: 2 new · 0 expired
+GATE: 2 assessed · 0 flagged
+
+### 2026-08-05 · cycle 2
+COVERAGE: linkedin COMPLETE 901 · lever 7 · icims 4
+CANARY: icims PASS
+EVENTS: 3 new · 1 expired
+"""
+
 METHODOLOGY = u"""# Methodology
 
 ### Queries
@@ -128,6 +141,14 @@ def main():
         u"2099-01-01", u"after two cycles"))
 
     case("trial overdue", "E5", decisions=DECISIONS.replace(u"2099-01-01", u"2020-01-01"))
+
+    # E7: cycle 2 added rows and reported no gate count, while cycle 1 did.
+    # A gate that finds nothing and a gate that never ran write the same file.
+    case("gate not reported on a cycle that added rows", "E7", cycles=GATE_CYCLES)
+
+    # ...but a search that has never adopted the gate is blocked, not failed.
+    case("gate never adopted", None, cycles=GATE_CYCLES.replace(
+        u"GATE: 2 assessed · 0 flagged\n", u""))
 
     print("all cases passed")
 

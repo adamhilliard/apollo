@@ -298,9 +298,11 @@ Column layout, in this order:
 COVERAGE: linkedin COMPLETE 933 · ats 25/25 COMPLETE · lever 6 · greenhouse 4 · ashby 3 · icims 0 · bamboo 0 · getro 412/10976 INCOMPLETE · consider SAMPLED · assoc OFF-CADENCE
 CANARY: icims PASS 3 employers · bamboohr FAIL
 EVENTS: 4 new · 2 expired · 1 applied · 1 below-cap
+GATE: 4 assessed · 0 flagged
 NOTE: <one line, only when something needs saying>
 ```
 
+- **The `GATE` line is the reliability gate’s only artifact on a clean run,** which is why it is a required field rather than a nicety. **A gate that finds nothing and a gate that never ran write the same table**, and this count is the only thing separating them. Report it on every entry with a nonzero `new` count, zeros included.
 - **The `COVERAGE` line is what the weekly audit parses**, so keep the shape exactly: source name, status, count, then per-member counts for any group. **Zeros included.** See rules 2 and 4 in `search-techniques.md` for why each field is there.
 - **Cap each entry at roughly 4KB.** Two weeks of these gets read every cycle, so an entry that grows a "the lesson here is" paragraph is charging every future run for it.
 - **Reasoning goes in the decisions log. Role facts go on the role's row.** Nothing else belongs here.
@@ -394,8 +396,8 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
 
 12. WRITE results into Tracking_{{TRACK}}.md. Move rows between
     sections, never delete. Append one Search Notes entry in the fixed
-    shape Operating_Procedures.md defines: COVERAGE, CANARY, EVENTS, and
-    at most one NOTE line. Reasoning goes in Decisions_Log.md, not here.
+    shape Operating_Procedures.md defines: COVERAGE, CANARY, EVENTS, GATE,
+    and at most one NOTE line. Reasoning goes in Decisions_Log.md, not here.
 
 13. COMMIT the changes, following the commit-message rule in the
     profile's Customization section.

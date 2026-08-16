@@ -377,6 +377,36 @@ def execution(project, prompt_path, budget_kb):
         if not undated and not overdue:
             ok("E5", "%d open trial(s), all dated and current" % len(rows))
 
+    # E7 the reliability gate ran. A clean gate writes nothing, so a skipped
+    # week and a quiet week produce the same tracking file. The GATE count in
+    # the Search Notes log is the only artifact that separates them.
+    notes, entries = [], []
+    for path in glob.glob(os.path.join(project, "Tracking_*.md")):
+        notes.append(read(path))
+    for text in notes:
+        entries += re.split(r"^###\s+", text, flags=re.M)[1:]
+    scored = [e for e in entries if re.search(r"^COVERAGE:", e, re.M)]
+    with_gate = [e for e in scored if re.search(r"^GATE:", e, re.M)]
+    if not scored:
+        blocked("E7", "no Search Notes entries found; nothing to check")
+    elif not with_gate:
+        blocked("E7", "no entry reports a GATE line yet; the gate is not in use "
+                      "on this search (see search-techniques.md)")
+    else:
+        gaps = []
+        for e in scored:
+            head = e.splitlines()[0][:40] if e.splitlines() else "?"
+            m = re.search(r"^EVENTS:.*?(\d+)\s+new", e, re.M)
+            added = int(m.group(1)) if m else 0
+            if added and not re.search(r"^GATE:", e, re.M):
+                gaps.append(head)
+        if gaps:
+            trip("E7", "entr(ies) added rows with no GATE count, so a skipped gate "
+                       "is indistinguishable from a clean one: %s" % ", ".join(gaps))
+        else:
+            ok("E7", "%d of %d entries report a gate count; every entry adding a "
+                     "row has one" % (len(with_gate), len(scored)))
+
     # E6 index and archive agree, once a tracking file has been split
     idx = glob.glob(os.path.join(project, "Index_*.md"))
     if not idx:
