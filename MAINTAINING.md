@@ -40,6 +40,10 @@ build_package.py                     builds the handoff zip
 
 **When in doubt it is a patch.** Bumping the minor digit every time something improves burns through the numbering and stops telling anyone which releases actually matter.
 
+> **A release inside a week of the last one is a patch, whatever it contains.** The minor digit is the unit people read as "this changed enough to look at," and two of them in a week makes that signal worthless. **Cadence overrides the table above**: if the previous tag is less than seven days old, bump the patch digit and let the substance ride, no matter how the change classifies on its own.
+
+> **This is not a rule about how big the change is.** A genuinely minor-worthy change shipped four days after the last release still goes out as a patch. **Save the minor bump for the next release that clears the window**, which also batches a week of work behind one number people can act on.
+
 > Both `apollo/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` carry the version. They have to agree.
 
 ## Releasing
