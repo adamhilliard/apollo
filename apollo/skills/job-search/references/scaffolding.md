@@ -374,7 +374,10 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
 
 8. RESEARCH culture and stability, with a verification date, for every
    role in ACTIVE/ROLLING. Cache per company, not per role. Do not defer
-   this, and do not research BELOW THE CAP rows.
+   this, and do not research BELOW THE CAP rows. In the same pass, run
+   the reliability gate on rows entering the table for the first time,
+   per search-techniques.md. It writes at most one Key Context clause
+   and never screens a role out or changes a score.
 
 9. SCORE each new ACTIVE/ROLLING role against every motivator bucket,
    then RE-SORT the entire table into descending score order and apply

@@ -272,12 +272,18 @@ curl -s -X POST "https://api.getro.com/api/v2/collections/<id>/search/jobs" \
 | Platform | Boards |
 |---|---|
 | **Getro** (scriptable) | General Catalyst · Accel · Khosla · Insight Partners · Redpoint · Thrive · Menlo · Index Ventures · BITKRAFT (gaming/esports) · Antler · Techstars |
-| **Consider** (browser-only) | a16z · Sequoia · Greylock · Bessemer · Lightspeed · Kleiner Perkins · NEA · Contrary |
+| **Consider** (browser-only) | a16z · Sequoia · Greylock · Bessemer · Lightspeed · Kleiner Perkins · NEA · Contrary · Battery Ventures |
 | **Own platform** | Y Combinator (`workatastartup.com`), handle separately |
 
-> **Checked, no dedicated public board found:** Benchmark, Founders Fund, Norwest, Foundation Capital, Craft, Emergence, Battery, IVP, Coatue, Tiger Global, Union Square, First Round, GV, Pear VC. Don't re-search these each cycle. Some of their roles surface only on shared multi-firm Getro networks.
+> **Checked, no dedicated public board found:** Benchmark, Founders Fund, Norwest, Foundation Capital, Craft, Emergence, IVP, Coatue, Tiger Global, Union Square, First Round, GV, Pear VC. Don't re-search these each cycle. Some of their roles surface only on shared multi-firm Getro networks.
+>
+> **Re-check the list about once a year, and treat a hit as a correction rather than a surprise.** Firms launch boards. One entry on this list was carried as "no board" long enough that a cycle stopped looking, and it had a live Consider board the whole time. **An inherited absence is weaker evidence than a probe**, so a no-board entry earns a re-probe on the same schedule a dead endpoint does.
 
-> **Check the board's category taxonomy before trusting a low yield.** Several accelerator boards have no category at all for whole functions, and every URL guess for one 404s. That's a structural absence, not a quiet week, and the board should be scored a poor source for that search rather than re-swept every cycle.
+> **Check the board's category taxonomy before trusting a low yield.** Several accelerator boards have no category at all for whole functions, and every URL guess for one 404s. That's a structural absence rather than a quiet week, and it means the *browsable board* is a poor surface for that search.
+>
+> **⚠️ A missing category retires the surface, not the source.** Before writing a board off, check whether it publishes a JSON or developer API. Aggregator front ends routinely expose a fraction of what they index: one board offering ~1,800 roles through its category paths returned **42,428** through its documented API, on a scope parameter the paths never exposed, with a working minimum-compensation filter the UI did not have. **A rejection recorded against the source name will be believed later by a cycle that has no idea only one surface was tested.**
+>
+> **So record which surface a rejection tested.** "The category paths carry no roles in this function" is a durable finding. "This board is a poor source" is the same finding with the qualifier lost, and it is the version that survives into next year.
 
 ### Technique: named-employer board sweeps
 
@@ -571,6 +577,44 @@ Two cautions:
 **The junior version of this is title inflation, and it's more common.** Coordinator, Associate, and Specialist titles are handed out for work that is entirely administrative support to the function rather than the function itself. Same test, applied downward: if the duty list is scheduling, data entry, and note-taking for the team that does the work, the title is decoration. Flag it in Key Context rather than excluding it, since these are still legitimate ways in.
 
 > **Confirm before excluding, when the exclusion would be permanent.** An ambiguous posting screened out on a first read takes the comp, ownership, and reporting facts with it, and those often only surface on a direct read or at a screening call. Flag and ask; don't quietly close.
+
+### Technique: the reliability gate, run once when a role enters the table
+
+**Some postings are not real, current openings.** Three kinds, and all three are common enough to be worth one check rather than none:
+
+- **Ghost postings.** A requisition the employer has no intention of filling now, kept up to bank resumes or to look like the company is growing.
+- **Recycled postings.** The same requisition reposted every few weeks so it reads as fresh. The seeker applies to something that has been sitting for months.
+- **Fabricated postings.** A role that does not exist, posted to harvest candidates.
+
+**Every check below already exists elsewhere in this file.** What the gate adds is a place where they are asked *together, about one posting, at the moment the user is deciding whether to spend an hour on it.* Verification rules scattered across a technique list are each correct and none of them is a question anyone answers.
+
+| # | Check | Trips when | Defined in |
+|---|---|---|---|
+| **R1** | **Posting age vs. displayed date.** Interpolate the job ID | The ID implies **3+ weeks older** than the displayed date | *Dating a posting for free* |
+| **R2** | **Prior appearance.** Grep the resolved index for company + title | The same seat resolved before, on **any** outcome | Dedupe index, `scaffolding.md` |
+| **R3** | **Employer named.** Is there a real company on the posting | The employer is stripped, "Confidential," or unidentifiable | *Recruiter and undisclosed-employer postings* |
+| **R4** | **On the employer's own board.** Is the requisition on their careers page or ATS | The employer is named, their board is readable, and the requisition **is not on it** | *Apply-link rules* |
+
+**Two or more trips writes one `Reliability flag: <clause>` into Key Context.** One trip writes nothing.
+
+- **The clause says what tripped in plain words.** `Reliability flag: live since ~April, not on the employer's own board` beats a code.
+- **The gate never screens a role out and never changes a score.** The scoring rubric measures job quality. Whether a posting is a real current opening is a different question and deserves a different output, or a good role behind a stale posting silently loses points it should not lose.
+- **It never blocks a firm either.** Blocked-poster entries are the user's call, on the named-firm rule above. **The gate may propose nothing to that list.**
+
+#### The guardrails matter more than the checks
+
+> **⚠️ R3 alone never flags, and R3 plus R4 is not two trips.** An undisclosed-employer posting trips R3 by construction and cannot be checked against a board it has no name for. **Counting those as two makes the gate an automatic flag on every anonymous posting**, which is the class penalty the recruiter-posting technique above exists to prevent. At senior levels those postings are a real channel and some of the best roles arrive no other way.
+>
+> **On an undisclosed-employer posting, R3 and R4 together count as one trip**, so a flag there needs R1 or R2 as well.
+
+- **A check that cannot run is `not assessed`, never a pass and never a trip.** Same convention as an unassessable scoring bucket. **R1 does not run where there is no interpolatable ID**, and inventing an age is worse than leaving it blank.
+- **R4 never guesses a careers host.** An unresolvable host, an unreadable board, or a JS-only render is `not assessed`. A guessed 404 reads as a finding and is not one.
+- **R4 is not the board-absence rule reversed.** Absence from a *third-party* board is still not expiry. R4 asks about the **employer's own** board, where a missing requisition is a real signal for a role the employer is advertising elsewhere.
+- **R2 firing on a role the user already declined routes to the prior-decision rule**, which asks them. R2 here is mostly catching a seat that closed and came back.
+
+**Cost is one network call.** R1 and R2 are free, R3 is a read of a posting the cycle already opened, and R4 is the only fetch. **On a role sourced from the employer's own ATS, R4 is already answered** by the apply-link rule and costs nothing.
+
+> **State a retirement condition when the gate is turned on.** If two months of flags never once change what the user does, take it out. **A flag nobody acts on is a tax on every row**, and a caveat that is always present stops being read.
 
 ### Technique: the years-of-experience line
 
