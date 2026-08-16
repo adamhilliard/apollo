@@ -37,6 +37,8 @@ claude --plugin-dir apollo.zip
 
 ## Use it
 
+> **One thing to install first, and only if you want it.** Apollo's strongest single source is your logged-in job-board feed, which anonymous web search cannot see. Reading it needs **Claude's browser extension**, installed and signed in to the browser you job-search from. Setup checks for it and tells you if it's missing. Everything else works without it; you just lose that source.
+
 Make a folder for your search, start Claude Code in it, and say:
 
 > Help me set up Apollo.
@@ -64,7 +66,7 @@ Apollo reads a lot and writes only to your machine. **Everything that reaches an
 | | What it does |
 |---|---|
 | **Web search** | Job boards, applicant tracking systems, and VC portfolio boards. All public pages |
-| **Your browser session** *(optional)* | Reads your logged-in job-board feed and alerts, which anonymous search can't see. **Browsing only.** It never applies, never messages, never views anyone's profile |
+| **Your browser session** *(optional)* | Reads your logged-in job-board feed and alerts, which anonymous search can't see. **Needs Claude's browser extension.** **Browsing only.** It never applies, never messages, never views anyone's profile |
 | **Your files** | Writes a project folder in the directory you start it in, and commits there if you use git |
 | **Slack** *(optional)* | Posts your digest to your own DM or a private channel you own. Never a shared channel |
 | **Calendar** *(optional)* | Creates events for your interviews and follow-up dates. **Never invites anyone** |

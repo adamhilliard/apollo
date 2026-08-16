@@ -86,6 +86,8 @@ You don't need to type either name. Describe what you want, or use the name you 
 
 **Apollo reads a lot and writes only to your machine.** Everything that reaches an account of yours is off by default and turned on one at a time during setup: your browser session, Slack, calendar, and read-only email intake.
 
+> **The browser session is the one with a prerequisite.** It needs Claude's browser extension installed and signed in, and it's worth having, since your logged-in job-board feed and alerts are invisible to anonymous search. Setup checks and tells you if it's missing.
+
 **It will not apply to a job, message a recruiter, accept terms on your behalf, or enter personal or financial details into a form.** It finds and ranks roles and hands you the list.
 
 **Nothing is sent anywhere.** Your profile, your tracked roles, and your digest stay on your machine and in your own repo. There is no account, no telemetry, and no server. The author receives nothing.

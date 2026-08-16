@@ -28,6 +28,20 @@ build_package.py                     builds the handoff zip
 
 > **Verify before announcing.** `claude plugin validate ./apollo`, then `/plugin marketplace add .` from the repo root and confirm both skills load as `/apollo:job-search` and `/apollo:dashboard`.
 
+## Version numbering
+
+`MAJOR.MINOR.PATCH`, and **the patch digit is the default.** Most releases are a patch.
+
+| Digit | Use it for |
+|---|---|
+| **Patch** (1.4.**1**) | Fixes, clarifications, and additions inside an existing question, technique, or file |
+| **Minor** (1.**5**.0) | A new skill, a new interview question, or a change that makes searches already running behave differently |
+| **Major** (**2**.0.0) | A file layout that existing searches have to migrate to |
+
+**When in doubt it is a patch.** Bumping the minor digit every time something improves burns through the numbering and stops telling anyone which releases actually matter.
+
+> Both `apollo/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` carry the version. They have to agree.
+
 ## Releasing
 
 1. Port whatever the live search has learned that generalizes. The test: would this help a stranger with a different career, in a different field, at a different level?

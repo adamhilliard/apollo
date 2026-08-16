@@ -118,7 +118,7 @@ Nothing here is candidate-specific, which is why it lives in the skill and is re
 
 ### Sources, and how often each one runs
 
-1. **A logged-in job-board session via browser automation.** Personalized feeds and email alerts are invisible to anonymous web search. This is a required source, not best-effort.
+1. **A logged-in job-board session via browser automation.** Personalized feeds and email alerts are invisible to anonymous web search. **Where the user turned browser access on at Q12, this is a required source, not best-effort:** run it every cycle, and when it fails say so in the digest. Where they turned it off, or never installed the browser extension, the search runs without it and nothing here applies.
 2. **Aggregators** (Indeed, ZipRecruiter, Glassdoor, regional boards) via web search, **used to harvest company names from snippets and re-search those directly.** Don't build a dedicated channel around their own job search; see the measured verdict below.
 3. **Direct careers pages** for companies of interest.
 4. **ATS site-search.**

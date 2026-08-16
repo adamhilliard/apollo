@@ -1418,7 +1418,21 @@ Senior / exec adds:
 
 **Push back on turning browser access off.** It reaches personalized feeds and email alerts no anonymous search can see, and losing it costs a genuinely distinct source.
 
-**If browser access is on, record the device identifier of the browser it should use, once, in the profile.** An unattended run cannot pick between two connected browsers, and the properties that look like they'd distinguish them don't: display names get reassigned between runs, extension IDs are identical across installs, and "is this browser local" can be true for two of them at once. `search-techniques.md` has the full handling rule.
+> **Push back once.** Someone declining because they don't want to install a browser extension has given a real answer, and repeating the pitch reads as a tool that won't take no.
+
+**If browser access is on, list the connected browsers before recording anything.** Browser access needs Claude's browser extension installed and signed in, and **nothing before this point in the interview has told them that.** Someone who just answered "on, use my logged-in session" may have nothing connected at all.
+
+| What the list shows | What to do |
+|---|---|
+| **One or more connected** | Confirm which is theirs, then record its device identifier in the profile |
+| **None connected** | Say what's needed: Claude's browser extension, installed and signed in to the browser they job-search from. It is the only prerequisite Apollo has beyond Claude itself |
+| **They'd rather not install it** | Set browser access off, name the source they're giving up, and move on |
+
+**Never record a device identifier you did not read off a connected browser.** A guessed or empty value is worse than no value: every cycle afterward takes the search-only fallback, and the user is left thinking a required source is running.
+
+> **If they'll install it but not right now, finish setup with browser access on and the identifier unset.** The first cycle that finds it connected records it. `search-techniques.md` covers the run-time handling.
+
+**The identifier is the only durable handle.** An unattended run cannot pick between two connected browsers, and the properties that look like they'd distinguish them don't: display names get reassigned between runs, extension IDs are identical across installs, and "is this browser local" can be true for two of them at once. `search-techniques.md` has the full handling rule.
 
 **Contact discovery is opt-in and needs the tradeoff said out loud.** The bot can add the person who'd likely make the hire to a role's row, which at senior levels is the highest-value fact on it.
 
