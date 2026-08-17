@@ -1406,6 +1406,7 @@ Senior / exec adds:
 | **Digest channel** | Whatever the customization block set | It's already answered; don't re-ask it here |
 | **Browser access** | On, using your logged-in session | You'd rather I didn't use your account |
 | **Contact discovery** | Off | See below |
+| **Job description capture** | On; saves the posting for every role you mark applied | You already save your own copies |
 | **Weekly quality audit** | On, one fixed day | Never, in practice. It is the only thing that catches a source failing silently |
 | **Version control** | Commit every run to a git repo | You're not using git |
 
@@ -1443,6 +1444,12 @@ Senior / exec adds:
 
 **Set the expectation, because the yield is lopsided.** Across twelve records on one first pass: 8 people named, 4 published phone numbers, **0 published direct emails**, 4 genuine overlaps with the candidate's own history. **Search firms publish people pages; employers publish a leadership page and a press release.** If they hear "the bot will get me the hiring manager's email," correct it now.
 
+**Job description capture gets one line of explanation, then a confirm.** Postings come down, and the description is gone exactly when interview prep needs it.
+
+- **It saves the posting for any role staged applied or interviewing**, one folder per role, verbatim.
+- **It never overwrites a capture that already exists**, including one they saved by hand.
+- **Off is a real answer** for someone who already keeps their own copies. Record it so the cycle skips the check instead of running it silently.
+
 **Set the digest cap here, from the Q0 answer.** A digest listing sixty new roles gets skimmed and then ignored, which is the same as no bot at all.
 
 | Level | Cadence | New roles surfaced per digest |
@@ -1455,7 +1462,7 @@ Senior / exec adds:
 
 > **A short gap between runs means most runs surface little.** That's the arithmetic of a daily cadence working correctly, not a signal to loosen filters or pad the digest with marginal roles. The full search still runs every time.
 
-*Configures:* the scheduled task, the digest format, the digest cap, the browser handling, contact discovery, and the commit step.
+*Configures:* the scheduled task, the digest format, the digest cap, the browser handling, contact discovery, whether the profile keeps job description captures, and the commit step.
 
 ---
 
