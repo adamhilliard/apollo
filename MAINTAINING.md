@@ -50,8 +50,11 @@ build_package.py                     builds the handoff zip
 
 1. Port whatever the live search has learned that generalizes. The test: would this help a stranger with a different career, in a different field, at a different level?
 2. Bump `version` in `apollo/.claude-plugin/plugin.json`, **and the matching `version` in `.claude-plugin/marketplace.json`.** Two files carry it: the plugin manifest gates updates, the marketplace entry is what the Desktop plugin card shows.
-3. `python build_package.py`.
-4. Tag the commit and cut a GitHub Release with `apollo.zip` attached, so the "no marketplace" path in `apollo/README.md` resolves.
+3. **Update the Release history below. Every release, including patches.**
+4. `python build_package.py`.
+5. Tag the commit and cut a GitHub Release with `apollo.zip` attached, so the "no marketplace" path in `apollo/README.md` resolves.
+
+> **The history is organized by minor, and a patch updates the minor's entry rather than opening its own.** A new minor opens a new `###` heading; every patch after it appends its line to that heading. **The rule is that no release lands without the history reflecting it**, which is what 1.4.0 through 1.4.2 broke: three releases shipped against a history that stopped at 1.3.0.
 
 Candidate-specific detail never lands here: no company names, role titles, scores, comp figures, or screening thresholds. Illustrative examples are fine when the lesson is general and the identifying detail is stripped.
 
@@ -70,6 +73,18 @@ Extracted from a live executive job search that has been running daily since Jul
 Deliberately not watermarked: the reference files, because Claude loads them into context every cycle and a credit line there is noise inside search instructions; and the digest, because it's someone's private job search and a recurring credit reads as an ad.
 
 ## Release history
+
+### 1.4.0
+
+Sourcing reliability, plus the setup gaps a full walkthrough exposed.
+
+- **Q2 takes a title the resume parse would never produce.** Every title was generated from the Q1 parse and both edit steps were subtractive, so a peer title in an adjacent function had no way into the query. Tier 2 now covers the peer title at every level, and the flattened list is shown with "what's missing?" asked outright.
+- **A reliability gate on every role entering the table.** Four checks asked together at the moment a role first appears: posting age against displayed date, prior appearance in the index, employer named, requisition on the employer's own board. Two trips writes one Key Context clause. It never screens a role out and never re-scores.
+- **A board rejection is against a surface, not a source.** A missing category taxonomy retires the browsable front end; check for a JSON or developer API before writing the firm off. The no-board list gets an annual re-probe.
+- **Audit check E7 proves the gate ran.** A clean gate writes nothing, so a quiet week and a dead gate produced identical files. Search Notes gains a required GATE field.
+- **1.4.1:** the plugin depended on Claude's browser extension everywhere and told nobody to install it. Q12 now lists connected browsers and names the prerequisite.
+- **1.4.2:** a release inside seven days of the last one is a patch whatever it contains. Cadence overrides the version table.
+- **1.4.3:** Q12's defaults table gains a job description capture row, so the cycle's "skip if the profile doesn't keep captures" branch has something that can set it.
 
 ### 1.3.0
 
