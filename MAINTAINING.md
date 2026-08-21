@@ -85,6 +85,7 @@ Sourcing reliability, plus the setup gaps a full walkthrough exposed.
 - **1.4.1:** the plugin depended on Claude's browser extension everywhere and told nobody to install it. Q12 now lists connected browsers and names the prerequisite.
 - **1.4.2:** a release inside seven days of the last one is a patch whatever it contains. Cadence overrides the version table.
 - **1.4.3:** Q12's defaults table gains a job description capture row, so the cycle's "skip if the profile doesn't keep captures" branch has something that can set it.
+- **1.4.4:** the weekly audit now checks for a newer Apollo release and surfaces it in the next digest, since third-party marketplaces have Claude Code's auto-update off by default. `scripts/check_update.py` writes `Update_Notice.md` when one exists and clears it once caught up; it is informational and never fails the audit. The plugin README is also slimmed to five sections and rewritten for a non-technical reader.
 
 ### 1.3.0
 

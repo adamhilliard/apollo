@@ -81,6 +81,7 @@ Load these as needed; there is no reason to read all of them for a single task.
 | `scripts/vc_sweep.py` | Sweeps the Getro-platform VC portfolio boards through the API that actually paginates, and prints a canary line that fails loudly if pagination breaks again. **The documented HTML recipe silently caps at 20 jobs per board**, against boards carrying up to 25,000. |
 | `scripts/resolve_boards.py` | Turns a list of company names into confirmed board endpoints, so a named-employer list built at Q6d becomes sweepable without hand-probing dozens of slugs. Verifies employer identity where the platform exposes it. |
 | `scripts/quality_audit.py` | The weekly audit. Computes every check in `quality-audit.md` from the user's own files and exits nonzero on a trip. `test_quality_audit.py` covers it. |
+| `scripts/check_update.py` | Runs in the weekly audit with `--project`. Compares the installed version to the latest GitHub release and writes `Update_Notice.md` in the project when a newer one exists, deleting it once caught up. Informational, always exits 0; a network blip is a quiet skip. |
 | `scripts/jd2pdf.py` | Saves a job description to PDF, so a posting survives being taken down. |
 
 **Prefer a committed script over prose instructions wherever pagination is involved.** Both of the pagination bugs documented in `search-techniques.md` happened to hand-rolled loops written from careful instructions, in a single day. A script that cannot silently truncate is worth more than a rule saying not to.

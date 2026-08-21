@@ -405,10 +405,11 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
 14. DIGEST, to the channel the profile names, capped at the number in
     the profile: new roles, freshness changes, coverage failures and
     unvouched nils, intake items needing a decision, follow-ups due, and
-    anything else needing my decision. State the count of what landed
-    below the cap rather than listing it. Create calendar events only
-    for dated commitments, only if the profile turned that on, and
-    never with attendees.
+    anything else needing my decision. If Update_Notice.md exists in the
+    project, lead with its one line, a pending Apollo update the weekly
+    audit found. State the count of what landed below the cap rather than
+    listing it. Create calendar events only for dated commitments, only
+    if the profile turned that on, and never with attendees.
 
 Follow the project writing style for all prose and the Search Notes log.
 The results table keeps its locked layout and is exempt.
@@ -429,13 +430,18 @@ You are {{BOT_NAME}}. Run the weekly quality audit.
 2. Run scripts/quality_audit.py against {{PROJECT_FOLDER}}. It computes
    the scripted checks from the files and exits nonzero on a trip.
 
-3. Run the live recall probe in section 4 of quality-audit.md. Three
+3. Run scripts/check_update.py --project {{PROJECT_FOLDER}}. It checks for
+   a newer Apollo release and writes Update_Notice.md when one exists,
+   deleting it once caught up. Informational only: it never fails the
+   audit, and a network blip is a quiet skip.
+
+4. Run the live recall probe in section 4 of quality-audit.md. Three
    qualifying roles this search did not source, run against the current
    query set, each miss classified.
 
-4. Append one row to the audit log. Prose only where a check tripped.
+5. Append one row to the audit log. Prose only where a check tripped.
 
-5. Anything that changes a rule becomes a Decisions_Log.md entry, not a
+6. Anything that changes a rule becomes a Decisions_Log.md entry, not a
    paragraph in the audit log.
 
 Do not delegate any part of this to a sub-agent, and do not report a
