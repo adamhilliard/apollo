@@ -40,9 +40,7 @@ build_package.py                     builds the handoff zip
 
 **When in doubt it is a patch.** Bumping the minor digit every time something improves burns through the numbering and stops telling anyone which releases actually matter.
 
-> **A release inside a week of the last one is a patch, whatever it contains.** The minor digit is the unit people read as "this changed enough to look at," and two of them in a week makes that signal worthless. **Cadence overrides the table above**: if the previous tag is less than seven days old, bump the patch digit and let the substance ride, no matter how the change classifies on its own.
-
-> **This is not a rule about how big the change is.** A genuinely minor-worthy change shipped four days after the last release still goes out as a patch. **Save the minor bump for the next release that clears the window**, which also batches a week of work behind one number people can act on.
+> **Judge the version by the size and substance of the change, not the calendar.** The one-week window is a guideline, not a hard rule: two small fixes shipped days apart are usually both patches, and burning a minor on each would make the number meaningless. But a genuinely large change earns its minor even inside the week. A new skill, a rewritten interview, or anything that reshapes how running searches behave is a minor whenever it ships. **Let the window steer the close calls, and let size win outright.**
 
 > Both `apollo/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` carry the version. They have to agree.
 
@@ -73,6 +71,16 @@ Extracted from a live executive job search that has been running daily since Jul
 Deliberately not watermarked: the reference files, because Claude loads them into context every cycle and a credit line there is noise inside search instructions; and the digest, because it's someone's private job search and a recurring credit reads as an ad.
 
 ## Release history
+
+### 1.5.0
+
+A ground-up rewrite of the setup interview after first-user feedback that the old flow was too long.
+
+- **The interview opens with a splash and the letter, then a fork:** Essentials (~15 min) or Everything (~30 min). Essentials gets you searching; Everything adds employer research, field sources, and connected tools. An Essentials user can trigger any Everything step later.
+- **Derive-and-confirm from the resume.** Level, current role, and location are read from the resume and confirmed in one free-text pass instead of asked cold. Titles are a single review.
+- **Questions cut or reordered:** the market-band comp lookup, the title floor, the motivator menu, search history, and the accessibility question are gone; the name is asked last; the culture bar is a silent 3.0 default; rigor defaults to light. Company-type rules and a second track are now reactive, triggered by the user saying "make a rule."
+- **A permissions step** offers to write an allowlist so the search's own file writes and scripts stop prompting, which also lets the scheduled runs go unattended.
+- **`scaffolding.md` and `SKILL.md` reconciled** to the new section names (A–D, E–G) in place of the old Q0–Q12 numbering.
 
 ### 1.4.0
 

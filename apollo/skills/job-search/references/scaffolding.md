@@ -2,7 +2,7 @@
 
 **What setup writes to disk, and the recurring prompt that drives every cycle.**
 
-> **Q-numbers** (Q0 through Q12) refer to `setup-interview.md`, where each is defined.
+> **Section names** (A–D in Essentials, E–G in Everything) refer to `setup-interview.md`, where each question is defined.
 
 > **The generic technique is not copied into the user's files.** `search-techniques.md`
 > stays in the skill and the scheduled task reads it there, so a fix reaches every
@@ -22,7 +22,7 @@
   Operating_Procedures.md       # tracking files, table format, ranking, output conventions
   Decisions_Log.md              # why each rule exists; starts nearly empty
   Tracking_{{TRACK_A}}.md       # live results + search notes
-  Tracking_{{TRACK_B}}.md       # only if Q3 produced a split
+  Tracking_{{TRACK_B}}.md       # only if a second track was requested
   Audit_Log.md                  # one row per weekly quality audit
   Employer_Index.md             # only once a named-employer sweep exists
 ```
@@ -83,28 +83,27 @@ Who {{NAME}} is and what they want. Search mechanics live in Methodology.md,
 output conventions in Operating_Procedures.md, and the reasoning behind any
 rule in Decisions_Log.md. Live results live in the tracking file(s).
 
-### Bot Name                -> the opening question (a named field, not only a heading)
-### Customization           -> the opening block: palette + accessibility, cadence,
-###                            RIGOR (light/standard/deep), digest channel,
-###                            integrations and their scopes, confidential mode,
-###                            country (sets currency/dates/spelling), pause windows
+### Bot Name                -> the Name question, asked last in D. Settings (a named field)
+### Customization           -> D. Settings: palette, cadence, digest channel. RIGOR defaults
+###                            to light silently (not asked). Confidential mode is the silent
+###                            default. Country comes from A. You; integrations from Everything G
 ### Built With              -> one line, verbatim (see below)
-### Career Level            -> Q0 (band + table cap + research-depth rule)
-### Current Role            -> Q1
-### Full Career History     -> Q1 (table: period | role | company | highlights)
+### Career Level            -> A. You (band + table cap + research-depth rule)
+### Current Role            -> A. You
+### Full Career History     -> A. You (table: period | role | company | highlights)
 ### Key Positioning Point   -> left empty at setup; filled from the first real
 ###                            screening call, never guessed in the interview
 
-### Target Roles            -> Q2 (priority-ordered, per track if Q3 split)
-### Hard Excludes           -> Q7 (three items, no more)
-### Location Criteria       -> Q4 (hard filter + commute rule)
-### Compensation            -> Q5 (anchor, floor + how it's measured, step-down, equity)
-### Company Profile         -> Q6 (ownership + size + industry, w/ stability signals)
-### Motivator Buckets       -> Q8 (0-to-N, binary test written per bucket)
-### Rank Overrides          -> Q8 (sort bands that sit outside the score)
-### Culture Bar             -> Q9 (numeric thresholds + what to read for)
-### Lessons Learned         -> Q10
-### Stage-Tied Rules        -> Q7 (what each is tied to, what triggers the review)
+### Target Roles            -> B. Titles (priority-ordered; a second track is reactive)
+### Hard Excludes           -> B. Visa, plus any "make a rule" excludes
+### Location Criteria       -> B. Location (hard filter + commute rule)
+### Compensation            -> B. Compensation (floor + how it's measured + equity)
+### Company Profile         -> reactive ("make a rule"); stability scored from public signals
+### Motivator Buckets       -> C. How to rank it (0-to-N, binary test written per bucket)
+### Rank Overrides          -> C (arrangement bands from B, outside the score)
+### Culture Bar             -> C (employer review score, 3.0 default; adjust via "make a rule")
+### Lessons Learned         -> filled from cycle outcomes (no setup question)
+### Stage-Tied Rules        -> any "make a rule" rule, with what triggers its review
 ```
 
 > **Customization lives in the profile, and it is the one copy.** The dashboard skill reads the palette from there rather than asking again, the cycle reads the digest channel from there, and confidential mode governs commit messages, event titles, and what may be shared. **Record the defaults they accepted, not only the ones they changed**, or a later cycle cannot tell an accepted default from an unasked question.
@@ -127,7 +126,7 @@ Apollo, a free job-search plugin by Adam Hilliard
 # {{BOT_NAME}} Search Methodology: {{NAME}}
 
 ### Search Integrity        -> cite search-techniques.md; do NOT copy it in
-### Sources                 -> Q11 + this search's vetted-and-rejected verdicts, tier + cadence
+### Sources                 -> Everything F + this search's vetted-and-rejected verdicts, tier + cadence
 ### Queries                 -> the stem table, then the live query strings per track
 ### Standing Techniques     -> cite search-techniques.md; record only deviations
 ### Verification            -> cite search-techniques.md; record only deviations
@@ -162,8 +161,8 @@ Apollo, a free job-search plugin by Adam Hilliard
 ### Read Contracts          -> below (what each file costs per cycle)
 ### Tracking Files          -> below
 ### Results Table Format    -> below (locked layout)
-### Ranking & Rank Overrides-> below + Q8
-### Digest Format & Cap     -> Q12
+### Ranking & Rank Overrides-> below + C. How to rank it
+### Digest Format & Cap     -> D. Settings (delivery) + the level-based cap
 ### Search Notes Shape      -> below (fixed shape, 4KB cap)
 ### Prose & Writing Rules   -> whatever style the project uses
 ```
@@ -233,7 +232,7 @@ On review the row is deleted, not annotated.**
 # {{BOT_NAME}} Tracking: {{TRACK}}
 
 ## ACTIVE/ROLLING
-<the scored table, capped per Q0>
+<the scored table, capped per the level band>
 
 ## BELOW THE CAP           # high-volume searches only; compact one-line rows
 ## REJECTED                # employer's decision, after you applied
@@ -270,7 +269,7 @@ Column layout, in this order:
 1. **Every bucket cell carries the symbol plus a short inline reason** (4-12 words: `✓ Series C, $110M raised Apr 2026`, `✗ onsite, 3 days/week`). A bare ✓ forces you to read a notes paragraph to learn anything.
 2. **Company cell** hyperlinks the name to a verified homepage, with a one-line bio under it. Verify the URL; don't guess a domain.
 3. **Title cell** carries the job title plus the seniority/trajectory bucket's ✓/✗ and reason.
-4. **Key Context** holds only what belongs to no single bucket: scope caveats, freshness flags, level-ambiguity notes, in-office cadence, how the role arrived, and the hiring contact if Q12 turned that on. **Cap it at 350 characters, contact clause included.** The cell answers whether the role is worth applying to, and that fits.
+4. **Key Context** holds only what belongs to no single bucket: scope caveats, freshness flags, level-ambiguity notes, in-office cadence, how the role arrived, and the hiring contact if that's enabled. **Cap it at 350 characters, contact clause included.** The cell answers whether the role is worth applying to, and that fits.
 5. **Apply is the last column, always present, always a working link.**
 6. **Show close calls inline.** When a bucket is borderline, say so in the cell. The symbol summarizes reasoning; it doesn't replace it.
 
@@ -280,7 +279,7 @@ Column layout, in this order:
 
 > **Record the in-office cadence per role, not just "hybrid."** A bare arrangement word doesn't say what the commitment is, and two days a week and four are different jobs.
 
-**Stack-rank rule, mandatory every run.** Highest score at top, then apply the Q8 rank overrides as bands. **Re-sort the entire table, never append.** Appending new rows at the bottom is the specific failure that lets the ranking silently drift. Ties break on comp, higher first, undisclosed ranked lowest.
+**Stack-rank rule, mandatory every run.** Highest score at top, then apply the rank overrides (C) as bands. **Re-sort the entire table, never append.** Appending new rows at the bottom is the specific failure that lets the ranking silently drift. Ties break on comp, higher first, undisclosed ranked lowest.
 
 **Never delete a row.** Move it between sections. The history is the value.
 

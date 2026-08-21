@@ -10,7 +10,7 @@ A recurring job-search digest that runs itself. The search techniques here are b
 
 > **Apollo is the tooling; the user's copy gets its own name.** The interview opens by asking for it, and every file the search writes uses their name from then on. Someone talking about "Scout" or "Wall-E" or just "the bot" means their own search, and this skill is what runs it. Reserve "Apollo" for the tooling itself, and never rename a search that already has a name.
 
-**Works at any career level, from first job to executive search.** The mechanics don't change; the calibration does, and Q0 of the interview sets it.
+**Works at any career level, from first job to executive search.** The mechanics don't change; the calibration does, and the level question in section A of the interview sets it.
 
 ## What you're building
 
@@ -35,7 +35,7 @@ Four moving pieces. Nothing else.
 
 **Ask nothing before the interview starts.** It opens with a short letter and a five-part roadmap, and every question has a home inside it, including the resume, which Part 2 asks for because that is where it gets used. A question asked ahead of the roadmap arrives with no context and cannot be acted on yet.
 
-1. **Run the setup interview.** Read `references/setup-interview.md` and work through it in order, one block at a time. **It opens with the author's letter and the roadmap**, then Part 1 covers the name, palette, cadence, rigor, digest channel, optional integrations, confidential mode, and locale. **None of that blocks setup and every row has a working default.** **Ask with the interactive picker wherever the answer is a small discrete set**, batching up to four questions per call; the interview's "How to ask" block states which questions those are and lists each one's options. Six answers stay free text on purpose, Q8's rubric conversation among them. A blank page produces vague answers, and vague answers produce a generic bot.
+1. **Run the setup interview.** Read `references/setup-interview.md` and work through it in order, one block at a time. **It opens with a splash and the author's letter**, then a fork: Essentials (~15 min) or Everything (~30 min). **Ask with the interactive picker wherever the answer is a small discrete set**, batching up to four questions per call; the interview's "How to run this" block states the conventions. **Derive from the resume and confirm rather than asking cold** wherever you can. A blank page produces vague answers, and vague answers produce a generic bot.
 2. **Build the files and both scheduled tasks.** Read `references/scaffolding.md` for the folder layout, the four profile skeletons, the read contracts, the locked results-table format, and both task prompts.
 3. **Say which answers were thin.** Those are the rules that will need correcting after the first two or three cycles, and naming them upfront sets the expectation that the bot is calibrated rather than born finished.
 4. **State the known limitations out loud** from `references/feedback-loop.md`, so nobody mistakes them for bugs. Sourcing is not the bottleneck at every level, and saying so during setup beats letting the bot look ineffective for four cycles.
@@ -66,7 +66,7 @@ Load these as needed; there is no reason to read all of them for a single task.
 
 | File | Read it when | Size |
 |---|---|---|
-| `references/setup-interview.md` | Setting up a new bot. The picker convention, the customization block, then Q0 through Q12, each naming what it configures. | ~1,440 lines |
+| `references/setup-interview.md` | Setting up a new bot. The operating conventions, the splash and letter, the Essentials/Everything fork, then sections A–D and E–G. | ~330 lines |
 | `references/scaffolding.md` | Writing the files and the two task prompts, read contracts, or changing the table format. | ~440 lines |
 | `references/search-techniques.md` | Running a cycle, or fixing a search that is missing roles. Integrity rules, sourcing, verification. | ~590 lines |
 | `references/quality-audit.md` | The weekly audit only. **No daily cycle reads this.** | ~120 lines |
@@ -79,7 +79,7 @@ Load these as needed; there is no reason to read all of them for a single task.
 | `scripts/linkedin_sweep.py` | Paginates a job-board sweep to exhaustion, dedupes by job ID, and ends with an explicit `COMPLETE` or `INCOMPLETE` status naming what it could not reach. Use it rather than hand-rolling pagination, and surface an `INCOMPLETE` in the digest the way a failed source is surfaced. |
 | `scripts/employer_sweep.py` | Sweeps named employers' boards directly, reading its sets out of the user's `Employer_Index.md`. Carries no employer list of its own. |
 | `scripts/vc_sweep.py` | Sweeps the Getro-platform VC portfolio boards through the API that actually paginates, and prints a canary line that fails loudly if pagination breaks again. **The documented HTML recipe silently caps at 20 jobs per board**, against boards carrying up to 25,000. |
-| `scripts/resolve_boards.py` | Turns a list of company names into confirmed board endpoints, so a named-employer list built at Q6d becomes sweepable without hand-probing dozens of slugs. Verifies employer identity where the platform exposes it. |
+| `scripts/resolve_boards.py` | Turns a list of company names into confirmed board endpoints, so a named-employer list built in Everything's employer step becomes sweepable without hand-probing dozens of slugs. Verifies employer identity where the platform exposes it. |
 | `scripts/quality_audit.py` | The weekly audit. Computes every check in `quality-audit.md` from the user's own files and exits nonzero on a trip. `test_quality_audit.py` covers it. |
 | `scripts/check_update.py` | Runs in the weekly audit with `--project`. Compares the installed version to the latest GitHub release and writes `Update_Notice.md` in the project when a newer one exists, deleting it once caught up. Informational, always exits 0; a network blip is a quiet skip. |
 | `scripts/jd2pdf.py` | Saves a job description to PDF, so a posting survives being taken down. |
