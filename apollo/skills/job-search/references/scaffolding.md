@@ -162,7 +162,8 @@ Apollo, a free job-search plugin by Adam Hilliard
 ### Tracking Files          -> below
 ### Results Table Format    -> below (locked layout)
 ### Ranking & Rank Overrides-> below + C. How to rank it
-### Digest Format & Cap     -> D. Settings (delivery) + the level-based cap
+### Digest Format & Cap     -> D. Settings (delivery) + the level-based cap;
+###                            every digest ends with the coverage note (see below)
 ### Search Notes Shape      -> below (fixed shape, 4KB cap)
 ### Prose & Writing Rules   -> whatever style the project uses
 ```
@@ -308,6 +309,22 @@ NOTE: <one line, only when something needs saying>
 
 > **This drifts back within days unless the shape is enforced.** One search's log said "keep it to counts, findings, and role events" and never restated a rule's reasoning there. Measured three days later: bolded lead-ins, origin-case paragraphs, and open questions addressed to the user, with the largest single entry at **16.8KB**. **The rule was correct and had nothing to enforce it**, which is the same defect as a rule that lives only in prose.
 
+### The coverage note
+
+**Every digest ends with a plain-language coverage note, rendered from this run's `COVERAGE` line.** The `COVERAGE` line above is the machine record; this is its user-facing twin. **A "nothing new" digest and a broken-sweep digest read identically without it**, which is the same silent-failure class the whole coverage system exists to close, surfaced to the user this time instead of only to the weekly audit.
+
+Fixed shape, four buckets, compact. Never per-source prose:
+
+> **Coverage this run**
+> - **Searched in full:** LinkedIn, company ATS boards (25/25), your named employers
+> - **Sampled only:** VC portfolio boards, the LinkedIn feed
+> - **Off this run (runs Thursday):** your association board, aggregator name-mining
+> - **Couldn't reach:** none
+
+- **Translate the status words, don't print them.** `COMPLETE` becomes "searched in full," `SAMPLED` becomes "sampled only," `OFF-CADENCE` becomes "off this run" with the day it next runs, and `FAILED`, `INCOMPLETE`, or an unvouched nil becomes a named line under "Couldn't reach."
+- **Drop an empty bucket, except "Couldn't reach," which always shows,** even as "none." Its whole job is to be believed when it says nothing broke.
+- **It is not roles, so it never counts against the digest cap.** One short block regardless of volume, and it earns its place most on the quiet weeks.
+
 ---
 
 ## The Scheduled Task Prompt
@@ -402,13 +419,15 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
     profile's Customization section.
 
 14. DIGEST, to the channel the profile names, capped at the number in
-    the profile: new roles, freshness changes, coverage failures and
-    unvouched nils, intake items needing a decision, follow-ups due, and
-    anything else needing my decision. If Update_Notice.md exists in the
-    project, lead with its one line, a pending Apollo update the weekly
-    audit found. State the count of what landed below the cap rather than
-    listing it. Create calendar events only for dated commitments, only
-    if the profile turned that on, and never with attendees.
+    the profile: new roles, freshness changes, intake items needing a
+    decision, follow-ups due, and anything else needing my decision. If
+    Update_Notice.md exists in the project, lead with its one line, a
+    pending Apollo update the weekly audit found. State the count of what
+    landed below the cap rather than listing it. End every digest with the
+    COVERAGE NOTE defined in Operating_Procedures.md, rendered from this
+    run's Search Notes COVERAGE line. Create calendar events only for
+    dated commitments, only if the profile turned that on, and never with
+    attendees.
 
 Follow the project writing style for all prose and the Search Notes log.
 The results table keeps its locked layout and is exempt.

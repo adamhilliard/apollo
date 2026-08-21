@@ -33,7 +33,7 @@ Four moving pieces. Nothing else.
 
 ## Setting up a new bot
 
-**Ask nothing before the interview starts.** It opens with a short letter and a five-part roadmap, and every question has a home inside it, including the resume, which Part 2 asks for because that is where it gets used. A question asked ahead of the roadmap arrives with no context and cannot be acted on yet.
+**Ask nothing before the interview starts, with one exception:** check the project folder for an existing Apollo file set first, and if one is there, run the existing-search fork at the top of `setup-interview.md` before the splash. That check is a disk read, not a cold question, so a first-time user never sees it. Otherwise it opens with a short letter and a five-part roadmap, and every question has a home inside it, including the resume, which Part 2 asks for because that is where it gets used. A question asked ahead of the roadmap arrives with no context and cannot be acted on yet.
 
 1. **Run the setup interview.** Read `references/setup-interview.md` and work through it in order, one block at a time. **It opens with a splash and the author's letter**, then a fork: Essentials (~15 min) or Everything (~30 min). **Ask with the interactive picker wherever the answer is a small discrete set**, batching up to four questions per call; the interview's "How to run this" block states the conventions. **Derive from the resume and confirm rather than asking cold** wherever you can. A blank page produces vague answers, and vague answers produce a generic bot.
 2. **Build the files and both scheduled tasks.** Read `references/scaffolding.md` for the folder layout, the four profile skeletons, the read contracts, the locked results-table format, and both task prompts.
@@ -96,4 +96,4 @@ Load these as needed; there is no reason to read all of them for a single task.
 
 ## Related
 
-`/apollo:dashboard` turns the tracking files into a private, self-refreshing web dashboard. Run it after setup and at least one completed cycle. It reads the name from the profile and puts it on the page, so it should run after setup, never before.
+`/apollo:dashboard` turns the tracking files into a private, self-refreshing web dashboard. **When the user picks the dashboard during setup, the interview builds and hands it over automatically right after the first search** (see "After the interview" in `setup-interview.md`), so they never have to find the command. The command stays for adding a dashboard to a chat-only search later, or rebuilding one on demand. It reads the name from the profile and puts it on the page, so it only runs after setup and at least one completed cycle, never before.

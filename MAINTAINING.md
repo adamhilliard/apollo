@@ -81,6 +81,7 @@ A ground-up rewrite of the setup interview after first-user feedback that the ol
 - **Questions cut or reordered:** the market-band comp lookup, the title floor, the motivator menu, search history, and the accessibility question are gone; the name is asked last; the culture bar is a silent 3.0 default; rigor defaults to light. Company-type rules and a second track are now reactive, triggered by the user saying "make a rule."
 - **A permissions step** offers to write an allowlist so the search's own file writes and scripts stop prompting, which also lets the scheduled runs go unattended.
 - **`scaffolding.md` and `SKILL.md` reconciled** to the new section names (A–D, E–G) in place of the old Q0–Q12 numbering.
+- **1.5.1:** a second round of first-user feedback. Setup now checks for an existing search before the splash and offers to update it, archive it and start truly fresh (old files moved aside and never read), or build a separate one, so a returning user is no longer written over on a "rebuild from scratch." The dashboard is built and handed over automatically right after the first search when chosen, instead of waiting behind a slash command a non-technical user never runs. Every digest ends with a plain-language coverage note (searched in full · sampled · off this run · couldn't reach), so a quiet week reads differently from a broken sweep. The weekly audit gets a one-sentence plain explanation when it's created, and setup drops system jargon ("on disk," "allowlist," "search scripts") from anything the bot says out loud.
 
 ### 1.4.0
 

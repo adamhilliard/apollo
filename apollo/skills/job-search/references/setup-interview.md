@@ -14,12 +14,33 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 - **Any multi-select where "none" is a real answer needs an explicit "None" option, first in the list**, because an empty multi-select cannot be submitted.
 - **Derive, then confirm.** Wherever the resume or an earlier answer already tells you something, propose it and ask for a correction rather than asking cold. The review steps work this way.
 - **`Say:` blocks are the words to use, close to verbatim; trim to fit, never expand. A blockquote without `Say:` is a note to you, never voiced.**
+- **Say it in plain language.** Nothing you speak to the user should carry a file path, a script name, a flag, or a system word like "on disk," "allowlist," "boolean query," or "artifact." Name each thing by what it does for them. The notes in this file are for you and stay technical; what you say out loud does not.
 - **The author's letter is the one fully verbatim block.** Don't paraphrase it, extend it, or add a line after it. It is signed by a person.
 - **Speak in the first person. Never refer to yourself by name or as "the bot."** Use the user's chosen name (set at the end) in the files you write, not during the interview.
 - **Never celebrate the occasion.** A meaningful share of people opening this were laid off last week. Warm and matter-of-fact, never upbeat about the situation itself.
 - **Announce nothing you'll ask later.** Naming a cadence or a setting before its question reads as a decision already made.
 
 > **Reactive levers, not questions.** Two things are never asked up front; the closing note tells the user how to trigger them later: a second job-family track, and rules about company type ("too small," "wrong industry"). Both are triggered by the user saying **"make a rule."**
+
+---
+
+## Before you start: is there already a search here?
+
+**Check the project folder for an existing Apollo file set before the splash.** Look for `Reference_Profile.md` (older setups keep a single profile file under another name; a `Methodology.md` or `Tracking_*.md` counts too). **No such file means a first run: go straight to the splash and skip this section entirely.** Only when one exists, stop and ask, because a fresh interview writing over a live search is exactly the "rebuild wasn't fresh" failure a user reported.
+
+**Picker,** single-select, header `Existing search`. **Say:**
+
+> It looks like there's already a job search set up in this folder. What would you like to do?
+
+| Option | Description |
+|---|---|
+| **Update the existing search** (Recommended) | Keep it and just take your changes; I skip the full setup |
+| **Archive it and start fresh** | I move the old files into a dated archive folder, then set up a brand-new search from a blank slate |
+| **Set up a separate search** | Leave the current one running and build a new one in its own folder |
+
+- **Update:** do not run the interview. Route to "Correcting a bot after a cycle" in `SKILL.md`, take the amendment, and stop.
+- **Archive it and start fresh:** move the entire existing file set into `Archived_Setup_{{DATE}}/` inside the project folder, confirm out loud that it's moved, then run the interview from the splash. **Build only from this interview's answers and the resume. Do not read the archived files, and do not carry any remembered detail from a prior chat into the new files. A blank slate is the whole point of "fresh."**
+- **Set up a separate search:** leave the existing files untouched and run the interview into a new project folder they name.
 
 ---
 
@@ -97,14 +118,14 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 
 **Picker,** single-select, header `Permissions`. **Say:**
 
-> Quick bit of housekeeping first. As we go, and later on a schedule, I'll be creating your files and running my own search scripts. I can add a one-time permission rule so I'm not stopping to ask at every step, and so your scheduled searches can run on their own. Want me to set that up?
+> Quick bit of housekeeping first. As we go, and later on a schedule, I'll be creating your files and running searches for you. I can get a single go-ahead from you now so I'm not stopping to ask at every step, and so your scheduled searches can run on their own. Want me to set that up?
 
 | Option | Description |
 |---|---|
 | **Yes, set it up** (Recommended) | One approval now, then I run without interrupting you |
 | **No, ask me each time** | I'll ask before each action |
 
-**On yes,** write the allowlist to the project's `.claude/settings.json` (that write is the one approval they'll see). Use the block in the plugin README's "Fewer permission prompts" section. Say in one line that it fully covers the scheduled runs and future sessions, and this session may still ask a couple of times if settings don't reload mid-session.
+**On yes,** write the allowlist to the project's `.claude/settings.json` (that write is the one approval they'll see). Use the block in the plugin README's "Fewer permission prompts" section. Then say in one plain line that this covers your scheduled runs and every future session, and that this one session might still ask a couple more times before it takes full effect.
 
 ---
 
@@ -181,7 +202,7 @@ Anything besides full-time is ranked as a band below full-time by default; no fo
 
 **Then, only if onsite or hybrid, address opt-in · free text:**
 
-> Would you like me to calculate drive time to the roles I find? If yes, share your home address (this stays in your own files).
+> Would you like me to calculate drive time to the roles I find? If yes, share your home address (it stays saved on your own device, nowhere else).
 
 **Compute drive time, not distance,** at a rush-hour departure, since that's the trip they'd actually take. Relocation answered softly still records as a hard filter.
 
@@ -250,7 +271,7 @@ Options: *🟦 Slate blue* `#4F6D9F` (Recommended) · *🟩 Forest green* `#2E7D
 **How it runs · picker,** one call, two questions. **Say the recommendation and its reason in one line first.**
 
 - **`Schedule`**, single-select: *Monday and Thursday* (Recommended) · *Monday, Wednesday, Friday* · *Every weekday*. Then: "Running more often catches fast-expiring postings but uses more tokens."
-- **`Delivery`**, single-select: *Chat and a dashboard* (Recommended) · *Just here in chat*.
+- **`Delivery`**, single-select: *Chat and a dashboard* (Recommended) · *Just here in chat*. The dashboard is a private web page with your ranked roles as cards you can filter and save; if they pick it, describe it that way. **It gets built and handed over as a link right after the first search, not by a command they have to find.**
 
 **Name · picker,** single-select, header `Name`, **asked last. Say:**
 
@@ -312,6 +333,18 @@ Vet each source once and record the verdict, so no later cycle re-chases a dead 
 
 ## After the interview
 
-Build the file structure and **both** scheduled tasks per `scaffolding.md`, writing the profile from the answers and using the chosen name throughout. The cycle task runs on their cadence; the weekly quality audit runs on its own day and starts in week two.
+Work through these in order. Keep every spoken line plain, per the language rule in "How to run this."
 
-Then say plainly which answers were thin, because those are the rules that will need correcting after the first two or three cycles, and **state the known limitations from `feedback-loop.md` out loud**, so nothing there gets mistaken for a bug later.
+1. **Build the files and both scheduled tasks** per `scaffolding.md`, writing the profile from the answers and using the chosen name throughout. The cycle task runs on their cadence; the weekly quality audit runs on its own day and starts in week two.
+
+2. **Say, in one or two lines, what you just saved and whether they need to touch it.** These files hold their profile, scoring rules, and results, and they're saved locally on their own device, nowhere else. **They don't need to open or read any of it.** The way they change anything later is to tell you in chat, and you edit the files. Don't list file names or paths; say what the files are for.
+
+3. **Explain the weekly audit in one plain sentence,** since a routine that only says *when* it runs and never *what* it does reads as a black box. **Say:**
+
+   > Once a week I also run a quick self-check on the machinery behind your search: whether every source is really returning what it claims, whether I'm still catching roles I should be, and whether Apollo itself has an update. It's what catches a source that's quietly broken before it costs you weeks of missed jobs. It starts next week, once there's a cycle to check against.
+
+4. **Run the first search and deliver the digest** to the channel they chose.
+
+5. **If they chose the dashboard, build and publish it now,** right after that first search, by following the `dashboard` skill (`skills/dashboard/SKILL.md`) end to end: build `dashboard.html`, publish it as a private page, wire its regeneration into the cycle task, then hand them the link and say it's private until they share it. **Do not leave this for a command they have to discover.** If they chose chat only, skip this entirely.
+
+6. **Say plainly which answers were thin,** because those are the rules that will need correcting after the first two or three cycles, and **state the known limitations from `feedback-loop.md` out loud**, so nothing there gets mistaken for a bug later.
