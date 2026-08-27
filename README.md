@@ -1,6 +1,6 @@
 # Bishop
 
-**A recurring job search that runs itself in Claude.** One setup interview saves your profile and scoring rules onto your own computer. A scheduled task then sources roles from job boards, the hiring systems companies post to directly, and the job pages startup investors keep for their companies, checks each posting is real and still says what it said, scores it against what you actually want, and hands you a ranked digest.
+Bishop is an AI agent that runs recurring job searches in Claude. One setup interview saves your profile and scoring rules onto your own computer. A scheduled task then sources roles from job boards, applicant tracking systems, and the job pages startup investors keep for their companies. Bishop then checks each posting is real, scores it against what you actually want, and hands you a ranked digest.
 
 Free, MIT licensed, and it works at any career level, from first job to executive search.
 
@@ -8,18 +8,18 @@ Free, MIT licensed, and it works at any career level, from first job to executiv
 
 **You need the [Claude](https://claude.com) app on your computer.** It's free to download, and that's the whole prerequisite. (There's a command-line version too, if that's how you work; the typing route is below.)
 
-### In Claude Desktop, by clicking
+### Install in Claude Desktop, by clicking
 
 1. Open Claude Desktop.
 2. Click **Customize** in the left sidebar.
 3. Click **Plugins**. (Plugins are free add-ons for Claude. Bishop is one of them.)
-4. Click **Add plugin**.
-5. Click **Add marketplace**.
-6. Choose **Add from repo** (that’s just where Bishop lives online).
-7. Paste `adamhilliard/bishop` into the box that appears. That’s Bishop’s address.
-8. Click **Sync**. That downloads it.
-9. Click **Install** on **Bishop Job Search**.
-10. Start a new conversation. It won't appear in one that's already open.
+4. Click the **+** sign, which is **Add marketplace**.
+5. Choose **Add from repo** (that’s just where Bishop lives online).
+6. Paste `adamhilliard/bishop` into the box that appears. That’s Bishop’s address.
+7. Click **Sync**. That downloads it.
+8. Click **Install** on **Bishop Job Search**.
+9. **First time using Claude?** You'll need to set up Claude Code. In the Chat window, type *"Help me set up Claude Code."*
+10. Once that's complete, start a new conversation in **Claude Code**. It won't appear in one that's already open. Don't use Claude chat for Bishop's work; performance degrades quickly there.
 11. Say: *"Help me set up a job search."*
 
 **Nothing happening?** Close Claude, open it again, and try step 10.
@@ -69,9 +69,9 @@ In a new conversation, say:
 
 > Help me set up a job search.
 
-**Setup saves your files in a folder on your computer.** Just tell it where you’d like them; if you’re not sure, say so and it will pick a sensible spot.
+**Setup saves your files in a folder on your computer.** Just tell it where you’d like them; if you’re not sure, tell Bishop and it will pick a spot for you.
 
-**The interview takes about fifteen minutes.** Have your resume or a PDF of your LinkedIn profile handy; it makes the interview much shorter. No resume yet is fine, there's a path for that. Most questions are click-to-pick, and "defaults are fine" is a valid answer to the whole customization step.
+**The setup interview takes about fifteen minutes.** Have your resume or a PDF of your LinkedIn profile handy.
 
 **It takes the name you give it.** The first thing setup asks is what you want to call your search, and every file it writes uses your name instead of Bishop.
 
@@ -86,7 +86,7 @@ You don't need to type either name. Describe what you want, or use the name you 
 
 ## What it touches
 
-**Bishop reads a lot and writes only to your machine.** Everything that reaches an account of yours is off by default and turned on one at a time during setup: your browser session, Slack, calendar, and read-only email intake.
+**Bishop reads public information and writes only to your machine.** Everything that reaches an account of yours is off by default but can be turned on one at a time during setup: your browser session, Slack, calendar, and read-only email intake.
 
 > **The browser session is the one with a prerequisite.** It needs Claude's browser extension installed and signed in, and it's worth having, since your logged-in job-board feed and alerts are invisible to anonymous search. Setup checks and tells you if it's missing.
 
@@ -94,13 +94,11 @@ You don't need to type either name. Describe what you want, or use the name you 
 
 **Nothing is sent anywhere.** Your profile, your tracked roles, and your digest stay on your machine and in your own repo. There is no account, no telemetry, and no server. The author receives nothing.
 
-**Searching while employed?** Say so at setup. One switch keeps the search off your work Slack, off a shared calendar, out of your commit messages, and excludes your current employer from results.
-
 > Full detail on every integration and its scope is in [the plugin's own README](bishop/README.md), which is also what lands in your skills folder after install.
 
 ## Author and license
 
-By **Adam Hilliard**, [linkedin.com/in/adamhilliard](https://linkedin.com/in/adamhilliard), an HR executive who built it to run his own search and then generalized it so other people could use it.
+By **Adam Hilliard**, [linkedin.com/in/adamhilliard](https://linkedin.com/in/adamhilliard), an HR executive who built it to run his own search and then generalized it so other people could use it, co-built with L&D Expert **Danielle Beram** ([linkedin.com/in/danielle-beram](https://linkedin.com/in/danielle-beram)) and inspired by Recruiting Ops Expert **Loren Boykoff** ([linkedin.com/in/lorenboykoff](https://linkedin.com/in/lorenboykoff)).
 
 MIT, see [LICENSE](LICENSE). Use it, change it, pass it on, with the copyright line kept. If it helps you land something, say so; that's the only thing asked in return.
 
