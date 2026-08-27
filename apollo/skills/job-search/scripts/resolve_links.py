@@ -62,7 +62,17 @@ BODY_CAP = 200000             # bytes of page read; we need markers, not content
 # 1. An expiry marker in the final URL after redirects. Cheapest and most
 #    definitive: boards redirect a dead posting to a search page and name the
 #    reason in a tracking parameter.
+#
+#    THE ABBREVIATED FORMS MATTER AS MUCH AS THE SPELLED-OUT ONES. The largest
+#    board's marker is `trk=expired_jd_redirect`, and `expired_jd` matches none
+#    of the `expired_job` spellings below. One word apart, and the single most
+#    common expiry signal any search will meet came back `live` for three
+#    releases. Found on a port, by a test written against what a board actually
+#    sends rather than against what the list already had.
+#
+#    Match on the stem. A guess at the whole parameter name is how this broke.
 URL_EXPIRY_MARKERS = (
+    "expired_jd_redirect", "expired_jd", "expired-jd",
     "jobnotfound", "job-not-found", "job_not_found",
     "expiredjob", "expired-job", "expired_job",
     "positionfilled", "position-filled",
@@ -79,6 +89,7 @@ PAGE_EXPIRY_PATTERNS = (
     r"applications? (?:are )?(?:now )?closed",
     r"we are no longer accepting applications",
     r"this posting has been filled",
+    r"job not found",          # one major ATS says exactly this and no more
 )
 
 # 3. A hard gone-status on the rendered requisition page itself.

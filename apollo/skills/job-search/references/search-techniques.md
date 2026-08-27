@@ -522,6 +522,8 @@ Priority order, and don't let it expand past the first two categories when time 
 ### Technique: expiry markers and batched checks
 
 - **Job boards usually mark expiry in the URL.** A dead posting often redirects to a generic search page carrying a tracking parameter that names the redirect as an expiry. That parameter is definitive and cleaner than reading page text, and it's distinct from the "no longer accepting applications" banner a posting shows while still on its own page.
+- **⚠️ Match the parameter a board actually sends, never a reasoned-out guess at it.** The largest board abbreviates the middle word of its marker, so a matcher built from the spelled-out spellings missed every expiry that board produced while looking like it worked. **If the check finds no expiries at all across several cycles, suspect the matcher before believing the market.**
+- **Some closure pages say three words and stop.** A banner matcher tuned to full sentences walks straight past them, so keep the terse forms in the list alongside the sentences.
 - **Batch the checks from a page already on that origin.** A same-origin fetch over several job IDs returns each requisition's final URL and title in one call, which turns a four-row freshness check into one request.
 
 ### Technique: dating a posting for free

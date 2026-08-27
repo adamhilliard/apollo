@@ -45,6 +45,7 @@ PAGE = "<html><body><p>" + ("a real job description. " * 60) + "</p></body></htm
 SHELL = "<html><body><div id='root'></div></body></html>"
 CLOSED = "<html><body><h1>This job is no longer accepting applications.</h1>" \
          + ("filler " * 100) + "</body></html>"
+TERSE_GONE = "<html><body><h1>Job not found</h1>" + ("filler " * 100) + "</body></html>"
 
 LIVE_URL = "https://boards.example.com/jobs/1"
 
@@ -77,6 +78,34 @@ def test_classification():
           R.classify("https://b.example.com/jobs/403", f)[0], R.UNVERIFIED)
     check("a timeout is NOT expired",
           R.classify("https://b.example.com/jobs/timeout", f)[0], R.UNVERIFIED)
+
+
+def test_real_world_markers():
+    """The markers boards actually send, not the ones the list already had.
+
+    Both of these shipped broken through 1.6.0-1.6.2. The URL marker is the
+    important one: it belongs to the largest board any search will hit, so the
+    single most common expiry signal in the wild resolved `live`.
+    """
+    print("markers boards actually send")
+
+    req = "https://www.example-board.com/jobs/view/4443209325/"
+    redirected = ("https://www.example-board.com/jobs/search?"
+                  "trk=expired_jd_redirect&origin=JOB_SEEKER_HOME")
+    f = stub({req: (200, redirected, PAGE)})
+    state, why = R.classify(req, f)
+    check("an abbreviated URL marker (expired_jd) is expired", state, R.EXPIRED)
+    check("the evidence names the marker", "expired_jd" in why, True)
+
+    terse = "https://b.example.com/jobs/terse"
+    f = stub({terse: (200, terse, TERSE_GONE)})
+    check("a page saying only 'Job not found' is expired",
+          R.classify(terse, f)[0], R.EXPIRED)
+
+    # The guard the two additions must not weaken: neither new pattern may
+    # fire on a page that is simply describing a job.
+    f = stub({LIVE_URL: (200, LIVE_URL, PAGE)})
+    check("a live posting still resolves live", R.classify(LIVE_URL, f)[0], R.LIVE)
 
 
 def run(rows, canary, table):
@@ -134,6 +163,7 @@ def test_count_line():
 
 if __name__ == "__main__":
     test_classification()
+    test_real_world_markers()
     test_canary_gate()
     test_count_line()
     print()
