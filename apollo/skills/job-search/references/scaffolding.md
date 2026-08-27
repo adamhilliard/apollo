@@ -313,9 +313,11 @@ COVERAGE: linkedin COMPLETE 933 · ats 25/25 COMPLETE · lever 6 · greenhouse 4
 CANARY: icims PASS 3 employers · bamboohr FAIL
 EVENTS: 4 new · 2 expired · 1 applied · 1 below-cap
 GATE: 4 assessed · 0 flagged
+RESOLVE: 24 read · 17 live · 5 expired · 2 unverified · canary PASS
 NOTE: <one line, only when something needs saying>
 ```
 
+- **The `RESOLVE` line is the resolver’s only artifact, for the same reason.** **A run where every link was live and a run where the resolver never fired write the same table.** Required on every entry with a nonzero `new` count, and **it must carry the canary result**: an expiry claim behind a failed canary is a reachability problem wearing a market event’s clothes. Audit check E8 reads this line.
 - **The `GATE` line is the reliability gate’s only artifact on a clean run,** which is why it is a required field rather than a nicety. **A gate that finds nothing and a gate that never ran write the same table**, and this count is the only thing separating them. Report it on every entry with a nonzero `new` count, zeros included.
 - **The `COVERAGE` line is what the weekly audit parses**, so keep the shape exactly: source name, status, count, then per-member counts for any group. **Zeros included.** See rules 2 and 4 in `search-techniques.md` for why each field is there.
 - **Cap each entry at roughly 4KB.** Two weeks of these gets read every cycle, so an entry that grows a "the lesson here is" paragraph is charging every future run for it.
@@ -404,8 +406,10 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
 
 7. RESOLVE the apply link for every row that would be presented, new
    rows and BELOW THE CAP rows included, before any research or
-   scoring. Batch same-origin checks per search-techniques.md. Record
-   one of three posting states, never two:
+   scoring. Run scripts/resolve_links.py with a --canary URL known to
+   be live; do not hand-roll this. Report its RESOLVE count and canary
+   result in Search Notes. It records one of three posting states,
+   never two:
      - live       the requisition page renders
      - expired    confirmed dead on the rendered page, or an expiry
                   marker in the redirect URL

@@ -407,6 +407,38 @@ def execution(project, prompt_path, budget_kb):
             ok("E7", "%d of %d entries report a gate count; every entry adding a "
                      "row has one" % (len(with_gate), len(scored)))
 
+    # E8 the resolver ran. Same argument as E7 one surface over: a cycle
+    # where every link resolved live and a cycle where the resolver never ran
+    # produce identical tables. The RESOLVE count is the only separator.
+    with_resolve = [e for e in scored if re.search(r"^RESOLVE:", e, re.M)]
+    if not scored:
+        blocked("E8", "no Search Notes entries found; nothing to check")
+    elif not with_resolve:
+        blocked("E8", "no entry reports a RESOLVE line yet; link resolution is "
+                      "not in use on this search (see search-techniques.md)")
+    else:
+        gaps, untrusted = [], []
+        for e in scored:
+            head = e.splitlines()[0][:40] if e.splitlines() else "?"
+            m = re.search(r"^EVENTS:.*?(\d+)\s+new", e, re.M)
+            added = int(m.group(1)) if m else 0
+            r = re.search(r"^RESOLVE:\s*(.+)$", e, re.M)
+            if added and not r:
+                gaps.append(head)
+            elif r and re.search(r"canary\s*(fail|none)", r.group(1), re.I):
+                untrusted.append(head)
+        if gaps:
+            trip("E8", "entr(ies) added rows with no RESOLVE count, so an "
+                       "unrun resolver is indistinguishable from a clean one: "
+                       "%s" % ", ".join(gaps))
+        elif untrusted:
+            trip("E8", "entr(ies) resolved without a passing canary, so no "
+                       "expiry that cycle can be trusted: %s"
+                       % ", ".join(untrusted))
+        else:
+            ok("E8", "%d of %d entries report a resolve count; every entry "
+                     "adding a row has one" % (len(with_resolve), len(scored)))
+
     # E6 index and archive agree, once a tracking file has been split
     idx = glob.glob(os.path.join(project, "Index_*.md"))
     if not idx:

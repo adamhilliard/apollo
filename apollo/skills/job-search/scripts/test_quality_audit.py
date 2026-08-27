@@ -46,6 +46,24 @@ CANARY: icims PASS
 EVENTS: 3 new · 1 expired
 """
 
+RESOLVE_CYCLES = u"""
+### 2026-08-04 · cycle 1
+COVERAGE: linkedin COMPLETE 933 · lever 6 · icims 3
+CANARY: icims PASS
+EVENTS: 2 new · 0 expired
+GATE: 2 assessed · 0 flagged
+RESOLVE: 12 read · 10 live · 2 expired · 0 unverified · canary PASS
+
+### 2026-08-05 · cycle 2
+COVERAGE: linkedin COMPLETE 901 · lever 7 · icims 4
+CANARY: icims PASS
+EVENTS: 3 new · 1 expired
+GATE: 3 assessed · 0 flagged
+"""
+
+RESOLVE_LINE = (u"RESOLVE: 12 read · 10 live · 2 expired · 0 unverified"
+                u" · canary PASS\n")
+
 METHODOLOGY = u"""# Methodology
 
 ### Queries
@@ -149,6 +167,25 @@ def main():
     # ...but a search that has never adopted the gate is blocked, not failed.
     case("gate never adopted", None, cycles=GATE_CYCLES.replace(
         u"GATE: 2 assessed · 0 flagged\n", u""))
+
+    # E8: cycle 2 added rows and reported no resolve count. Same argument as
+    # E7 one surface over: an unrun resolver and a clean one write the same
+    # table, and the table is the thing the user clicks.
+    case("resolver not reported on a cycle that added rows", "E8",
+         cycles=RESOLVE_CYCLES)
+
+    # A search that has never adopted the resolver is blocked, not failed.
+    case("resolver never adopted", None,
+         cycles=RESOLVE_CYCLES.replace(RESOLVE_LINE, u""))
+
+    # An expiry behind a failed canary is a reachability problem wearing a
+    # market event's clothes, so a reported-but-untrusted run still trips.
+    case("resolver ran without a passing canary", "E8",
+         cycles=RESOLVE_CYCLES.replace(
+             u"GATE: 3 assessed · 0 flagged",
+             u"GATE: 3 assessed · 0 flagged\n"
+             u"RESOLVE: 9 read · 0 live · 0 expired · 9 unverified"
+             u" · canary FAIL"))
 
     print("all cases passed")
 
