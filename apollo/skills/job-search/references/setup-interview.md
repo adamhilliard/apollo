@@ -24,6 +24,43 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 
 ---
 
+## Before anything: can this actually run here?
+
+**Silent. A capability probe, not a question.** Apollo needs Claude Code. In the Chat and Cowork surfaces it appears to work for one run and then degrades, spending a large share of the user's usage to arrive at a worse result. That is the most expensive way for someone to find out they are in the wrong place. **Probe before the splash, never after**, so nobody reads the letter and then gets turned away.
+
+**Probe in this order, and stop at the first failure.**
+
+| Probe | How | What it proves |
+|---|---|---|
+| **Run a shell command** | Anything trivial that returns output | The strongest single signal. No shell means this is not Claude Code |
+| **Run Python** | `python --version`, falling back to `python3` | The bundled sweeps and the weekly audit are Python, and they are not optional |
+| **Write a file** | Write and delete a scratch file in the project folder | The profile and tracking files have somewhere to live |
+| **Schedule a task** | Confirm the capability exists. Do not create one yet | The cycle and the audit are the product. Without this, Apollo is a one-off search |
+
+**All four pass: say nothing at all.** Go to the existing-search check below, then the splash. A user in the right place never learns this happened.
+
+**Any probe fails: stop.** Do not run the interview, do not print the splash, do not start a search.
+
+**Say:**
+
+> Before we start: I can't set up your search from here. I need to be over in Code, which is the part of Claude where I can save your profile onto your own computer and run your search for you on a schedule.
+>
+> It's still Claude, and it still works by chatting, so nothing changes for you except where we're talking.
+>
+> 1. Look down the left-hand side of this app for **Code**, and click it.
+> 2. Start a new conversation there.
+> 3. Say "help me set up a job search" and I'll pick up right where we left off.
+
+- **Then stop and wait.** Don't offer a reduced version, don't offer a one-off search "in the meantime," and don't start collecting answers to reuse later. A partial interview held in a conversation that cannot write files is gone the moment that conversation ends, and the user will believe their work was saved.
+- **Never name the failing probe.** "I can't run a shell command" means nothing to them. "I can't save your profile onto your computer" does.
+- **Never send anyone to the command line, and never say "CLI", "terminal", or "install".** Assume the person reading this has never opened a terminal and does not know what one is. **The Code tab in the desktop app is a chat box, not a terminal, and that is the only route to offer.** If they are already in a terminal they did not need the instruction anyway.
+- **Reassure before instructing.** The fear is that they are being sent somewhere technical. Say it is still Claude and still a conversation, then give the click.
+- **Tab names and menu paths change between app versions, and this file cannot chase them.** If what you see doesn't match the words above, describe the equivalent step in the app the user is actually in. `claude.com/claude-code` is the durable fallback and should always be offered.
+
+> **Why this is a stop and not a warning.** These surfaces degrade after the first run rather than failing at it, so a user who is warned and proceeds anyway gets a result that looks fine once, then quietly gets worse while consuming far more of their usage than the same work costs in Claude Code. There is no version of "let them try it and see" that ends well for them.
+
+---
+
 ## Before you start: is there already a search here?
 
 **Check the project folder for an existing Apollo file set before the splash.** Look for `Reference_Profile.md` (older setups keep a single profile file under another name; a `Methodology.md` or `Tracking_*.md` counts too). **No such file means a first run: go straight to the splash and skip this section entirely.** Only when one exists, stop and ask, because a fresh interview writing over a live search is exactly the "rebuild wasn't fresh" failure a user reported.
@@ -125,7 +162,28 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 | **Yes, set it up** (Recommended) | One approval now, then I run without interrupting you |
 | **No, ask me each time** | I'll ask before each action |
 
-**On yes,** write the allowlist to the project's `.claude/settings.json` (that write is the one approval they'll see). Use the block in the plugin README's "Fewer permission prompts" section. Then say in one plain line that this covers your scheduled runs and every future session, and that this one session might still ask a couple more times before it takes full effect.
+**On yes,** write this to the project's `.claude/settings.json`. That write is the one approval they'll see.
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read", "Glob", "Grep",
+      "Write", "Edit",
+      "WebSearch", "WebFetch",
+      "Bash(python:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
+```
+
+- **Merge, never overwrite.** If the file already exists, add any missing entries to `permissions.allow` and leave everything else in it alone. A user who already tuned their own settings should not lose them to this step.
+- **What is deliberately absent, and stays absent:** `Bash(git push:*)`, any delete or `rm`, and any blanket `Bash(*)`. Apollo commits locally; nothing here sends anything outward, and a cycle that wants a command outside this list should stop and ask. **Do not widen the list to clear a prompt.** If a run keeps stopping on something, that is worth the user seeing.
+- **`Bash(python:*)` is the broadest line here** and it is what runs the bundled sweeps and the weekly audit. It is scoped to this project by virtue of living in the project's own settings file.
+
+**Then say, in one plain line:** this covers their scheduled searches and every future session, and this one session might still ask a couple more times before it takes effect.
 
 ---
 
@@ -252,9 +310,12 @@ Options: *No · Yes*. Postings state this, so it's a reliable screen and the one
 
 > LinkedIn is a great source for roles, so I strongly recommend connecting it. It pulls in your personalized feed and the alerts no anonymous search can reach. It takes a few minutes to set up once, then it just runs.
 >
-> 1. Install the Claude browser extension in the browser you job-search from: {extension link}.
-> 2. Sign in to the extension with your Claude account, and make sure you're logged in to LinkedIn in that same browser.
-> 3. Tell me when that's done and I'll confirm the connection.
+> 1. Add Claude to the browser you job-hunt in. Here's the one-click link: {extension link}. It's a small add-on from Anthropic, the same people who make Claude.
+> 2. Sign in with your Claude account when it asks.
+> 3. Make sure you're logged in to LinkedIn in that same browser.
+> 4. Tell me when that's done and I'll confirm the connection.
+>
+> One thing so it doesn't surprise you later: when I run a search, you'll see me open a browser window and move around LinkedIn on my own. That's me reading your feed and alerts. **I only ever read.** I never apply, never message anyone, never post, and never look at anyone's profile.
 
 Then list the connected browsers, confirm which is theirs, and record its identifier in the profile. **Never record an identifier you did not read off a connected browser.** If none appear, have them reopen the browser and re-sign in, then check again.
 
@@ -270,7 +331,19 @@ Options: *🟦 Slate blue* `#4F6D9F` (Recommended) · *🟩 Forest green* `#2E7D
 
 **How it runs · picker,** one call, two questions. **Say the recommendation and its reason in one line first.**
 
-- **`Schedule`**, single-select: *Monday and Thursday* (Recommended) · *Monday, Wednesday, Friday* · *Every weekday*. Then: "Running more often catches fast-expiring postings but uses more tokens."
+- **`Schedule`**, single-select: *Monday and Thursday* (Recommended) · *Monday, Wednesday, Friday* · *Every weekday*.
+
+**Then say, close to verbatim:**
+
+> Running more often catches postings that disappear fast, but every run uses part of your weekly Claude usage.
+>
+> **Twice a week is the sweet spot, and on a Claude Pro plan it's the one I'd stick to.** Testing puts two runs at about half your weekly usage, which leaves the rest of the week for everything else you do with Claude. Every weekday would use it all up before the week is out.
+
+> **Where that number comes from, and when to stop trusting it.** Measured across 16 real scheduled runs of a live senior-level search in August 2026: one cycle averaged ~22M input-equivalent tokens, two a week came in at roughly half a Pro weekly limit, and five a week exceeded it outright. **Anthropic publishes no absolute limit for any plan**, so this is derived from measured consumption against a known-larger plan, not read off a spec.
+>
+> - **A high-volume early-career search runs heavier than the search this was measured on.** At that band, treat two a week as the ceiling rather than a comfortable default, and say so plainly.
+> - **Per-run cost grew 67% over the three weeks measured.** Re-measure before quoting a different number, and never quote a figure this file has not been updated to carry.
+
 - **`Delivery`**, single-select: *Chat and a dashboard* (Recommended) · *Just here in chat*. The dashboard is a private web page with your ranked roles as cards you can filter and save; if they pick it, describe it that way. **It gets built and handed over as a link right after the first search, not by a command they have to find.**
 
 **Name · picker,** single-select, header `Name`, **asked last. Say:**
@@ -307,13 +380,15 @@ Run these after the Essentials questions for someone who chose Everything, befor
 
 > Want me to look up the major employers near you and list them back as other targeted options?
 
-Options: *Yes, find them · No thanks*. **On yes,** ask the radius (single-select: *Within a 30-minute drive · Within an hour · My whole metro area*), then research employers around the home city within it and present the list for them to keep or cut. Resolve names to boards with `scripts/resolve_boards.py`; the result becomes `Employer_Index.md`, swept every cycle. **A named list changes which employers get looked at, never a screen.**
+Options: *Yes, find them · No thanks*. **On yes,** ask the radius (single-select: *Within a 30-minute drive · Within an hour · My whole metro area*), then research employers around the home city within it and present the list. **End with a question, never a bare instruction.** A list that ends "cut anything wrong" leaves the user unsure whether a reply is expected, and the flow stalls. **Say:**
+
+> Any companies here you wouldn't want to work for? Tell me which to drop, or say "looks good" and I'll keep them all. Resolve names to boards with `scripts/resolve_boards.py`; the result becomes `Employer_Index.md`, swept every cycle. **A named list changes which employers get looked at, never a screen.**
 
 ### F. Your field's sources (~2 min)
 
 **Say:**
 
-> Every cycle already runs LinkedIn, 25 applicant tracking systems, VC portfolio boards, the big aggregators, and any company you name. Are there any central hubs specific to your chosen career? For example, professional affiliations and certification providers often have job boards.
+> I already check LinkedIn, the 25 hiring systems most companies post through, the job pages startup investors keep for their companies, the big job-listing sites, and any company you name. Are there any job boards specific to your line of work? Professional associations and certification bodies often run one.
 
 Vet each source once and record the verdict, so no later cycle re-chases a dead end.
 
@@ -343,8 +418,20 @@ Work through these in order. Keep every spoken line plain, per the language rule
 
    > Once a week I also run a quick self-check on the machinery behind your search: whether every source is really returning what it claims, whether I'm still catching roles I should be, and whether Apollo itself has an update. It's what catches a source that's quietly broken before it costs you weeks of missed jobs. It starts next week, once there's a cycle to check against.
 
-4. **Run the first search and deliver the digest** to the channel they chose.
+4. **Warn them what the first run looks like, before starting it.** This is the moment people bail, and everything in it is expected behavior that looks alarming unannounced. **Say:**
 
-5. **If they chose the dashboard, build and publish it now,** right after that first search, by following the `dashboard` skill (`skills/dashboard/SKILL.md`) end to end: build `dashboard.html`, publish it as a private page, wire its regeneration into the cycle task, then hand them the link and say it's private until they share it. **Do not leave this for a command they have to discover.** If they chose chat only, skip this entirely.
+   > Last thing before I go find your first roles. This run takes a while, and you'll want to be around for it.
+   >
+   > - I'll ask your permission a lot on this first run. That's normal, and it settles down afterwards.
+   > - You'll see me open a browser and move around on my own. That's me reading job boards and your LinkedIn.
+   > - If I go quiet for a stretch, I'm working, not stuck.
+   >
+   > After this one, your searches run on their own schedule without you.
 
-6. **Say plainly which answers were thin,** because those are the rules that will need correcting after the first two or three cycles, and **state the known limitations from `feedback-loop.md` out loud**, so nothing there gets mistaken for a bug later.
+   > **The permission storm is real and it is not a bug.** The approval step earlier writes the permission block, but settings do not take effect mid-session, so this first run gets no benefit from it. **Do not promise otherwise, and do not tell them it will be quiet.** From their next session on, it is.
+
+5. **Run the first search and deliver the digest** to the channel they chose.
+
+6. **If they chose the dashboard, build and publish it now,** right after that first search, by following the `dashboard` skill (`skills/dashboard/SKILL.md`) end to end: build `dashboard.html`, publish it as a private page, wire its regeneration into the cycle task, then hand them the link and say it's private until they share it. **Do not leave this for a command they have to discover.** If they chose chat only, skip this entirely.
+
+7. **Say plainly which answers were thin,** because those are the rules that will need correcting after the first two or three cycles, and **state the known limitations from `feedback-loop.md` out loud**, so nothing there gets mistaken for a bug later.

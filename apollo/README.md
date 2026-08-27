@@ -1,12 +1,29 @@
 # Apollo
 
-A recurring job search that runs itself in Claude Code. It interviews you once to learn what you're after, then works on a schedule: finding new roles across job boards and company career pages, checking each posting is real and still says what it said, ranking them against what actually matters to you, and handing you a ranked digest.
+A recurring job search that runs itself in Claude. It interviews you once to learn what you're after, then works on a schedule: finding new roles across job boards and company career pages, checking each posting is real and still says what it said, ranking them against what actually matters to you, and handing you a ranked digest.
 
 Works at any career level, from first job to executive search.
 
 ## Install
 
-**Recommended, two commands in Claude Code:**
+**About a minute, and the only typing is one paste.**
+
+1. Open the Claude app on your computer.
+2. Click **Customize** in the left sidebar, then **Plugins**. (Plugins are free add-ons for Claude. Apollo is one of them.)
+3. Click **Add plugin**, then **Add marketplace**, then **Add from repo**. Nothing here costs anything.
+4. Paste `adamhilliard/apollo` into the box. That's Apollo's address.
+5. Click **Sync**, then click **Install** on **Apollo Job Search**.
+6. Start a **new conversation**. Apollo won't show up in one that's already open.
+7. Say: *"Help me set up a job search."*
+
+**Stuck?** Close Claude, open it again, and try step 6.
+
+**To update later:** open that same Plugins screen and click **Sync**.
+
+<details>
+<summary><b>Prefer to type? Two lines instead of the clicks.</b></summary>
+
+In Claude Code, type these into the chat box and press enter after each:
 
 ```
 /plugin marketplace add adamhilliard/apollo
@@ -16,28 +33,39 @@ Works at any career level, from first job to executive search.
 /plugin install apollo@apollo
 ```
 
-If the install summary says `Run /reload-plugins to activate`, run that. Otherwise you're done. You'll get updates when you run `/plugin marketplace update`.
+The odd-looking `apollo@apollo` is correct: it's the plugin's name, then where it came from. If the summary says `Run /reload-plugins to activate`, run that. Update later with `/plugin marketplace update`.
 
-**No marketplace? Drop the folder in instead.** Download `apollo.zip` from the [latest release](https://github.com/adamhilliard/apollo/releases) and unzip it into your skills directory:
+</details>
+
+<details>
+<summary><b>Installing without the plugin screen (advanced).</b></summary>
+
+Download `apollo.zip` from the [latest release](https://github.com/adamhilliard/apollo/releases) and unzip it into your skills directory:
 
 | | Path |
 |---|---|
 | **macOS / Linux** | `~/.claude/skills/` |
 | **Windows** | `%USERPROFILE%\.claude\skills\` |
 
-You should end up with `.claude/skills/apollo/.claude-plugin/plugin.json`. Restart Claude Code and it loads as `apollo@skills-dir`, no install step.
+You should end up with `.claude/skills/apollo/.claude-plugin/plugin.json`. Restart Claude Code and it loads with no install step.
 
-**Just want to try it?** Point Claude Code at the zip for one session, with nothing written to your skills directory:
+Or, to try it for one session without writing anything to your skills directory:
 
 ```bash
 claude --plugin-dir apollo.zip
 ```
 
-**Then start it.** Make a folder for your search, open Claude Code in it, and say:
+</details>
 
-> Help me set up Apollo.
+## Then start it
 
-Have your resume or a LinkedIn PDF handy. Setup walks you through the rest and hands you your first digest. It also offers to add a permission rule so it isn't stopping to ask before every file it writes or search it runs, which is also what lets the scheduled runs work on their own.
+Open a new conversation and say:
+
+> Help me set up a job search.
+
+Have your resume or a LinkedIn PDF handy. Apollo asks where to save your files, then walks you through the rest and hands you your first digest.
+
+It'll also ask for a one-time OK so it doesn't have to interrupt you at every step, and so your searches can keep running on schedule while you're away.
 
 **What you installed:**
 
@@ -54,7 +82,7 @@ Apollo reads a lot and writes only to your machine. **Anything that reaches one 
 
 | | What it does |
 |---|---|
-| **Web search** | Job boards, applicant tracking systems, and Venture Capital portfolio boards. All public pages |
+| **Web search** | Job boards, the hiring systems companies post to directly, and the job pages startup investors keep for their companies. All public pages |
 | **Your browser session** *(optional)* | Reads your logged-in job-board feed and alerts, which anonymous search can't see. **Needs Claude's browser extension.** **Browsing only.** It never applies, never messages, never views anyone's profile |
 | **Your files** | Writes a folder for your search in the place you started it. Everything stays on your computer |
 | **Slack** *(optional)* | Posts your digest to your own DM or a private channel you own. Never a shared channel |
@@ -67,7 +95,9 @@ Nothing leaves your computer: your profile, your saved roles, and your digest al
 
 ## Uninstall
 
-`/plugin uninstall apollo@apollo` if you installed from the marketplace, or delete the `apollo` folder from your skills directory if you dropped it in. Nothing else to undo.
+Open the same Plugins screen where you installed it and click **Uninstall**. Nothing else to undo.
+
+(If you installed by typing, `/plugin uninstall apollo@apollo` does the same thing. If you dropped the folder in by hand, delete the `apollo` folder you unzipped.)
 
 **Your search stays.** The project folder Apollo wrote is yours: plain markdown, readable and useful without the plugin. Removing the tooling doesn't touch it, and the scheduled tasks are yours to delete when you want them gone.
 

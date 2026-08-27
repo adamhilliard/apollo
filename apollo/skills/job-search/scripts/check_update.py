@@ -87,7 +87,7 @@ def main():
         return 0
     if parse_version(latest) > parse_version(installed):
         line = (u"**Apollo update available:** Apollo %s is out (you have %s). "
-                u"Run `/plugin marketplace update` in an interactive session, or "
+                u"To update: open Claude's Plugins screen and click Sync. Or "
                 u"see the [releases page](https://github.com/%s/releases)."
                 % (latest.lstrip("vV"), installed, GITHUB_REPO))
         try:

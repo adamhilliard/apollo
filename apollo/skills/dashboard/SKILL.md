@@ -9,6 +9,11 @@ Turns a job search's tracking files into a private, interactive web dashboard th
 
 **Prerequisite:** the `job-search` setup interview has been completed and at least one search cycle has run. This skill reads the files that setup created.
 
+> **Say it in plain language, on the page and out loud.** This is the surface the user looks at most, and it is the one place internal vocabulary reaches them every single day. **Nothing rendered on the page or spoken about it carries a file path, a script name, a platform slug, or a system word** like "artifact," "localStorage," "fetch," "cycle," "rubric," "bucket," or "hard excludes." Name each thing by what it does for them. **The build notes in this file are for you and stay technical**; what the page says does not.
+>
+> - **The user learned a vocabulary during setup, and the page must not invent a second one.** They were told about their *search* and its *runs*. They chose *what matters to them* and *the lowest salary they'd accept*. Those are the words on the page.
+> - **Never print a platform's own name.** The scripts emit `getro`, `icims`, `lever`, `greenhouse`, `ashby`, `bamboo`. On the page, `getro` is "startup investor job pages" and every ATS platform is "company hiring systems," the same translation the digest's coverage note uses.
+
 > **Use the name the user gave their search, not "Apollo."** The interview's opening question set it and the profile records it as a named field. That name is the page's masthead and how the user refers to the thing in conversation.
 
 **What the user gets:** a stat band up top (active roles, top score, disclosed-pay count, saved count), then a ranked card per role with a score ring, a pass/fail chip for each scoring bucket with the reason on hover, comp and flags at a glance, and expandable details with a working apply link. Filters cover track, minimum score, disclosed pay, and remote. Every card carries save-for-later and archive buttons. Published as a private Claude artifact at a stable URL that the scheduled search task republishes after every run, so the bookmark never goes stale.
@@ -53,9 +58,9 @@ One self-contained file: inline CSS, inline vanilla JS, **zero external requests
 
 **Layout spec, battle-tested. Deviate on style, not structure:**
 
-- **Header:** dashboard name, cycle number and date, and a one-line **source-status strip** (each source ✓, or the failure reason). Surfacing failed sources is a core feature of the bot, so keep it visible. No taglines or decorative eyebrows; they get deleted within a day.
-- **Stat band** (a "hero" card): 3 to 5 KPI tiles computed *from the embedded data at load time*, not hard-coded. For example a Fresh count with per-track split, in-play count broken down by stage, top score plus company, disclosed-pay count with median midpoint. Skip decorative mini-charts unless the user asks; tiles earn their place, ornaments don't. **Lead with the Fresh tile**, the count of roles not acted on: that is the number they open the page for.
-- **Sticky toolbar of filter buttons:** track tabs (All plus one per track) · min-score thresholds · **stage filter: Fresh / In play / All, defaulting to Fresh** · status views: Active / Saved / Archived · disclosed-pay-only and remote-only toggles · a "N shown · N saved · N archived" counter. Keep stage and status in visually separate groups; see the stage section below for why.
+- **Header:** the name they gave their search, the search number and date (**"Search #7 · March 12"** — the word is *search*, never "cycle," anywhere on the page), and a one-line **source-status strip** (each source ✓, or the failure reason, **named in plain words, never by platform slug**). Surfacing failed sources is a core feature of the bot, so keep it visible. No taglines or decorative eyebrows; they get deleted within a day.
+- **Stat band** (a "hero" card): 3 to 5 KPI tiles computed *from the embedded data at load time*, not hard-coded. For example a Fresh count with per-track split, in-play count broken down by stage, top score plus company, and a count of roles that list their pay with the typical figure. **Label the tiles in plain words:** "Pay listed," not "disclosed pay"; "typical: $145K," not "median midpoint." Skip decorative mini-charts unless the user asks; tiles earn their place, ornaments don't. **Lead with the Fresh tile**, the count of roles not acted on: that is the number they open the page for.
+- **Sticky toolbar of filter buttons:** track tabs (All plus one per track) · min-score thresholds · **stage filter: Fresh / In play / All, defaulting to Fresh** · status views: Active / Saved / Archived · **Pay listed**, **Remote only**, and **Hide closed roles** toggles (**Hide closed on by default**; the count of what it hides shows next to it, so nothing disappears silently) · a "N shown · N saved · N archived" counter. Keep stage and status in visually separate groups; see the stage section below for why.
 
 > **Open on Fresh, not on All.** The page exists to answer "what haven't I dealt with yet," and once most of the board is in play, an unfiltered default buries that answer under roles needing nothing. Ordering the control Fresh · In play · All puts the default first and the firehose last.
 
@@ -63,7 +68,7 @@ One self-contained file: inline CSS, inline vanilla JS, **zero external requests
   - a **score ring** (conic-gradient donut, no chart library) colored per track, `score/N` in the center
   - company name (hyperlinked, verified homepage) plus one-line bio and location
   - title; comp in tabular numerals (undisclosed styled muted/italic)
-  - one **chip per bucket**: ✓ / ✗ / ? with the 4 to 12-word reason as the `title` tooltip
+  - one **chip per scoring check**: ✓ / ✗ / ? with the 4 to 12-word reason as the `title` tooltip. **Give the row a one-line legend** (“green means it matches what you asked for”); an unexplained ? reads as a bug
   - **flags** as small callout rows (stretch flags, below-bar comp, level ambiguity, whatever the tracking file carries)
   - a details expander listing every bucket's full reason, ending in an **Apply button** with the real link
 - **Card actions (top-right):** ☆ save-for-later (toggles; saved roles get a SAVED tag and populate the Saved view) and ✕ archive (hides from Active; the Archived view shows an ↩ Restore button). Persist statuses in `localStorage` keyed by a stable id (`encodeURIComponent(company + "|" + title)`) so they survive republishes. Event-delegate clicks on the card list; re-render (including the stat tiles) after every change. **Suppress ✕ archive on in-play cards.** Hiding a role you have applied to is a footgun.
@@ -80,7 +85,11 @@ The point of the dashboard is answering "what haven't I dealt with yet." Once a 
 - **In-play cards show different information.** Stage tag, date, and a one-line "what happens next" callout. Score is history once you have applied, so it stops being the headline.
 - **Compute day counts at load, not at generation.** `Applied 12 days ago` stays accurate between cycles, and it is the one thing a static page genuinely cannot do otherwise. Flag an application with no reply past a threshold (10 days works) in the card and in the stat tile.
 - **Keep the vocabulary tiny:** `open`, `applied`, `interviewing`. Resist encoding how a role arrived (inbound vs outbound) as a stage; that is a note. Stage tracks what happens next.
-- **Two collapsible panels at the bottom:** (1) a compact restatement of the rubric, meaning what each bucket means, the comp bar, and the hard excludes, so the scores are self-explaining; (2) cycle notes plus decisions needed, mirroring whatever the latest digest flagged, with resolved decisions marked as decided rather than deleted.
+- **Posting status is a separate axis from stage, and never a stage value.** Stage is what the user does next; posting status (live / expired / unverified) is a fact about the requisition. **Render it as a badge on the card, not as a stage chip**, so "Applied · Expired" stays expressible. That combination is the one users most need to see: the application is live even though the posting closed. Folding expiry into stage would overwrite the fact that they applied.
+  - **Badge wording is plain:** **Closed** for expired, **Couldn’t check** for unverified, and nothing at all for live. Never "expired" as a bare status code, and never show a badge on a live role.
+  - **Grey out the apply button on a closed role** rather than removing the card. The row still carries its research and its score.
+  - **Sort live above closed at equal score.** A closed role holding the #2 slot in a stack-rank is the complaint this came from.
+- **Two collapsible panels at the bottom:** (1) a compact restatement of how roles are scored, so the numbers explain themselves — **head these panels "How roles are scored," "What each check means," "Your pay floor," and "What I always skip," never "rubric," "buckets," "comp bar," or "hard excludes"**; (2) notes from the latest search plus decisions needed, mirroring whatever the latest digest flagged, with resolved decisions marked as decided rather than deleted.
 
 > **The rubric panel is a second copy of rules that live in the profile, and second copies go stale silently.** A superseded comp floor once survived on a published page for a full cycle after the real rule changed, because regeneration only ever touched the roles array. Two mitigations, and do both: generate the panel's text from the profile every regeneration rather than hand-writing it once, and put the profile's last-updated date in the panel so a lagging copy is visible on the page.
 
@@ -128,9 +137,9 @@ Include the actual URL literally in the prompt. This is the difference between a
 
 Tell the user, and put the first one on the dashboard itself:
 
-1. **Saved/archived statuses live in the browser's localStorage**, per-device. The search bot cannot see them. A real "not interested" should be said to Claude in chat so it moves the row in the tracking files and never resurfaces it.
-2. The artifact page **cannot fetch anything**. It is a snapshot rendered from the last cycle, refreshed only when a cycle runs. Day counts are the exception: they are computed in the browser at load, so they stay right between cycles.
-3. The link is shareable; the localStorage isn't. Two people can't share one dashboard's saved/archived state.
+1. **Saved and hidden roles are remembered by this browser only, and I can't see them.** Say it on the page as: *"Your starred and hidden roles are saved in this browser, so they won't follow you to your phone, and I can't see them. If you're really not interested in a role, tell me in chat and I'll take it off the list for good."*
+2. **The page is a snapshot from the last search, not a live view.** Say it as: *"This page updates when your next search runs."* Day counts are the exception: those are worked out in the browser each time it loads, so they stay right in between.
+3. **The link can be shared; the stars and hidden cards cannot.** Say it as: *"You can share this link, but your stars and hidden roles stay on your machine. Two people looking at the same page won't see each other's."*
 4. **Stage is only as current as the last cycle.** If the user applies to something on a Wednesday, it stays under Fresh until the next run, unless they tell Claude in chat and it updates the tracking file immediately.
 
 ## Known limitations

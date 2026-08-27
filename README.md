@@ -1,26 +1,28 @@
 # Apollo
 
-**A recurring job search that runs itself in Claude Code.** One setup interview writes your profile and scoring rubric to disk. A scheduled task then sources roles from job boards, applicant tracking systems, and VC portfolio boards, checks each posting is real and still says what it said, scores it against what you actually want, and hands you a ranked digest.
+**A recurring job search that runs itself in Claude.** One setup interview saves your profile and scoring rules onto your own computer. A scheduled task then sources roles from job boards, the hiring systems companies post to directly, and the job pages startup investors keep for their companies, checks each posting is real and still says what it said, scores it against what you actually want, and hands you a ranked digest.
 
 Free, MIT licensed, and it works at any career level, from first job to executive search.
 
 ## Install
 
-**You need [Claude](https://claude.com) on desktop, or the [Claude Code](https://claude.com/claude-code) CLI.** Everything else is optional.
+**You need the [Claude](https://claude.com) app on your computer.** It's free to download, and that's the whole prerequisite. (There's a command-line version too, if that's how you work; the typing route is below.)
 
 ### In Claude Desktop, by clicking
 
 1. Open Claude Desktop.
 2. Click **Customize** in the left sidebar.
-3. Click **Plugins**.
+3. Click **Plugins**. (Plugins are free add-ons for Claude. Apollo is one of them.)
 4. Click **Add plugin**.
 5. Click **Add marketplace**.
-6. Choose **Add from repo**.
-7. Paste this into the dialog: `adamhilliard/apollo`
-8. Click **Sync**.
+6. Choose **Add from repo** (that’s just where Apollo lives online).
+7. Paste `adamhilliard/apollo` into the box that appears. That’s Apollo’s address.
+8. Click **Sync**. That downloads it.
 9. Click **Install** on **Apollo Job Search**.
 10. Start a new conversation. It won't appear in one that's already open.
 11. Say: *"Help me set up a job search."*
+
+**Nothing happening?** Close Claude, open it again, and try step 10.
 
 ### In Claude Code, by typing
 
@@ -67,7 +69,7 @@ In a new conversation, say:
 
 > Help me set up a job search.
 
-**Setup writes your profile and tracking files into the folder you're working in.** On the Claude Code CLI, make a folder for your search first and start Claude Code inside it. In Desktop, tell setup which folder to use.
+**Setup saves your files in a folder on your computer.** Just tell it where you’d like them; if you’re not sure, say so and it will pick a sensible spot.
 
 **The interview takes about fifteen minutes.** Have your resume or a PDF of your LinkedIn profile handy; it makes the interview much shorter. No resume yet is fine, there's a path for that. Most questions are click-to-pick, and "defaults are fine" is a valid answer to the whole customization step.
 

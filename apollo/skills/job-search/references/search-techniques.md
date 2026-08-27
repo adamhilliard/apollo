@@ -468,6 +468,26 @@ When two sources disagree about a posting, they are not equally wrong. In descen
 
 **Open the posting and read its own workplace field.** Everything else is a hint.
 
+### Rule: resolve the link before the row is ever shown
+
+**Freshness re-verification only protects rows already in the table, so on a first cycle it protects nothing.** Two independent testers reported the same thing: a first digest whose top-ranked roles and below-the-cap links opened to "page not found." Nothing was broken. **No rule verified a link before its first appearance**, because freshness covers existing rows, the reliability gate is diagnostic and explicitly never screens, and below-the-cap rows are exempt from research entirely.
+
+**Resolve every link that will be presented, before research and before scoring.** Three states, and the third is not a soft version of the second:
+
+| State | Means | Evidence required |
+|---|---|---|
+| **live** | The requisition page renders | The rendered page |
+| **expired** | The posting is closed | The rendered page saying so, **or** an expiry marker in the redirect URL |
+| **unverified** | The check could not run | Timeout, block, JS-only render, unresolvable host |
+
+- **A failed check is never an expiry.** This is the same rule as "absence from a board is not expiry" and "a 404 from the ATS's own API is not expiry," applied one step earlier. Marking an unreachable posting dead is the false negative this file already documents three times.
+- **Check before scoring, not after.** A confirmed-dead row is not researched and not scored, which is the cheapest place to save the work. Score it if it comes back.
+- **Below-the-cap rows need this most.** They carry a clickable link and get no research on any cycle, so without an entry check their links are never verified at all. They are also the cheapest rows to batch: one line each, many sharing an origin.
+- **Batch by origin.** A same-origin fetch over several job IDs returns each requisition's final URL and title in one call, which is what makes checking twenty rows affordable.
+- **A dead link is a question, not a verdict.** Before writing a role off, check the employer's own board for a replacement requisition. **A repost is a live role behind a dead URL**, and it enters as a new row. This is the highest-value output the check produces, and it is the "boards answer the opposite question" rule below, used the useful way round.
+
+> **Why this is a screen and the reliability gate is not.** The gate deliberately never removes a role, because a good role behind a stale posting should not lose points it deserves. That reasoning is about **scoring**. Whether a link opens is not a quality judgment, and a link that 404s should not be presented as a link.
+
 ### Rule: freshness re-verification, at the start of every cycle
 
 **Run it before sourcing anything new.** Postings close continuously between runs, and a search that only ever looks for new roles will quietly fill its table with dead links.

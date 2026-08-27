@@ -69,6 +69,11 @@ The bot gets meaningfully better around cycle three or four, and only if you clo
 
 State these upfront so nobody mistakes them for bugs.
 
+> **These are written for you, not for the user. Translate each into one plain sentence before saying it**, under the language rule in `setup-interview.md`: nothing spoken carries a file path, a script name, a platform slug, or a system word. "Requisition" is a job posting. "Session token" is a login. "Coverage gap" is a place I can't see into.
+>
+> - **Three of these are never spoken at all.** The rotted-recipe rule, the sub-agent finding, and the unvouched-nil rule are engineering rationale for you. They are not limitations the user can act on, and reading them aloud makes the tool sound broken.
+> - **Say the ones that set expectations**, which is most of them: what a quiet week means at their level, that sourcing is only part of the problem, that judging fit is theirs, and that a browser hiccup is recoverable and will be reported.
+
 - **ATS site-search dead-link rate is high.** A majority of hits may be closed requisitions. This is the search index, not your setup.
 - **Some postings won't render their description.** Board listings occasionally return a shell with no body text. Log the posting with whatever is knowable and flag the gap rather than dropping it.
 - **A zero-result cycle is normal at senior levels**, and so is a run of them. Whether that should ever trigger an automatic query review is the user's call, not a default; some explicitly decline the trigger, and the answer belongs in the decisions log either way.

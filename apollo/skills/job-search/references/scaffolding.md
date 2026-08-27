@@ -247,6 +247,20 @@ On review the row is deleted, not annotated.**
 
 **Applied roles stay in ACTIVE/ROLLING.** An applied role is still a live posting, and moving it to its own section drops it from the freshness pass and orphans its bucket scores into prose, which is exactly the data wanted for interview prep. Carry the applied date and follow-up date as fields on the row instead.
 
+**Posting status is a second axis, not a stage.** Stage is what *the user* does next (open, applied, interviewing). Posting status is a fact about the *requisition* (live, expired, unverified). They move independently, and collapsing them destroys the case that matters most.
+
+| The case | Where the row lives | Posting status |
+|---|---|---|
+| **New row, confirmed dead on arrival** | `EXPIRED / NO LONGER POSTED` | expired |
+| **They applied, then the posting closed** | **Stays in ACTIVE/ROLLING** | expired |
+| **Check timed out or the page wouldn't render** | Wherever it already was | unverified |
+
+> **The second row is the whole reason for the axis.** An application is live even when the posting is not, and that row carries the interview-prep data. **Moving it to EXPIRED because the URL died erases the record that they applied at all**, which is the single most damaging thing this file can lose. It follows the same reasoning as "applied roles stay in ACTIVE/ROLLING" above.
+
+- **Never write two states on one row.** A row is live, expired, or unverified, and unverified is not a soft expiry.
+- **Only a rendered page settles expiry.** Per `search-techniques.md`, absence from a board is not expiry and neither is a 404 from an ATS API. An unverified row is reported as unverified, never quietly downgraded.
+- **An expired row keeps any score it already earned.** Scores are only skipped for rows that were never scored, per step 7. Don't strip a score to signal expiry; the status field does that.
+
 > **How a role arrived is not a stage.** Inbound from a recruiter versus outbound from an application belongs in Key Context. Stage tracks what happens next.
 
 **A repost is the same pursuit resuming. There is no "reopened" state.** When a closed role is posted again, pull the row back into ACTIVE/ROLLING and delete its archived write-up and index line rather than leaving them as history. The gap between postings lives in the Search Notes, which is where a dated event belongs; **the tracking file carries current state only.**
@@ -316,12 +330,13 @@ NOTE: <one line, only when something needs saying>
 Fixed shape, four buckets, compact. Never per-source prose:
 
 > **Coverage this run**
-> - **Searched in full:** LinkedIn, company ATS boards (25/25), your named employers
-> - **Sampled only:** VC portfolio boards, the LinkedIn feed
-> - **Off this run (runs Thursday):** your association board, aggregator name-mining
+> - **Searched in full:** LinkedIn, all 25 company hiring systems, and the employers you named
+> - **Checked partly:** startup investor job pages, your LinkedIn feed
+> - **Not this run (next runs Thursday):** your professional association's board, the big job-listing sites
 > - **Couldn't reach:** none
 
-- **Translate the status words, don't print them.** `COMPLETE` becomes "searched in full," `SAMPLED` becomes "sampled only," `OFF-CADENCE` becomes "off this run" with the day it next runs, and `FAILED`, `INCOMPLETE`, or an unvouched nil becomes a named line under "Couldn't reach."
+- **Translate the status words, don't print them.** `COMPLETE` becomes "searched in full," `SAMPLED` becomes "checked partly," `OFF-CADENCE` becomes "not this run" with the day it next runs, and `FAILED`, `INCOMPLETE`, or an unvouched nil becomes a named line under "Couldn't reach."
+- **Translate the source names too, and never print a platform's own name.** The scripts emit the platform slugs; the user has never heard of any of them. `getro` and the investor boards are **"startup investor job pages."** `icims`, `lever`, `greenhouse`, `ashby`, `bamboo`, and the rest of the ATS set are all **"company hiring systems."** The aggregators are **"the big job-listing sites."** A slug in a digest is the same defect as a status code in a digest.
 - **Drop an empty bucket, except "Couldn't reach," which always shows,** even as "none." Its whole job is to be believed when it says nothing broke.
 - **It is not roles, so it never counts against the digest cap.** One short block regardless of volume, and it earns its place most on the quiet weeks.
 
@@ -387,43 +402,65 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
 6. SCREEN every hit against the hard excludes and the location filter
    before write-up. Flag, don't exclude, on anything else.
 
-7. TRIAGE against the table cap. Everything that clears the filters gets
+7. RESOLVE the apply link for every row that would be presented, new
+   rows and BELOW THE CAP rows included, before any research or
+   scoring. Batch same-origin checks per search-techniques.md. Record
+   one of three posting states, never two:
+     - live       the requisition page renders
+     - expired    confirmed dead on the rendered page, or an expiry
+                  marker in the redirect URL
+     - unverified the check could not run: timeout, blocked, JS-only
+                  render, no resolvable host
+   A failed check is NEVER an expiry. An expired row moves straight to
+   EXPIRED / NO LONGER POSTED with the date, is NOT researched and NOT
+   scored, and does not consume a slot under the table cap. Score it
+   only if it comes back. Before writing it off, check the employer's
+   board for a replacement requisition; a repost is a live role behind
+   a dead link, and it enters as a new row. An unverified row proceeds
+   normally and carries its state on the row.
+
+8. TRIAGE against the table cap. Everything that clears the filters gets
    a row somewhere. Skip entirely if there is no cap.
 
-8. RESEARCH culture and stability, with a verification date, for every
-   role in ACTIVE/ROLLING. Cache per company, not per role. Do not defer
+9. RESEARCH culture and stability, with a verification date, for every
+   role in ACTIVE/ROLLING that step 7 did not mark expired. Cache per
+   company, not per role. Do not defer
    this, and do not research BELOW THE CAP rows. In the same pass, run
    the reliability gate on rows entering the table for the first time,
    per search-techniques.md. It writes at most one Key Context clause
    and never screens a role out or changes a score.
 
-9. SCORE each new ACTIVE/ROLLING role against every motivator bucket,
+10. SCORE each new ACTIVE/ROLLING role that is not expired, against
+    every motivator bucket,
    then RE-SORT the entire table into descending score order and apply
    the rank overrides.
 
-10. FOLLOW UP: surface any applied row past its follow-up date. Skip if
+11. FOLLOW UP: surface any applied row past its follow-up date. Skip if
     the profile doesn't track follow-up dates.
 
-11. CAPTURE the job description for any row staged applied or
+12. CAPTURE the job description for any row staged applied or
     interviewing that has no capture on file yet. Check first: if a
     capture already exists for that role, do nothing and never overwrite
     it. Report the result either way, including when nothing was
     missing. Skip if the profile doesn't keep captures.
 
-12. WRITE results into Tracking_{{TRACK}}.md. Move rows between
+13. WRITE results into Tracking_{{TRACK}}.md. Move rows between
     sections, never delete. Append one Search Notes entry in the fixed
     shape Operating_Procedures.md defines: COVERAGE, CANARY, EVENTS, GATE,
     and at most one NOTE line. Reasoning goes in Decisions_Log.md, not here.
 
-13. COMMIT the changes, following the commit-message rule in the
+14. COMMIT the changes, following the commit-message rule in the
     profile's Customization section.
 
-14. DIGEST, to the channel the profile names, capped at the number in
+15. DIGEST, to the channel the profile names, capped at the number in
     the profile: new roles, freshness changes, intake items needing a
     decision, follow-ups due, and anything else needing my decision. If
-    Update_Notice.md exists in the project, lead with its one line, a
-    pending Apollo update the weekly audit found. State the count of what
-    landed below the cap rather than listing it. End every digest with the
+    Update_Notice.md exists in the project, lead with it, a pending
+    Apollo update the weekly audit found. Render it in plain words: a
+    newer version of Apollo is out, and they can update it from Claude's
+    Plugins screen by clicking Sync. Never print the file's raw line or
+    any command inside it. Say how many more roles matched but did not
+    make the top list, rather than listing them. End every digest with the
     COVERAGE NOTE defined in Operating_Procedures.md, rendered from this
     run's Search Notes COVERAGE line. Create calendar events only for
     dated commitments, only if the profile turned that on, and never with
@@ -433,7 +470,7 @@ Follow the project writing style for all prose and the Search Notes log.
 The results table keeps its locked layout and is exempt.
 ```
 
-> **Steps 7, 10, and the digest cap are no-ops for a senior search** and can be cut from the prompt entirely. Leave them in for any search that returns more than a handful of roles a cycle.
+> **Steps 8, 11, and the digest cap are no-ops for a senior search** and can be cut from the prompt entirely. Leave them in for any search that returns more than a handful of roles a cycle.
 
 ### The weekly audit task
 
