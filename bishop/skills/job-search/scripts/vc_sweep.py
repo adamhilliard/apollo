@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Getro VC portfolio-board sweep.  Apollo, by Adam Hilliard (MIT).
+"""Getro VC portfolio-board sweep.  Bishop, by Adam Hilliard (MIT).
 
 Why this file exists: the obvious recipe for these boards (fetch /jobs, parse
 __NEXT_DATA__, page with ?page=N) SILENTLY STOPPED PAGINATING. Every page

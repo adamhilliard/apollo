@@ -26,7 +26,7 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 
 ## Before anything: can this actually run here?
 
-**Silent. A capability probe, not a question.** Apollo needs Claude Code. In the Chat and Cowork surfaces it appears to work for one run and then degrades, spending a large share of the user's usage to arrive at a worse result. That is the most expensive way for someone to find out they are in the wrong place. **Probe before the splash, never after**, so nobody reads the letter and then gets turned away.
+**Silent. A capability probe, not a question.** Bishop needs Claude Code. In the Chat and Cowork surfaces it appears to work for one run and then degrades, spending a large share of the user's usage to arrive at a worse result. That is the most expensive way for someone to find out they are in the wrong place. **Probe before the splash, never after**, so nobody reads the letter and then gets turned away.
 
 **Probe in this order, and stop at the first failure.**
 
@@ -35,7 +35,7 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 | **Run a shell command** | Anything trivial that returns output | The strongest single signal. No shell means this is not Claude Code |
 | **Run Python** | `python --version`, falling back to `python3` | The bundled sweeps and the weekly audit are Python, and they are not optional |
 | **Write a file** | Write and delete a scratch file in the project folder | The profile and tracking files have somewhere to live |
-| **Schedule a task** | Confirm the capability exists. Do not create one yet | The cycle and the audit are the product. Without this, Apollo is a one-off search |
+| **Schedule a task** | Confirm the capability exists. Do not create one yet | The cycle and the audit are the product. Without this, Bishop is a one-off search |
 
 **All four pass: say nothing at all.** Go to the existing-search check below, then the splash. A user in the right place never learns this happened.
 
@@ -63,7 +63,7 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 
 ## Before you start: is there already a search here?
 
-**Check the project folder for an existing Apollo file set before the splash.** Look for `Reference_Profile.md` (older setups keep a single profile file under another name; a `Methodology.md` or `Tracking_*.md` counts too). **No such file means a first run: go straight to the splash and skip this section entirely.** Only when one exists, stop and ask, because a fresh interview writing over a live search is exactly the "rebuild wasn't fresh" failure a user reported.
+**Check the project folder for an existing Bishop file set before the splash.** Look for `Reference_Profile.md` (older setups keep a single profile file under another name; a `Methodology.md` or `Tracking_*.md` counts too). **No such file means a first run: go straight to the splash and skip this section entirely.** Only when one exists, stop and ask, because a fresh interview writing over a live search is exactly the "rebuild wasn't fresh" failure a user reported.
 
 **Picker,** single-select, header `Existing search`. **Say:**
 
@@ -125,7 +125,7 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 >
 > Whether you're looking for your next opportunity, or are in between roles, I built this AI agent to help you find jobs at companies that match your skills and interests. I hope this makes your search just a little bit easier.
 >
-> This agent is only focused on finding you new roles. I have not customized any features to apply to jobs, nor give you templatized cover letters. As someone who has reviewed 1,000s of resumes, AI-generated ones are easy to spot, and several modern applicant tracking systems now have AI spam filters in place. Beyond that, hiring is, at its core, human. When Apollo finds you a role you like, take the few extra minutes you saved and go through it by hand. You will land more interviews.
+> This agent is only focused on finding you new roles. I have not customized any features to apply to jobs, nor give you templatized cover letters. As someone who has reviewed 1,000s of resumes, AI-generated ones are easy to spot, and several modern applicant tracking systems now have AI spam filters in place. Beyond that, hiring is, at its core, human. When Bishop finds you a role you like, take the few extra minutes you saved and go through it by hand. You will land more interviews.
 >
 > This agent is under continuous development and improvement. Send me a message on LinkedIn if you have feedback, so we can all improve this tool together.
 >
@@ -180,7 +180,7 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 ```
 
 - **Merge, never overwrite.** If the file already exists, add any missing entries to `permissions.allow` and leave everything else in it alone. A user who already tuned their own settings should not lose them to this step.
-- **What is deliberately absent, and stays absent:** `Bash(git push:*)`, any delete or `rm`, and any blanket `Bash(*)`. Apollo commits locally; nothing here sends anything outward, and a cycle that wants a command outside this list should stop and ask. **Do not widen the list to clear a prompt.** If a run keeps stopping on something, that is worth the user seeing.
+- **What is deliberately absent, and stays absent:** `Bash(git push:*)`, any delete or `rm`, and any blanket `Bash(*)`. Bishop commits locally; nothing here sends anything outward, and a cycle that wants a command outside this list should stop and ask. **Do not widen the list to clear a prompt.** If a run keeps stopping on something, that is worth the user seeing.
 - **`Bash(python:*)` is the broadest line here** and it is what runs the bundled sweeps and the weekly audit. It is scoped to this project by virtue of living in the project's own settings file.
 
 **Then say, in one plain line:** this covers their scheduled searches and every future session, and this one session might still ask a couple more times before it takes effect.
@@ -348,9 +348,9 @@ Options: *🟦 Slate blue* `#4F6D9F` (Recommended) · *🟩 Forest green* `#2E7D
 
 **Name · picker,** single-select, header `Name`, **asked last. Say:**
 
-> My default name is Apollo. Want to rename me? A career mentor? Maybe a famous robot? Anything you like.
+> My default name is Bishop. Want to rename me? A career mentor? Maybe a famous robot? Anything you like.
 
-Options: *Apollo* (Recommended) · *Surprise me* (pick a warm, well-known fictional robot; never the sinister or gloomy ones). The automatic Other is the text box for their own name. **From here on, use the chosen name in every file you write.**
+Options: *Bishop* (Recommended) · *Surprise me* (pick a warm, well-known fictional robot; never the sinister or gloomy ones). The automatic Other is the text box for their own name. **From here on, use the chosen name in every file you write.**
 
 > **Rigor and confidential are silent defaults, not questions.** Rigor (how deep each run digs) defaults to light, which is what makes a frequent cadence affordable; the schedule question already carries the token tradeoff. Confidential handling defaults on: no employer names in shared surfaces, current employer excluded. If they say they're searching openly, record that instead.
 
@@ -416,7 +416,7 @@ Work through these in order. Keep every spoken line plain, per the language rule
 
 3. **Explain the weekly audit in one plain sentence,** since a routine that only says *when* it runs and never *what* it does reads as a black box. **Say:**
 
-   > Once a week I also run a quick self-check on the machinery behind your search: whether every source is really returning what it claims, whether I'm still catching roles I should be, and whether Apollo itself has an update. It's what catches a source that's quietly broken before it costs you weeks of missed jobs. It starts next week, once there's a cycle to check against.
+   > Once a week I also run a quick self-check on the machinery behind your search: whether every source is really returning what it claims, whether I'm still catching roles I should be, and whether Bishop itself has an update. It's what catches a source that's quietly broken before it costs you weeks of missed jobs. It starts next week, once there's a cycle to check against.
 
 4. **Warn them what the first run looks like, before starting it.** This is the moment people bail, and everything in it is expected behavior that looks alarming unannounced. **Say:**
 

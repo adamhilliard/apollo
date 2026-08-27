@@ -1,5 +1,5 @@
 # Built handoff package, regenerate with build_package.py
-apollo.zip
+bishop.zip
 
 __pycache__/
 *.py[cod]

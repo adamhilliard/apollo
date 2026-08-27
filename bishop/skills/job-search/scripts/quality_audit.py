@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Weekly quality audit.  Apollo, by Adam Hilliard (MIT).
+"""Weekly quality audit.  Bishop, by Adam Hilliard (MIT).
 
 Answers one question: is this search mechanically doing what it claims to be
 doing? Not "are the files tidy" - a perfectly formatted file set sweeping the

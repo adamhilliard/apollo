@@ -112,9 +112,9 @@ rule in Decisions_Log.md. Live results live in the tracking file(s).
 
 ```markdown
 ### Built With
-Apollo, a free job-search plugin by Adam Hilliard
+Bishop, a free job-search plugin by Adam Hilliard
 (https://linkedin.com/in/adamhilliard), MIT licensed. {{BOT_NAME}} is
-{{NAME}}'s own search; Apollo is the tooling it was built from.
+{{NAME}}'s own search; Bishop is the tooling it was built from.
 ```
 
 - **One line, in the profile only.** Not in the methodology, not in the procedures, and not in the digest. It lands once in the user's repo and stays there.
@@ -362,7 +362,7 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
 1. Read {{PROJECT_FOLDER}}/Reference_Profile.md, Methodology.md, and
    Operating_Procedures.md in full, then Tracking_{{TRACK}}.md. These
    govern; if this prompt and they disagree, they win. Then read
-   references/search-techniques.md from the Apollo plugin's job-search
+   references/search-techniques.md from the Bishop plugin's job-search
    skill for the generic sourcing and verification technique. Where the
    skill and Methodology.md disagree, Methodology.md wins: it carries
    this search's own vetted verdicts. Decisions_Log.md is reference, not
@@ -460,8 +460,8 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
     the profile: new roles, freshness changes, intake items needing a
     decision, follow-ups due, and anything else needing my decision. If
     Update_Notice.md exists in the project, lead with it, a pending
-    Apollo update the weekly audit found. Render it in plain words: a
-    newer version of Apollo is out, and they can update it from Claude's
+    Bishop update the weekly audit found. Render it in plain words: a
+    newer version of Bishop is out, and they can update it from Claude's
     Plugins screen by clicking Sync. Never print the file's raw line or
     any command inside it. Say how many more roles matched but did not
     make the top list, rather than listing them. End every digest with the
@@ -470,7 +470,7 @@ You are {{BOT_NAME}}, {{NAME}}'s job search. Run the {{TRACK}} digest.
     dated commitments, only if the profile turned that on, and never with
     attendees. Never close a digest by offering to write a cover
     letter, rewrite the resume for a role, or apply on their behalf.
-    Apollo does not do those, and the wording for an outright request
+    Bishop does not do those, and the wording for an outright request
     is in the job-search skill.
 
 Follow the project writing style for all prose and the Search Notes log.
@@ -486,14 +486,14 @@ A second task, on its own day, pointed at `quality-audit.md`. **It is not a seco
 ```
 You are {{BOT_NAME}}. Run the weekly quality audit.
 
-1. Read references/quality-audit.md from the Apollo plugin's job-search
+1. Read references/quality-audit.md from the Bishop plugin's job-search
    skill. It defines every check and the three failure categories.
 
 2. Run scripts/quality_audit.py against {{PROJECT_FOLDER}}. It computes
    the scripted checks from the files and exits nonzero on a trip.
 
 3. Run scripts/check_update.py --project {{PROJECT_FOLDER}}. It checks for
-   a newer Apollo release and writes Update_Notice.md when one exists,
+   a newer Bishop release and writes Update_Notice.md when one exists,
    deleting it once caught up. Informational only: it never fails the
    audit, and a network blip is a quiet skip.
 

@@ -3,7 +3,7 @@
 Used by the job-search digest's JD capture check. The text is taken verbatim
 from LinkedIn's guest posting API; nothing is paraphrased or summarised.
 
-Part of Apollo, a free job-search plugin for Claude Code.
+Part of Bishop, a free job-search plugin for Claude Code.
 By Adam Hilliard - https://linkedin.com/in/adamhilliard - MIT licensed.
 """
 import sys, re, html, urllib.request

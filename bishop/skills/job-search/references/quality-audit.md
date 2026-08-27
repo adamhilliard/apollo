@@ -49,7 +49,7 @@
 - **If a check can't be computed from the files, it isn't a check yet.** Park it, and say why.
 - **Run `scripts/check_update.py --project <folder>` here too.** It compares the installed version (`plugin.json`) against the latest GitHub release, and writes `Update_Notice.md` in the project when a newer one exists, removing it once caught up. The next cycle's digest leads with that file if present. A network failure or an unreadable version is a quiet skip, never a trip, because a stale check is not a search defect. It never installs anything: `/plugin` commands don't run in a scheduled task.
 
-> **Apollo installs from a third-party marketplace, where Claude Code's own auto-update is off by default.** That is why this check earns a place: without it most users never hear a new version exists. Anyone who prefers the hands-off path can enable auto-update for the marketplace and ignore these notices.
+> **Bishop installs from a third-party marketplace, where Claude Code's own auto-update is off by default.** That is why this check earns a place: without it most users never hear a new version exists. Anyone who prefers the hands-off path can enable auto-update for the marketplace and ignore these notices.
 
 ---
 

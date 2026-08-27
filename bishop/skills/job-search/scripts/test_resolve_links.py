@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Tests for resolve_links.py.  Apollo, by Adam Hilliard (MIT).
+"""Tests for resolve_links.py.  Bishop, by Adam Hilliard (MIT).
 
     python test_resolve_links.py
 

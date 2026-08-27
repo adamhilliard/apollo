@@ -84,7 +84,7 @@ State these upfront so nobody mistakes them for bugs.
 - **Some ATS platforms are structurally unreachable by keyword search**, including one top-ten platform that gates every requisition behind a session token. Those employers have to be swept by name. It is a coverage gap to state, never a nil to report.
 - **Third-party API recipes rot, and a rotted recipe reads exactly like a dead source.** Two portfolio-board platforms broke on the same day once, one replacing its API outright. **Re-verify a recipe before recording a nil from it.**
 - **Delegating the sweeps to cheaper sub-agents does not pay.** It was tried and reverted: the agents dropped documented steps from a long brief, and verifying their reports cost more than the context saved. Treat any coverage claim from a delegate as a lead.
-- **Integrations are only as available as the user's own connectors.** Apollo can't install one. A digest channel, calendar, or email intake that was offered and never connected is a setting with nothing behind it, so confirm the connection works on the first cycle rather than at setup.
+- **Integrations are only as available as the user's own connectors.** Bishop can't install one. A digest channel, calendar, or email intake that was offered and never connected is a setting with nothing behind it, so confirm the connection works on the first cycle rather than at setup.
 - **Email intake sees status mail, not intent.** It can confirm an application landed and record an explicit rejection. It cannot tell whether a warm reply is going anywhere, and it will never guess.
 - **Browser automation is the fragile part.** Extension disconnects and timeouts happen, and the run has to fall back to search-only. That's recoverable, but only if the digest says it happened.
 

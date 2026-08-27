@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Update check.  Apollo, by Adam Hilliard (MIT).
+"""Update check.  Bishop, by Adam Hilliard (MIT).
 
-Runs weekly, alongside the quality audit. One question: is a newer Apollo
+Runs weekly, alongside the quality audit. One question: is a newer Bishop
 release out than the one installed? If so, prints a one-line notice so the next
 digest can pass it along.
 
@@ -26,7 +26,7 @@ try:
 except ImportError:  # Python 2
     from urllib2 import urlopen, Request
 
-GITHUB_REPO = "adamhilliard/apollo"
+GITHUB_REPO = "adamhilliard/bishop"
 
 
 def read(path):
@@ -60,7 +60,7 @@ def installed_version():
 def latest_release():
     url = "https://api.github.com/repos/%s/releases/latest" % GITHUB_REPO
     try:
-        req = Request(url, headers={"User-Agent": "apollo-update-check",
+        req = Request(url, headers={"User-Agent": "bishop-update-check",
                                     "Accept": "application/vnd.github+json"})
         raw = urlopen(req, timeout=6).read().decode("utf-8", "replace")
     except Exception:
@@ -86,7 +86,7 @@ def main():
         print("update: skipped, could not reach GitHub (not a failure)")
         return 0
     if parse_version(latest) > parse_version(installed):
-        line = (u"**Apollo update available:** Apollo %s is out (you have %s). "
+        line = (u"**Bishop update available:** Bishop %s is out (you have %s). "
                 u"To update: open Claude's Plugins screen and click Sync. Or "
                 u"see the [releases page](https://github.com/%s/releases)."
                 % (latest.lstrip("vV"), installed, GITHUB_REPO))
@@ -94,7 +94,7 @@ def main():
             io.open(notice_path, "w", encoding="utf-8").write(line + u"\n")
         except (IOError, OSError):
             pass
-        print("update: Apollo %s is available (you have %s); wrote Update_Notice.md"
+        print("update: Bishop %s is available (you have %s); wrote Update_Notice.md"
               % (latest.lstrip("vV"), installed))
         print("NOTICE: the next digest includes Update_Notice.md.")
     else:

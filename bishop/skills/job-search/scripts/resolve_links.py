@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Apply-link resolver.  Apollo, by Adam Hilliard (MIT).
+"""Apply-link resolver.  Bishop, by Adam Hilliard (MIT).
 
 Why this file exists: freshness re-verification only ever protected rows
 already in the table, so a FIRST cycle protected nothing. Two independent

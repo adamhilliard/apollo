@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Tests for quality_audit.py.  Apollo, by Adam Hilliard (MIT).
+"""Tests for quality_audit.py.  Bishop, by Adam Hilliard (MIT).
 
     python test_quality_audit.py
 

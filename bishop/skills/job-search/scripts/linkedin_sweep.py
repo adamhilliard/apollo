@@ -27,7 +27,7 @@ Usage:
 Output: one "id ~ title ~ company ~ location ~ date" line per unique posting,
 then a STATUS line. Parse the STATUS line; do not trust the rows without it.
 
-Part of Apollo, a free job-search plugin for Claude Code.
+Part of Bishop, a free job-search plugin for Claude Code.
 By Adam Hilliard - https://linkedin.com/in/adamhilliard - MIT licensed.
 """
 

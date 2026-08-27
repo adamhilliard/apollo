@@ -3,7 +3,7 @@
 Direct-employer board sweep: pull a named list of employers' job boards and
 filter locally.
 
-Part of Apollo, a free job-search plugin for Claude Code.
+Part of Bishop, a free job-search plugin for Claude Code.
 By Adam Hilliard - https://linkedin.com/in/adamhilliard - MIT licensed.
 
 Why this exists: a scoring rubric has structural blind spots, and keyword

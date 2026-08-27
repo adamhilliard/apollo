@@ -1,9 +1,9 @@
 ---
 name: dashboard
-description: Turn an Apollo job search's tracking files into a private, interactive web dashboard that refreshes itself every cycle. Builds a self-contained dashboard.html with a stat band, ranked role cards carrying a score ring and per-bucket pass/fail chips, filters for track and score and stage, save-for-later and archive buttons, then publishes it as a private artifact at a stable URL and wires regeneration into the existing scheduled search task. Use this when someone with a recurring job search wants to see their tracked roles as a page rather than a markdown table, asks for a dashboard or a visual view or a scoreboard of their search, wants a bookmarkable link to their shortlist, or wants their job tracking to stop living in a table they have to scroll. Users often refer to their search by a personal name they chose at setup, so a request to build a dashboard for a named job bot belongs here. Requires an existing search built by the job-search skill plus at least one completed cycle.
+description: Turn an Bishop job search's tracking files into a private, interactive web dashboard that refreshes itself every cycle. Builds a self-contained dashboard.html with a stat band, ranked role cards carrying a score ring and per-bucket pass/fail chips, filters for track and score and stage, save-for-later and archive buttons, then publishes it as a private artifact at a stable URL and wires regeneration into the existing scheduled search task. Use this when someone with a recurring job search wants to see their tracked roles as a page rather than a markdown table, asks for a dashboard or a visual view or a scoreboard of their search, wants a bookmarkable link to their shortlist, or wants their job tracking to stop living in a table they have to scroll. Users often refer to their search by a personal name they chose at setup, so a request to build a dashboard for a named job bot belongs here. Requires an existing search built by the job-search skill plus at least one completed cycle.
 ---
 
-# Apollo Dashboard
+# Bishop Dashboard
 
 Turns a job search's tracking files into a private, interactive web dashboard that refreshes itself every cycle.
 
@@ -14,7 +14,7 @@ Turns a job search's tracking files into a private, interactive web dashboard th
 > - **The user learned a vocabulary during setup, and the page must not invent a second one.** They were told about their *search* and its *runs*. They chose *what matters to them* and *the lowest salary they'd accept*. Those are the words on the page.
 > - **Never print a platform's own name.** The scripts emit `getro`, `icims`, `lever`, `greenhouse`, `ashby`, `bamboo`. On the page, `getro` is "startup investor job pages" and every ATS platform is "company hiring systems," the same translation the digest's coverage note uses.
 
-> **Use the name the user gave their search, not "Apollo."** The interview's opening question set it and the profile records it as a named field. That name is the page's masthead and how the user refers to the thing in conversation.
+> **Use the name the user gave their search, not "Bishop."** The interview's opening question set it and the profile records it as a named field. That name is the page's masthead and how the user refers to the thing in conversation.
 
 **What the user gets:** a stat band up top (active roles, top score, disclosed-pay count, saved count), then a ranked card per role with a score ring, a pass/fail chip for each scoring bucket with the reason on hover, comp and flags at a glance, and expandable details with a working apply link. Filters cover track, minimum score, disclosed pay, and remote. Every card carries save-for-later and archive buttons. Published as a private Claude artifact at a stable URL that the scheduled search task republishes after every run, so the bookmark never goes stale.
 

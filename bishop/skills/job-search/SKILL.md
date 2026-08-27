@@ -1,26 +1,26 @@
 ---
 name: job-search
 description: >-
-  Apollo builds a recurring, self-running job search digest on Claude Code. A setup interview writes a candidate profile, scoring rubric, and tracking files; a scheduled task then sources roles from job boards, ATS site-search, and VC portfolio boards, verifies each posting, scores it against the rubric, and hands back a ranked digest. Use this whenever someone wants to automate, systematize, or keep track of a job search: setting up recurring job alerts, tracking applications, scoring or comparing roles, building a shortlist, or asking Claude to find them jobs on an ongoing basis rather than once. Also use it when maintaining a search already built this way, such as amending the profile, fixing a query that misses roles, adding or retiring a source, or recording a decision so a later cycle stops re-proposing it. Users name their own copy during setup, so treat a personal name they have given their job bot as referring to this skill.
+  Bishop builds a recurring, self-running job search digest on Claude Code. A setup interview writes a candidate profile, scoring rubric, and tracking files; a scheduled task then sources roles from job boards, ATS site-search, and VC portfolio boards, verifies each posting, scores it against the rubric, and hands back a ranked digest. Use this whenever someone wants to automate, systematize, or keep track of a job search: setting up recurring job alerts, tracking applications, scoring or comparing roles, building a shortlist, or asking Claude to find them jobs on an ongoing basis rather than once. Also use it when maintaining a search already built this way, such as amending the profile, fixing a query that misses roles, adding or retiring a source, or recording a decision so a later cycle stops re-proposing it. Users name their own copy during setup, so treat a personal name they have given their job bot as referring to this skill.
 ---
 
-# Apollo
+# Bishop
 
 A recurring job-search digest that runs itself. The search techniques here are battle-tested and portable; everything candidate-specific comes out of the setup interview.
 
-> **Apollo is the tooling; the user's copy gets its own name.** The interview opens by asking for it, and every file the search writes uses their name from then on. Someone talking about "Scout" or "Wall-E" or just "the bot" means their own search, and this skill is what runs it. Reserve "Apollo" for the tooling itself, and never rename a search that already has a name.
+> **Bishop is the tooling; the user's copy gets its own name.** The interview opens by asking for it, and every file the search writes uses their name from then on. Someone talking about "Scout" or "Wall-E" or just "the bot" means their own search, and this skill is what runs it. Reserve "Bishop" for the tooling itself, and never rename a search that already has a name.
 
 **Works at any career level, from first job to executive search.** The mechanics don't change; the calibration does, and the level question in section A of the interview sets it.
 
-> **Apollo runs in Claude Code, and nowhere else.** Before the setup interview, before a cycle, and before answering any request to find roles, confirm this environment can run a shell command, write a file, and schedule a task. The probe and the exact words to use when it fails are at the top of `references/setup-interview.md`.
+> **Bishop runs in Claude Code, and nowhere else.** Before the setup interview, before a cycle, and before answering any request to find roles, confirm this environment can run a shell command, write a file, and schedule a task. The probe and the exact words to use when it fails are at the top of `references/setup-interview.md`.
 >
 > **The Chat and Cowork surfaces are the case this exists for.** They answer the first request convincingly and degrade after it, spending far more of the user's usage for a worse result, so the failure never announces itself.
 >
 > **Never answer "find me some jobs" from memory in place of running a cycle, in any surface.** A list of plausible employers linking to their careers pages, rather than to verified requisitions, is the exact shape that failure takes.
 
-## Apollo does not write the application
+## Bishop does not write the application
 
-**Apollo finds and verifies roles. It never writes a cover letter, rewrites a resume for a posting, or fills in and submits an application.** The letter at the top of setup says so in the author's voice; this is the rule that keeps it true afterward.
+**Bishop finds and verifies roles. It never writes a cover letter, rewrites a resume for a posting, or fills in and submits an application.** The letter at the top of setup says so in the author's voice; this is the rule that keeps it true afterward.
 
 **Never offer it.** Not at the end of a digest, not on handoff after setup, not on the dashboard, not while researching a role the user likes. An unprompted offer teaches the user this is a supported path and quietly contradicts the letter they read twenty minutes earlier.
 
@@ -58,7 +58,7 @@ Four moving pieces. Nothing else.
 
 ## Setting up a new bot
 
-**Ask nothing before the interview starts, with two exceptions, both silent.** First, run the capability preflight at the top of `setup-interview.md`: Apollo needs Claude Code, and the Chat and Cowork surfaces appear to work for one run before degrading, so a user in the wrong place has to be stopped before the splash rather than after the letter. Second, check the project folder for an existing Apollo file set, and if one is there, run the existing-search fork. **Both are probes, not cold questions, so a first-time user in the right place sees neither.** Otherwise it opens with a short letter and a five-part roadmap, and every question has a home inside it, including the resume, which Part 2 asks for because that is where it gets used. A question asked ahead of the roadmap arrives with no context and cannot be acted on yet.
+**Ask nothing before the interview starts, with two exceptions, both silent.** First, run the capability preflight at the top of `setup-interview.md`: Bishop needs Claude Code, and the Chat and Cowork surfaces appear to work for one run before degrading, so a user in the wrong place has to be stopped before the splash rather than after the letter. Second, check the project folder for an existing Bishop file set, and if one is there, run the existing-search fork. **Both are probes, not cold questions, so a first-time user in the right place sees neither.** Otherwise it opens with a short letter and a five-part roadmap, and every question has a home inside it, including the resume, which Part 2 asks for because that is where it gets used. A question asked ahead of the roadmap arrives with no context and cannot be acted on yet.
 
 1. **Run the setup interview.** Read `references/setup-interview.md` and work through it in order, one block at a time. **It opens with a splash and the author's letter**, then a fork: Essentials (~15 min) or Everything (~30 min). **Ask with the interactive picker wherever the answer is a small discrete set**, batching up to four questions per call; the interview's "How to run this" block states the conventions. **Derive from the resume and confirm rather than asking cold** wherever you can. A blank page produces vague answers, and vague answers produce a generic bot.
 2. **Build the files and both scheduled tasks.** Read `references/scaffolding.md` for the folder layout, the four profile skeletons, the read contracts, the locked results-table format, and both task prompts.
@@ -122,4 +122,4 @@ Load these as needed; there is no reason to read all of them for a single task.
 
 ## Related
 
-`/apollo:dashboard` turns the tracking files into a private, self-refreshing web dashboard. **When the user picks the dashboard during setup, the interview builds and hands it over automatically right after the first search** (see "After the interview" in `setup-interview.md`), so they never have to find the command. The command stays for adding a dashboard to a chat-only search later, or rebuilding one on demand. It reads the name from the profile and puts it on the page, so it only runs after setup and at least one completed cycle, never before.
+`/bishop:dashboard` turns the tracking files into a private, self-refreshing web dashboard. **When the user picks the dashboard during setup, the interview builds and hands it over automatically right after the first search** (see "After the interview" in `setup-interview.md`), so they never have to find the command. The command stays for adding a dashboard to a chat-only search later, or rebuilding one on demand. It reads the name from the profile and puts it on the page, so it only runs after setup and at least one completed cycle, never before.

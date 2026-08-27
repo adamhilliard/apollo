@@ -12,9 +12,9 @@ import sys
 import zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PLUGIN = os.path.join(HERE, "apollo")
-ROOT = "apollo"          # top-level folder inside the zip
-OUT = os.path.join(HERE, "apollo.zip")
+PLUGIN = os.path.join(HERE, "bishop")
+ROOT = "bishop"          # top-level folder inside the zip
+OUT = os.path.join(HERE, "bishop.zip")
 
 SKIP_DIRS = {"__pycache__", ".git", ".pytest_cache"}
 SKIP_EXTS = {".pyc", ".pyo"}

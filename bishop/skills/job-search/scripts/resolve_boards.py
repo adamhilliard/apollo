@@ -2,7 +2,7 @@
 """
 Resolve company names to confirmed job-board endpoints.
 
-Part of Apollo, a free job-search plugin for Claude Code.
+Part of Bishop, a free job-search plugin for Claude Code.
 By Adam Hilliard - https://linkedin.com/in/adamhilliard - MIT licensed.
 
 Why this exists: building a named-employer list is easy, but a list of names

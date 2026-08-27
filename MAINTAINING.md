@@ -1,41 +1,41 @@
-# Maintaining Apollo
+# Maintaining Bishop
 
-Notes for the maintainer. Users need `README.md` at the root and `apollo/README.md` after install; neither needs anything here.
+Notes for the maintainer. Users need `README.md` at the root and `bishop/README.md` after install; neither needs anything here.
 
 ## Layout
 
 ```
 .claude-plugin/marketplace.json      makes this repo an installable marketplace
-apollo/                              the plugin
+bishop/                              the plugin
 ├── .claude-plugin/plugin.json
 ├── LICENSE                          a copy; marketplace installs only copy the plugin dir
 ├── README.md                        what recipients read
 └── skills/
-    ├── job-search/                  /apollo:job-search
+    ├── job-search/                  /bishop:job-search
     │   ├── SKILL.md
     │   ├── references/              interview, scaffolding, techniques, quality audit, feedback loop
     │   └── scripts/                 sweep, audit, and capture tooling
-    └── dashboard/                   /apollo:dashboard
+    └── dashboard/                   /bishop:dashboard
         └── SKILL.md
 build_package.py                     builds the handoff zip
 ```
 
 ## Distribution
 
-**The repo is the marketplace.** `.claude-plugin/marketplace.json` at the root points at `./apollo`, so users run `/plugin marketplace add adamhilliard/apollo` then `/plugin install apollo@apollo`. Updates reach them when they run `/plugin marketplace update`, gated on the `version` field in `plugin.json`, so **bump it on every release or nobody gets the change.**
+**The repo is the marketplace.** `.claude-plugin/marketplace.json` at the root points at `./bishop`, so users run `/plugin marketplace add adamhilliard/bishop` then `/plugin install bishop@bishop`. Updates reach them when they run `/plugin marketplace update`, gated on the `version` field in `plugin.json`, so **bump it on every release or nobody gets the change.**
 
-**`python build_package.py` still builds `apollo.zip`**, which stays useful for two things: attaching to a GitHub Release for people not installing from a marketplace, and `claude --plugin-dir apollo.zip` for a one-session trial. The zip is not committed; it's a release asset.
+**`python build_package.py` still builds `bishop.zip`**, which stays useful for two things: attaching to a GitHub Release for people not installing from a marketplace, and `claude --plugin-dir bishop.zip` for a one-session trial. The zip is not committed; it's a release asset.
 
-> **Verify before announcing.** `claude plugin validate ./apollo`, then load the plugin and confirm both skills come up as `/apollo:job-search` and `/apollo:dashboard`.
+> **Verify before announcing.** `claude plugin validate ./bishop`, then load the plugin and confirm both skills come up as `/bishop:job-search` and `/bishop:dashboard`.
 >
 > **`validate` only reads `plugin.json`.** It checks the manifest and never opens a skill file, so a plugin with broken skill frontmatter validates clean, installs clean, lists clean, and then does nothing when someone asks it for a job search. That shipped once already (`af31`, "fix the job-search skill's frontmatter, which failed to parse"). **Only loading it actually proves it loads.**
 
-> **Don’t install Apollo on the machine running the live search.** The skill description tells Claude to treat a personally-named job bot as referring to Apollo, so an installed copy captures the live search’s requests. That rules out the obvious check (`/plugin marketplace add .`) on the maintainer’s own machine, which is why this step keeps getting skipped.
+> **Don’t install Bishop on the machine running the live search.** The skill description tells Claude to treat a personally-named job bot as referring to Bishop, so an installed copy captures the live search’s requests. That rules out the obvious check (`/plugin marketplace add .`) on the maintainer’s own machine, which is why this step keeps getting skipped.
 >
 > **Use the zip instead**, from a scratch folder. It loads for one session and writes nothing to the skills directory:
 >
 > ```bash
-> claude --plugin-dir apollo.zip
+> claude --plugin-dir bishop.zip
 > ```
 >
 > Ask it to set up a job search. If the interview opens, the skills loaded. Close the window and it's gone.
@@ -56,15 +56,15 @@ build_package.py                     builds the handoff zip
 
 > **Judge the version by the size and substance of the change, not the calendar.** The one-week window is a guideline, not a hard rule: two small fixes shipped days apart are usually both patches, and burning a minor on each would make the number meaningless. But a genuinely large change earns its minor even inside the week. A new skill, a rewritten interview, or anything that reshapes how running searches behave is a minor whenever it ships. **Let the window steer the close calls, and let size win outright.**
 
-> Both `apollo/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` carry the version. They have to agree.
+> Both `bishop/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` carry the version. They have to agree.
 
 ## Releasing
 
 1. Port whatever the live search has learned that generalizes. The test: would this help a stranger with a different career, in a different field, at a different level?
-2. Bump `version` in `apollo/.claude-plugin/plugin.json`, **and the matching `version` in `.claude-plugin/marketplace.json`.** Two files carry it: the plugin manifest gates updates, the marketplace entry is what the Desktop plugin card shows.
+2. Bump `version` in `bishop/.claude-plugin/plugin.json`, **and the matching `version` in `.claude-plugin/marketplace.json`.** Two files carry it: the plugin manifest gates updates, the marketplace entry is what the Desktop plugin card shows.
 3. **Update the Release history below. Every release, including patches.**
 4. `python build_package.py`.
-5. Tag the commit and cut a GitHub Release with `apollo.zip` attached, so the "no marketplace" path in `apollo/README.md` resolves.
+5. Tag the commit and cut a GitHub Release with `bishop.zip` attached, so the "no marketplace" path in `bishop/README.md` resolves.
 
 > **The history is organized by minor, and a patch updates the minor's entry rather than opening its own.** A new minor opens a new `###` heading; every patch after it appends its line to that heading. **The rule is that no release lands without the history reflecting it**, which is what 1.4.0 through 1.4.2 broke: three releases shipped against a history that stopped at 1.3.0.
 
@@ -78,7 +78,7 @@ Extracted from a live executive job search that has been running daily since Jul
 
 ## Attribution rules
 
-**Attribution lives in six places, and nowhere else on purpose:** the root README, the plugin README recipients read at install, the `author` field in `plugin.json`, a one-line header in each bundled script, **a short signed letter shown once at the top of setup**, and **the refusal Apollo gives when asked to write an application** (1.6.2), which names the author and links his LinkedIn as the human-review alternative.
+**Attribution lives in six places, and nowhere else on purpose:** the root README, the plugin README recipients read at install, the `author` field in `plugin.json`, a one-line header in each bundled script, **a short signed letter shown once at the top of setup**, and **the refusal Bishop gives when asked to write an application** (1.6.2), which names the author and links his LinkedIn as the human-review alternative.
 
 > **The sixth place is the only one that can fire more than once**, which is why the skill caps it at one per conversation. A second ask gets a one-line "still no" with no name and no link. Uncapped, it is an ad that appears every time someone asks a reasonable question. Setup also writes a single credit line into the profile it generates, which lands once in each user's own repo.
 
@@ -94,7 +94,7 @@ Two independent testers hit the same defect, and the fix is new cycle behavior: 
 
 - **A resolve check before research and scoring.** Freshness re-verification only ever protected rows already in the table, so a first cycle protected nothing: top-ranked roles and below-the-cap links opened to "page not found." Every link that will be shown is now resolved first, in three states, where **a failed check is never an expiry** (`live` / `expired` / `unverified`). Confirmed-dead rows are not researched, not scored, and don't consume a slot under the cap; they get scored only if they come back. Below-the-cap rows are checked too, which is where the worst of it was: they carry a clickable link and get no research on any cycle. When a link dies, the employer's own board is checked for a replacement requisition, because a repost is a live role behind a dead URL.
 - **Posting status is a second axis, not a stage.** `live` / `expired` / `unverified` sits parallel to `open` / `applied` / `interviewing`, so **"Applied · Expired" stays expressible.** An application is live even when the posting closes, and folding expiry into stage would erase the record that they applied. On the dashboard it renders as a badge, the apply button greys out rather than the card vanishing, live sorts above closed at equal score, and a "Hide closed roles" toggle is on by default with its own visible count.
-- **Apollo now checks it can actually run before it starts.** A silent capability probe ahead of the splash: shell, Python, file write, scheduled task. All four pass and the user never learns it happened; any failure stops before the letter and routes them to Claude Code in plain words. The Chat and Cowork surfaces are the case it exists for, because they answer the first request convincingly and degrade after it. The same guard covers cycles and ad-hoc "find me some jobs," which must never be answered from memory in place of a real run.
+- **Bishop now checks it can actually run before it starts.** A silent capability probe ahead of the splash: shell, Python, file write, scheduled task. All four pass and the user never learns it happened; any failure stops before the letter and routes them to Claude Code in plain words. The Chat and Cowork surfaces are the case it exists for, because they answer the first request convincingly and degrade after it. The same guard covers cycles and ad-hoc "find me some jobs," which must never be answered from memory in place of a real run.
 - **The install path is click-first everywhere.** The plugin README recipients read never mentioned clicking at all: it opened with two slash commands, then an unzip into a hidden directory, then a raw `--plugin-dir` flag. It now leads with the Desktop click path, collapses the typing routes, and gives update and uninstall a click path. The root README drops "CLI" and "to disk" from its opening, glosses every unfamiliar word in the click list (plugin, repo, marketplace, sync), and adds the recovery line it never had.
 - **A first-run warning, because that is where people bail.** Setup now says upfront that the first run asks for permission a lot, that a browser will open and move on its own, and that quiet stretches mean work rather than a hang. **The permission block genuinely does not help the first run** (settings don't take effect mid-session), and the interview is now told not to promise otherwise.
 - **The permission block is inlined.** Setup pointed at a "Fewer permission prompts" section of the plugin README that has never existed in any commit, so every setup since 1.5.0 improvised its own permission list. The block now lives in the interview, with a merge-don't-overwrite rule and `git push`, deletes, and blanket `Bash(*)` deliberately absent.
@@ -102,7 +102,7 @@ Two independent testers hit the same defect, and the fix is new cycle behavior: 
 - **A plain-language pass over everything the user reads.** The dashboard spec had no language rule at all and told Claude to print `localStorage` on the page; the coverage-note specimen every digest copies leaked "ATS boards (25/25)" and "aggregator name-mining"; source slugs (`getro`, `icims`, `lever`, `greenhouse`, `ashby`, `bamboo`) reached the screen untranslated; the known-limitations handoff read engineering notes aloud; and `check_update.py` printed a slash command into the top of the digest. All fixed, with the build-notes-stay-technical carve-out preserved.
 - **The employer list asks a question** instead of ending on "cut anything that's wrong," which left users unsure a reply was expected and stalled the flow.
 - **1.6.1:** the resolve check was prose, and both pagination bugs this repo documents happened to hand-rolled loops written from careful instructions. `scripts/resolve_links.py` makes it executable, with the three states enforced structurally: `expired` can only be produced by an expiry marker in the final URL, a closure banner on a rendered page, or a hard 404/410 on the requisition page itself, never an API path. **A control URL gates the run:** if the canary does not resolve live, nothing is marked expired, because a proxy or rate-limit would otherwise empty a table in one cycle and look like it worked. Search Notes gains a required `RESOLVE` field carrying the counts and the canary result, and audit check **E8** proves the resolver ran, on the same argument that earned `GATE` its E7: a clean run and an unrun one write the same table. 20 offline tests for the resolver, 3 more for E8.
-- **1.6.2:** the letter said Apollo wouldn't write your application and nothing in the skill enforced it, so a handoff was free to end with "want me to draft a cover letter for this one?" `SKILL.md` gains the scope rule (no cover letters, no per-posting resume rewrites, no filling in or submitting an application), **never offered** in a digest, at handoff, on the dashboard, or mid-research. An outright request gets a fixed block in the author's voice: the quality argument, the AI detectors in applicant tracking systems, a human alternative, and a plain statement that a new chat with Claude carries no such rule, so the limit reads as deliberate rather than as a missing capability. **Capped at once per conversation**, since this is the sixth and only repeatable attribution surface. The carve-out is stated because the rule is otherwise easy to over-apply: reading the resume to score against, naming what a JD asks for that the resume doesn't say, employer research, posting capture, and stage tracking all continue. **Telling someone what a posting wants is guidance; producing the words they submit is not.** The cycle prompt carries the no-offer line directly, since a scheduled run never opens `SKILL.md`.
+- **1.6.2:** the letter said Bishop wouldn't write your application and nothing in the skill enforced it, so a handoff was free to end with "want me to draft a cover letter for this one?" `SKILL.md` gains the scope rule (no cover letters, no per-posting resume rewrites, no filling in or submitting an application), **never offered** in a digest, at handoff, on the dashboard, or mid-research. An outright request gets a fixed block in the author's voice: the quality argument, the AI detectors in applicant tracking systems, a human alternative, and a plain statement that a new chat with Claude carries no such rule, so the limit reads as deliberate rather than as a missing capability. **Capped at once per conversation**, since this is the sixth and only repeatable attribution surface. The carve-out is stated because the rule is otherwise easy to over-apply: reading the resume to score against, naming what a JD asks for that the resume doesn't say, employer research, posting capture, and stage tracking all continue. **Telling someone what a posting wants is guidance; producing the words they submit is not.** The cycle prompt carries the no-offer line directly, since a scheduled run never opens `SKILL.md`.
 - **1.6.3:** the resolver's expiry-marker list never matched the largest board's marker, so **the most common expiry signal any search meets resolved as `live`** from 1.6.1 onward. That board abbreviates the middle word of its marker and the list carried only the spelled-out spellings, one word apart from a match. Found on a port to the live search this was extracted from, by a test written against what a board actually sends rather than against what the list already had. A closure page that says three words and stops was missed the same way, by a banner matcher tuned to full sentences. Both fixed, both pinned by tests, both with a guard case proving an ordinary live posting still resolves live. `search-techniques.md` gains the rule that produced the bug: **match the parameter a board actually sends, never a reasoned-out guess at it**, and read a check that finds no expiries at all across several cycles as evidence against the matcher before evidence about the market. **This is the failure mode the quality audit exists for, arriving inside the tool built to prevent it:** nothing errored, the counts were plausible, `RESOLVE` reported clean, and E8 passed, because a resolver that sees no expiries and a resolver that cannot see them write the same line.
 
 ### 1.5.0
@@ -127,7 +127,7 @@ Sourcing reliability, plus the setup gaps a full walkthrough exposed.
 - **1.4.1:** the plugin depended on Claude's browser extension everywhere and told nobody to install it. Q12 now lists connected browsers and names the prerequisite.
 - **1.4.2:** a release inside seven days of the last one is a patch whatever it contains. Cadence overrides the version table.
 - **1.4.3:** Q12's defaults table gains a job description capture row, so the cycle's "skip if the profile doesn't keep captures" branch has something that can set it.
-- **1.4.4:** the weekly audit now checks for a newer Apollo release and surfaces it in the next digest, since third-party marketplaces have Claude Code's auto-update off by default. `scripts/check_update.py` writes `Update_Notice.md` when one exists and clears it once caught up; it is informational and never fails the audit. The plugin README is also slimmed to five sections and rewritten for a non-technical reader.
+- **1.4.4:** the weekly audit now checks for a newer Bishop release and surfaces it in the next digest, since third-party marketplaces have Claude Code's auto-update off by default. `scripts/check_update.py` writes `Update_Notice.md` when one exists and clears it once caught up; it is informational and never fails the audit. The plugin README is also slimmed to five sections and rewritten for a non-technical reader.
 
 ### 1.3.0
 
