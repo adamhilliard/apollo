@@ -26,7 +26,21 @@ build_package.py                     builds the handoff zip
 
 **`python build_package.py` still builds `apollo.zip`**, which stays useful for two things: attaching to a GitHub Release for people not installing from a marketplace, and `claude --plugin-dir apollo.zip` for a one-session trial. The zip is not committed; it's a release asset.
 
-> **Verify before announcing.** `claude plugin validate ./apollo`, then `/plugin marketplace add .` from the repo root and confirm both skills load as `/apollo:job-search` and `/apollo:dashboard`.
+> **Verify before announcing.** `claude plugin validate ./apollo`, then load the plugin and confirm both skills come up as `/apollo:job-search` and `/apollo:dashboard`.
+>
+> **`validate` only reads `plugin.json`.** It checks the manifest and never opens a skill file, so a plugin with broken skill frontmatter validates clean, installs clean, lists clean, and then does nothing when someone asks it for a job search. That shipped once already (`af31`, "fix the job-search skill's frontmatter, which failed to parse"). **Only loading it actually proves it loads.**
+
+> **Don’t install Apollo on the machine running the live search.** The skill description tells Claude to treat a personally-named job bot as referring to Apollo, so an installed copy captures the live search’s requests. That rules out the obvious check (`/plugin marketplace add .`) on the maintainer’s own machine, which is why this step keeps getting skipped.
+>
+> **Use the zip instead**, from a scratch folder. It loads for one session and writes nothing to the skills directory:
+>
+> ```bash
+> claude --plugin-dir apollo.zip
+> ```
+>
+> Ask it to set up a job search. If the interview opens, the skills loaded. Close the window and it's gone.
+>
+> **`claude` may not be on `PATH`.** On the maintainer’s Windows machine it lives at `%USERPROFILE%\.local\bin\claude.exe`. Worth remembering before concluding the CLI isn’t installed.
 
 ## Version numbering
 
