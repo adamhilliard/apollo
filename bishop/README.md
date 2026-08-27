@@ -106,3 +106,4 @@ Open the same Plugins screen where you installed it and click **Uninstall**. Not
 Bishop is by **Adam Hilliard** ([linkedin.com/in/adamhilliard](https://linkedin.com/in/adamhilliard)), an HR executive who built it to run his own search and then generalized it so other people could use it, co-built with L&D Expert **Danielle Beram** ([linkedin.com/in/danielle-beram](https://linkedin.com/in/danielle-beram)) and inspired by Recruiting Ops Expert **Loren Boykoff** ([linkedin.com/in/lorenboykoff](https://linkedin.com/in/lorenboykoff)).
 
 Free under the MIT license, included as `LICENSE` in this folder. Use it, change it, pass it on. If it helps you land something, say so; that's the only thing asked in return.
+

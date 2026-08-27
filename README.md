@@ -6,17 +6,15 @@ Free, MIT licensed, and it works at any career level, from first job to executiv
 
 ## Install
 
-**You need the [Claude](https://claude.com) app on your computer.** It's free to download, and that's the whole prerequisite. (There's a command-line version too, if that's how you work; the typing route is below.)
-
-### Install in Claude Desktop, by clicking
+**You need the [Claude](https://claude.com) app on your computer.** It's free to download.
 
 1. Open Claude Desktop.
 2. Click **Customize** in the left sidebar.
 3. Click **Plugins**. (Plugins are free add-ons for Claude. Bishop is one of them.)
 4. Click the **+** sign, which is **Add marketplace**.
 5. Choose **Add from repo** (that’s just where Bishop lives online).
-6. Paste `adamhilliard/bishop` into the box that appears. That’s Bishop’s address.
-7. Click **Sync**. That downloads it.
+6. Paste `adamhilliard/bishop` into the box that appears.
+7. Click **Sync**.
 8. Click **Install** on **Bishop Job Search**.
 9. **First time using Claude?** You'll need to set up Claude Code. In the Chat window, type *"Help me set up Claude Code."*
 10. Once that's complete, start a new conversation in **Claude Code**. It won't appear in one that's already open. Don't use Claude chat for Bishop's work; performance degrades quickly there.

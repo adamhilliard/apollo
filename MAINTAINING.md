@@ -154,3 +154,4 @@ Ported from the live search after five weeks of corrections. Three of these are 
 - **The scheduled prompt now states no rule it does not own.** A stale cadence table inside a prompt reverted a decision hours after it was made, and no repo-wide search reaches a file that lives outside the project.
 
 **Public history starts at 1.2.0.** The earlier development commits are not published: they carried the maintainer's own employer target lists, scoring rubric, and worked examples, extracted from the live search this was generalized from. Nothing candidate-specific ships in the plugin, and the pre-publication history is kept locally rather than rewritten in place.
+
