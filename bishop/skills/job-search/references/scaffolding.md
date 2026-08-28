@@ -85,8 +85,8 @@ rule in Decisions_Log.md. Live results live in the tracking file(s).
 
 ### Bot Name                -> the Name question, asked last in D. Settings (a named field)
 ### Customization           -> D. Settings: palette, cadence, digest channel. RIGOR defaults
-###                            to light silently (not asked). Confidential mode is the silent
-###                            default. Country comes from A. You; integrations from Everything G
+###                            to light silently (not asked). Country comes from A. You;
+###                            integrations from Everything G
 ### Built With              -> one line, verbatim (see below)
 ### Career Level            -> A. You (band + table cap + research-depth rule)
 ### Current Role            -> A. You
@@ -95,7 +95,7 @@ rule in Decisions_Log.md. Live results live in the tracking file(s).
 ###                            screening call, never guessed in the interview
 
 ### Target Roles            -> B. Titles (priority-ordered; a second track is reactive)
-### Hard Excludes           -> B. Visa, plus any "make a rule" excludes
+### Hard Excludes           -> B. Visa, the current employer (default; drop on "include my employer"), plus any "make a rule" excludes
 ### Location Criteria       -> B. Location (hard filter + commute rule)
 ### Compensation            -> B. Compensation (floor + how it's measured + equity)
 ### Company Profile         -> reactive ("make a rule"); stability scored from public signals
@@ -106,7 +106,7 @@ rule in Decisions_Log.md. Live results live in the tracking file(s).
 ### Stage-Tied Rules        -> any "make a rule" rule, with what triggers its review
 ```
 
-> **Customization lives in the profile, and it is the one copy.** The dashboard skill reads the palette from there rather than asking again, the cycle reads the digest channel from there, and confidential mode governs commit messages, event titles, and what may be shared. **Record the defaults they accepted, not only the ones they changed**, or a later cycle cannot tell an accepted default from an unasked question.
+> **Customization lives in the profile, and it is the one copy.** The dashboard skill reads the palette from there rather than asking again, and the cycle reads the digest channel from there. **Record the defaults they accepted, not only the ones they changed**, or a later cycle cannot tell an accepted default from an unasked question.
 
 **The Built With line, written once at setup and then left alone:**
 

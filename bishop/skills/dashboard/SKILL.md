@@ -28,7 +28,7 @@ Read, in full: `Reference_Profile.md`, `Operating_Procedures.md`, and every `Tra
 
 - **The search's name**, from the profile's Bot Name field. It goes in the masthead and the page title.
 - **The palette and any accessibility adjustments**, from the profile's Customization section: accent color, plus whichever of larger text, higher contrast, reduced motion, and colorblind-safe colors they asked for. **Setup already asked. Don't ask again.**
-- **Confidential mode and where the link should go**, also from Customization. Both change what this skill does at publish time.
+- **Where the digest link should go**, from Customization. It changes where this skill delivers the page at publish time.
 - **Track names** (one per tracking file) and a short label for each.
 - **The bucket list.** However many scoring buckets their rubric has, in their rank order. The dashboard renders *their* buckets, not a hard-coded set.
 - **Career level / volume.** A senior search renders every active row as a full card. A high-volume search (a BELOW THE CAP section exists) renders full cards only for ACTIVE/ROLLING and a compact one-line list for below-the-cap rows, never a full card per row for two hundred roles.
@@ -50,7 +50,7 @@ Read, in full: `Reference_Profile.md`, `Operating_Procedures.md`, and every `Tra
 | **Reduced motion** | No transitions, no hover lifts, no animated score rings. Render the final state directly |
 | **Colorblind-safe colors** | Pick track tones that separate on lightness, not hue, and never use red against green. **The text label on every mark stays either way**; it is the thing that makes color a redundant channel rather than the only one |
 
-> **With confidential mode on, this page is private and stays private.** Don't link it anywhere shared, don't put employer names in the artifact title, and don't offer to share it. **Where the link goes was decided at setup**; wire it into that destination on first publish and record that it's done.
+> **The dashboard is private by default.** Artifacts start private, so it stays private until the user shares the link themselves. Employer names are kept, the user alone decides who ever sees the page. **Where the digest link goes was decided at setup**; wire it into that destination on first publish and record that it's done.
 
 ### Step 3: Build `dashboard.html` in the project folder
 

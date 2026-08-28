@@ -307,7 +307,7 @@ python scripts/employer_sweep.py --index Employer_Index.md --list   # show sets
 python scripts/employer_sweep.py --index Employer_Index.md          # sweep them
 ```
 
-Its docstring documents the table format and the `sweep-config` block that sets the seniority and function filters.
+Its docstring documents the table format and the `sweep-config` block. Set that block from the user's answers: `seniority` from their target-level titles, `function` from their target titles, `stretch` from step-up titles (only if they're open to a step up), `step_down` from lower-rung titles (only if open to a step down), `comp_floor` from their salary floor, and `no_pay` from the "No salary posted" answer (`all` · `except_step_down` · `none`).
 
 **Mechanics, the same shape as the VC portfolio sweep:**
 

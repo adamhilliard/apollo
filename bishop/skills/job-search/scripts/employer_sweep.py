@@ -35,17 +35,27 @@ Title filters come from an HTML comment anywhere in the index, so they stay
 invisible in the rendered document:
 
     <!-- sweep-config
-    seniority = manager|supervisor|lead|head of
-    function  = operations|logistics|supply chain
-    stretch   = (senior )?director
-    stretch_comp_floor = 120
+    seniority  = manager|supervisor|lead|head of
+    function   = operations|logistics|supply chain
+    stretch    = (senior )?director
+    step_down  = coordinator|associate
+    comp_floor = 120
+    no_pay     = all
     -->
 
-`seniority` and `function` must BOTH match a title for it to be reported.
-`stretch` is optional: titles matching it, but not seniority, are held back
-unless the board publishes comp at or above `stretch_comp_floor` (in
-thousands). Held-back rows are listed separately so nothing disappears
-silently.
+`function` must match a title, plus one of the level tiers, for a row to be
+reported. `seniority` is the target level; `stretch` (optional) is a rung up;
+`step_down` (optional) is a rung down.
+
+Comp is read in thousands against `comp_floor`:
+  - A stated number below the floor holds a stretch or step_down row back
+    (target rows are always reported; the caller screens their floor).
+  - A row with NO stated pay is governed by `no_pay`:
+      all               show every no-pay row (the default)
+      except_step_down  show them except on step_down titles
+      none              hold every no-pay row back
+Held-back rows are listed separately so nothing disappears silently.
+`stretch_comp_floor` is still accepted as an alias for `comp_floor`.
 
 Usage:
     python employer_sweep.py                          # every set in the index
@@ -99,7 +109,9 @@ def find_index(explicit=None):
 
 def parse_config(text):
     cfg = {"seniority": DEFAULT_SENIORITY, "function": DEFAULT_FUNCTION,
-           "stretch": "", "stretch_comp_floor": "0"}
+           "stretch": "", "step_down": "",
+           "comp_floor": "", "stretch_comp_floor": "0",
+           "no_pay": "all"}
     m = CONFIG_RE.search(text)
     if m:
         for line in m.group(1).splitlines():
@@ -176,8 +188,8 @@ def pull(platform, slug):
     """Return a list of (title, location, comp_summary) or raise.
 
     comp_summary is whatever the board publishes, or "". An absent value must
-    stay falsy: it feeds the stretch-tier comp test, where undisclosed has to
-    fail rather than pass.
+    stay an empty string: comp_k reads that as "no number stated", which the
+    no_pay rule handles separately from a stated number below the floor.
     """
     if platform == "greenhouse":
         d = get("https://boards-api.greenhouse.io/v1/boards/%s/jobs" % slug)
@@ -221,25 +233,43 @@ def pull(platform, slug):
     raise ValueError("unknown platform %r" % platform)
 
 
-def comp_clears(comp_summary, floor_k):
-    """True only when the board explicitly publishes comp at or above floor_k.
-
-    Undisclosed comp fails. A row this rejects can still be added by hand if
-    the user has a reason the board cannot show.
+def comp_k(comp_summary):
+    """Highest salary figure in the summary, in thousands, or None when the
+    board stated no pay. Absent must read as None, not 0: the no_pay rule and
+    the floor test treat "no number" and "a low number" differently.
     """
-    if not comp_summary or floor_k <= 0:
-        return False
+    if not comp_summary:
+        return None
     nums = [int(m.group(1)) for m in re.finditer(r"\$(\d{3})K", comp_summary, re.I)]
     nums += [int(m.group(1).replace(",", "")) // 1000
              for m in re.finditer(r"\$(\d{3},\d{3})", comp_summary)]
-    return bool(nums) and max(nums) >= floor_k
+    return max(nums) if nums else None
+
+
+def classify(tier, comp_summary, floor_k, no_pay):
+    """Return 'hit' (report the row) or 'held' (list it under held-back, never
+    drop it). tier is 'target', 'step_up', or 'step_down'.
+    """
+    k = comp_k(comp_summary)
+    if k is not None:
+        # A stated number. Target rows are always reported (the caller screens
+        # their floor); an off-target row must clear the floor to earn a spot.
+        if tier == "target" or floor_k <= 0 or k >= floor_k:
+            return "hit"
+        return "held"
+    # No stated pay: the user's no_pay choice decides.
+    if no_pay == "none":
+        return "held"
+    if no_pay == "except_step_down" and tier == "step_down":
+        return "held"
+    return "hit"
 
 
 # --------------------------------------------------------------------------
 # Sweeping
 # --------------------------------------------------------------------------
 
-def sweep(name, board, seniority, function, stretch, floor_k):
+def sweep(name, board, seniority, function, stretch, step_down, floor_k, no_pay):
     hits, held, failed, scanned = [], [], [], 0
     print("=== %s (%d boards) ===" % (name, len(board)))
     for company, platform, slug in board:
@@ -253,12 +283,17 @@ def sweep(name, board, seniority, function, stretch, floor_k):
             if not function.search(title):
                 continue
             if seniority.search(title):
-                hits.append((company, title, loc, comp or ""))
+                tier = "target"
             elif stretch and stretch.search(title):
-                if comp_clears(comp, floor_k):
-                    hits.append((company, title, loc, comp or ""))
-                else:
-                    held.append((company, title, comp or "no comp posted"))
+                tier = "step_up"
+            elif step_down and step_down.search(title):
+                tier = "step_down"
+            else:
+                continue
+            if classify(tier, comp, floor_k, no_pay) == "hit":
+                hits.append((company, title, loc, comp or ""))
+            else:
+                held.append((company, title, tier, comp or "no pay posted"))
         time.sleep(0.2)
 
     for c, t, l, comp in sorted(hits):
@@ -266,10 +301,10 @@ def sweep(name, board, seniority, function, stretch, floor_k):
     if not hits:
         print("  (no target-title matches)")
     if held:
-        print("  -- %d stretch-tier titles held back below the $%dK comp floor:"
-              % (len(held), floor_k))
-        for c, t, comp in sorted(held):
-            print("       %-20s | %-46s | %s" % (c, t[:46], comp[:30]))
+        print("  -- %d off-target rows held back (below the $%dK floor, or no pay "
+              "posted under no_pay=%s):" % (len(held), floor_k, no_pay))
+        for c, t, tier, reason in sorted(held):
+            print("       %-20s | %-40s | %-9s | %s" % (c, t[:40], tier, reason[:24]))
         print("     Add one by hand only with a reason the board cannot show.")
     print("  scanned %d postings across %d boards" % (scanned, len(board) - len(failed)))
     return failed
@@ -308,15 +343,20 @@ def main():
     seniority = re.compile(cfg["seniority"], re.I)
     function = re.compile(cfg["function"], re.I)
     stretch = re.compile(cfg["stretch"], re.I) if cfg["stretch"] else None
+    step_down = re.compile(cfg["step_down"], re.I) if cfg["step_down"] else None
     try:
-        floor_k = int(cfg["stretch_comp_floor"])
+        floor_k = int(cfg["comp_floor"] or cfg["stretch_comp_floor"])
     except ValueError:
         floor_k = 0
+    no_pay = cfg["no_pay"].strip().lower()
+    if no_pay not in ("all", "except_step_down", "none"):
+        no_pay = "all"
 
     print("index: %s" % path)
     failed = []
     for heading, board in sets:
-        failed += sweep(heading.upper(), board, seniority, function, stretch, floor_k)
+        failed += sweep(heading.upper(), board, seniority, function, stretch,
+                        step_down, floor_k, no_pay)
 
     print("-" * 60)
     if failed:
