@@ -140,7 +140,7 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 
 **Say:**
 
-> Hi, I'm Bishop. I take in information about you, and find you new roles that match what you're looking for. I then verify the posting is real, score it against the criteria you find important, and hand you back a ranked digest. Depending on your desired level of customization, you will be up and running in between 15 and 30 minutes.
+> Hi, I'm Bishop. I'm here to help you find a few new angles for your job search. I take in information about you, and find you new roles that match what you're looking for. I then verify the posting is real, score it against the criteria you find important, and hand you back a ranked digest. Depending on your desired level of customization, you will be up and running in between 15 and 30 minutes.
 
 ## Choose your setup
 
