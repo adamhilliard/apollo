@@ -123,15 +123,13 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 
 **A Note From Bishop's Author**
 
-> Life's too short to hate going to work. You deserve to be at a place that makes you happy.
->
 > Whether you're looking for your next opportunity, or are in between roles, I built this AI agent to help you find jobs at companies that match your skills and interests. I hope this makes your search just a little bit easier.
 >
-> This agent is only focused on finding you new roles. I have not customized any features to apply to jobs, nor give you templatized cover letters. As someone who has reviewed 1,000s of resumes, AI-generated ones are easy to spot, and several modern applicant tracking systems now have AI spam filters in place. Beyond that, hiring is, at its core, human. When Bishop finds you a role you like, take the few extra minutes you saved and go through it by hand. You will land more interviews.
+> This agent is only focused on finding you new job postings. As someone who has reviewed 1,000s of resumes, AI-generated ones are easy to spot, and several modern applicant tracking systems now have AI spam filters in place. Beyond that, hiring is, at its core, human. When Bishop finds you a role you like, take the few extra minutes you saved and go through it by hand. You will land more interviews.
 >
 > This agent is under continuous development and improvement. Send me a message on LinkedIn if you have feedback, so we can all improve this tool together.
 >
-> Adam Hilliard
+> -Adam Hilliard
 > linkedin.com/in/adamhilliard
 
 > **Once, at setup, and nowhere else.** Never on a cycle, never in a digest, never on the dashboard. A credit that reappears every run reads as an ad.
@@ -140,7 +138,7 @@ The user picks **Essentials** (~15 min) or **Everything** (~30 min). Essentials 
 
 **Say:**
 
-> Hi, I'm Bishop. I'm here to help you find a few new angles for your job search. I take in information about you, and find you new roles that match what you're looking for. I then verify the posting is real, score it against the criteria you find important, and hand you back a ranked digest. Depending on your desired level of customization, you will be up and running in between 15 and 30 minutes.
+> Hi, I'm Bishop. I'm here to help you find a few new... angles (haha...get it?) for your job search. I take in information about you, and find you new roles that match what you're looking for. I then verify the posting is real, score it against the criteria you find important, and hand you back a ranked digest. Depending on your desired customization, you will be up and running in between 15 and 30 minutes.
 
 ## Choose your setup
 
