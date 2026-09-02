@@ -334,12 +334,14 @@ Options: *No · Yes*. Postings state this, so it's a reliable screen and the one
 
 > LinkedIn is a great source for roles, so I strongly recommend connecting it. It pulls in your personalized feed and the alerts no anonymous search can reach. It takes a few minutes to set up once, then it just runs.
 >
-> 1. Add Claude to the browser you job-hunt in. Here's the one-click link: {extension link}. It's a small add-on from Anthropic, the same people who make Claude.
+> 1. Add Claude to the browser you job-hunt in. It's a small add-on from Anthropic, the same people who make Claude, and I'll give you the one-click install link to add it.
 > 2. Sign in with your Claude account when it asks.
 > 3. Make sure you're logged in to LinkedIn in that same browser.
 > 4. Tell me when that's done and I'll confirm the connection.
 >
 > One thing so it doesn't surprise you later: when I run a search, you'll see me open a browser window and move around LinkedIn on my own. That's me reading your feed and alerts. **I only ever read.** I never apply, never message anyone, never post, and never look at anyone's profile.
+
+**Put the actual install link into step 1 before sending it:** Anthropic's official Claude browser extension for Chrome and other Chromium browsers. Look up the current URL if you don't have it; never voice a raw placeholder.
 
 Then list the connected browsers and name the one that looks like theirs. **Confirm it with a picker,** single-select, header `Browser`. **Say:**
 
@@ -414,7 +416,9 @@ Run these after the Essentials questions for someone who chose Everything, befor
 
 Options: *Yes, find them · No thanks*. **On yes, fix the geographic anchor first.** Use the base city from A. **If none is on file** (a remote-only user never triggers the drive-time address prompt, and may have given no city), ask for one before researching: *"What area should I anchor this to? A city or metro is plenty."* Then ask the radius (single-select: *Within a 30-minute drive · Within an hour · My whole metro area*), research employers around that anchor within it, and present the list. **End with a question, never a bare instruction.** A list that ends "cut anything wrong" leaves the user unsure whether a reply is expected, and the flow stalls. **Say:**
 
-> Any companies here you wouldn't want to work for? Tell me which to drop, or say "looks good" and I'll keep them all. Resolve names to boards with `scripts/resolve_boards.py`; the result becomes `Employer_Index.md`, swept every cycle. **A named list changes which employers get looked at, never a screen.**
+> Any companies here you wouldn't want to work for? Tell me which to drop, or say "looks good" and I'll keep them all.
+
+**Then resolve the kept names to boards** with `scripts/resolve_boards.py`; the result becomes `Employer_Index.md`, swept every cycle. A named list changes which employers get looked at, never a screen.
 
 ### F. Your field's sources (~2 min)
 

@@ -137,7 +137,9 @@ def main():
 
     window = "r604800"
     if "--window" in sys.argv:
-        window = sys.argv[sys.argv.index("--window") + 1]
+        i = sys.argv.index("--window") + 1
+        if i < len(sys.argv):
+            window = sys.argv[i]
     remote = "--remote" in sys.argv
 
     rows, failed, hit_cap = sweep(args[0], args[1], window, remote)

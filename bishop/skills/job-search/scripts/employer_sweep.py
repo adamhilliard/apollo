@@ -280,9 +280,9 @@ def comp_k(comp_summary):
     """
     if not comp_summary:
         return None
-    nums = [int(m.group(1)) for m in re.finditer(r"\$(\d{3})K", comp_summary, re.I)]
+    nums = [int(m.group(1)) for m in re.finditer(r"\$(\d{2,3})K", comp_summary, re.I)]
     nums += [int(m.group(1).replace(",", "")) // 1000
-             for m in re.finditer(r"\$(\d{3},\d{3})", comp_summary)]
+             for m in re.finditer(r"\$(\d{1,3}(?:,\d{3})+)", comp_summary)]
     return max(nums) if nums else None
 
 

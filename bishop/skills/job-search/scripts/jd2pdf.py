@@ -73,5 +73,7 @@ def build(jid, out_path, title_line, source_line):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 4:
+        sys.exit("usage: python jd2pdf.py <job-id> <out.pdf> <title> [source-line ...]")
     jid, out, title = sys.argv[1], sys.argv[2], sys.argv[3]
     build(jid, out, title, sys.argv[4:])

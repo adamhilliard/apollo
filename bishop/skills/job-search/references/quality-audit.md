@@ -84,8 +84,8 @@
 | **E4** | Every file's stated read budget matches its actual size | A per-cycle file exceeds its budget |
 | **E5** | Every trial in the decisions log has a review date, and none is overdue | A trial is past due, or has no date |
 | **E6** | Every tracking-file row has an index line, and every index line a row | Either side is orphaned |
-| **E8** | Every cycle entry adding rows carries a `RESOLVE` count, and its canary passed | A `RESOLVE` line is missing, or the run had no passing canary |
 | **E7** | Every Search Notes entry with a nonzero `new` count carries a `GATE:` line | An entry added rows and reported no gate count |
+| **E8** | Every cycle entry adding rows carries a `RESOLVE` count, and its canary passed | A `RESOLVE` line is missing, or the run had no passing canary |
 
 > **E7 exists because a check that finds nothing and a check that never ran produce identical files.** The reliability gate writes a clause only when two of its four checks trip, so a normal week and a skipped week both look like a table with no flags on it. **Nothing in a cycle can tell those apart**, which is the same blindness S6 catches on the sourcing side.
 >

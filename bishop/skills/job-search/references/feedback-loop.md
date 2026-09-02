@@ -2,7 +2,7 @@
 
 **How the bot gets better after setup, and what it will never do.**
 
-> **Q-numbers** (Q0 through Q12) refer to `setup-interview.md`, where each is defined.
+> **Q-numbers** are shorthand for the setup interview's questions in `setup-interview.md`, now organized there as lettered sections A through G. Match each by the topic the surrounding sentence names.
 
 > **A correction to generic technique belongs in the skill, not in the user's files.**
 > If the fix would help any search, edit `search-techniques.md`. If it is true only for

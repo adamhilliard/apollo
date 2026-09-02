@@ -2,7 +2,7 @@
 
 **The running bot's manual: how to source without silently missing half the market, and how to decide what is actually true about a posting.**
 
-> **Q-numbers** (Q0 through Q12) refer to `setup-interview.md`, where each is defined.
+> **Q-numbers** are shorthand for the setup interview's questions in `setup-interview.md`, now organized there as lettered sections A through G. Match each by the topic the surrounding sentence names.
 
 The scheduled task reads this file every cycle. It holds nothing candidate-specific,
 so improvements here reach every search already running.
