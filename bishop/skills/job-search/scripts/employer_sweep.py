@@ -26,10 +26,16 @@ becomes a sweepable set:
     | Example Co | greenhouse | exampleco  |
     | Another Co | lever      | anotherco  |
 
-Supported platforms: greenhouse, lever, ashby, workday. Workday needs three
-parts, written `host / tenant / site`, e.g.
+Supported platforms: greenhouse, lever, ashby, workday, icims. Workday needs
+three parts, written `host / tenant / site`, e.g.
 `acme.wd5.myworkdayjobs.com / acme / ACMEUS`. Slash-separated, not
 pipe-separated: a pipe inside a table cell would break the table.
+
+The icims slug is the tenant, e.g. `acmecareers` reaches
+`careers-acmecareers.icims.com`. iCIMS has no public JSON API and its listing
+pages are noindex, so keyword search never surfaces its fresh reqs; this is why
+an iCIMS employer belongs here and gets fetched from the tenant's own board
+HTML rather than an API.
 
 Title filters come from an HTML comment anywhere in the index, so they stay
 invisible in the rendered document:
@@ -73,6 +79,7 @@ import json
 import time
 import os
 import urllib.request
+from html import unescape
 
 if hasattr(sys.stdout, "reconfigure"):
     # Without this a single non-Latin-1 company name kills the run on Windows,
@@ -184,6 +191,11 @@ def get(url, data=None, headers=None):
     return json.load(urllib.request.urlopen(req, timeout=30))
 
 
+def get_text(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+
+
 def pull(platform, slug):
     """Return a list of (title, location, comp_summary) or raise.
 
@@ -228,6 +240,34 @@ def pull(platform, slug):
             offset += 20
             if offset >= (d.get("total") or 0):
                 break
+            time.sleep(0.2)
+        return out
+    if platform == "icims":
+        # iCIMS has no clean JSON API and its listing pages are noindex, so
+        # keyword search misses fresh reqs. The in-iframe search page returns
+        # the whole current board server-side, no auth, no JS. slug is the
+        # tenant: "acmecareers" -> careers-acmecareers.icims.com. Each job card
+        # carries an anchor whose title attribute is "<id> - <Title>" and a
+        # "Job Locations" span; paginate on pr until a page adds no new ids.
+        out, seen, pr = [], set(), 0
+        while pr < 25:
+            page = get_text("https://careers-%s.icims.com/jobs/search"
+                            "?in_iframe=1&pr=%d" % (slug, pr))
+            new = 0
+            for card in page.split("iCIMS_JobCardItem")[1:]:
+                mt = re.search(r'iCIMS_Anchor"\s+title="(\d+)\s*-\s*([^"]+)"',
+                               card)
+                if not mt or mt.group(1) in seen:
+                    continue
+                seen.add(mt.group(1))
+                new += 1
+                ml = re.search(
+                    r"Job Locations</span>\s*<span[^>]*>\s*([^<]+)", card)
+                out.append((unescape(mt.group(2)).strip(),
+                            unescape(ml.group(1)).strip() if ml else "", ""))
+            if new == 0:
+                break
+            pr += 1
             time.sleep(0.2)
         return out
     raise ValueError("unknown platform %r" % platform)
