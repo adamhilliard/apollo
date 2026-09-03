@@ -22,7 +22,11 @@ build_package.py                     builds the handoff zip
 
 ## Distribution
 
-**The repo is the marketplace.** `.claude-plugin/marketplace.json` at the root points at `./bishop`, so users run `/plugin marketplace add adamhilliard/bishop` then `/plugin install bishop@bishop`. Updates reach them when they run `/plugin marketplace update`, gated on the `version` field in `plugin.json`, so **bump it on every release or nobody gets the change.**
+**The repo is the marketplace.** `.claude-plugin/marketplace.json` at the root points at `./bishop`. Most users add it from the desktop app (Customize → Plugins → Add → Add marketplace → type `adamhilliard/bishop` → Sync → Install). Terminal users run `/plugin marketplace add adamhilliard/bishop` then `/plugin install bishop@bishop`. Updates reach them when they click **Sync** again or run `/plugin marketplace update`, gated on the `version` field in `plugin.json`, so **bump it on every release or nobody gets the change.**
+
+> **`/plugin` does not run in the desktop app's chat box.** It answers "isn't available in this environment." Every install doc must say so, and must lead with the desktop Plugins screen. Two rounds of published instructions got this wrong (2026-09-02).
+>
+> **Open question, desktop marketplace add for non-owners.** A tester who does not own the repo reported that after adding the marketplace, Bishop Job Search did not appear in the list. Whether the desktop picker accepts a public repo the user doesn't own is undocumented, and it can't be tested from the maintainer's account (the picker autocompletes the maintainer's own repos). Until a non-owner confirms the desktop path end to end, every install doc carries the `bishop.zip` drop-in as the fallback.
 
 **`python build_package.py` still builds `bishop.zip`**, which stays useful for two things: attaching to a GitHub Release for people not installing from a marketplace, and `claude --plugin-dir bishop.zip` for a one-session trial. The zip is not committed; it's a release asset.
 

@@ -6,23 +6,40 @@ Free, MIT licensed, and it works at any career level, from first job to executiv
 
 ## Install
 
-**You need the [Claude](https://claude.com) app on your computer.** It's free to download.
+**You need the [Claude](https://claude.com) desktop app.** It's free to download. Have your resume or a PDF of your LinkedIn profile handy.
 
-1. Open Claude Desktop.
-2. Click **Customize** in the left sidebar.
-3. Click **Plugins**. (Plugins are free add-ons for Claude. Bishop is one of them.)
-4. Click the **+** sign, which is **Add marketplace**.
-5. Choose **Add from repo** (that’s just where Bishop lives online).
-6. Paste `adamhilliard/bishop` into the box that appears.
-7. Click **Sync**.
-8. Click **Install** on **Bishop Job Search**.
-9. **First time using Claude?** You'll need to set up Claude Code. In the Chat window, type *"Help me set up Claude Code."*
-10. Once that's complete, start a new conversation in **Claude Code**. It won't appear in one that's already open. Don't use Claude chat for Bishop's work; performance degrades quickly there.
-11. Say: *"Help me set up a job search."*
+1. Open Claude. **First time using Claude Code?** In a chat, type *"Help me set up Claude Code"* and follow the prompts.
+2. Click **Customize** in the left sidebar, then the **Plugins** tab. (Plugins are free add-ons for Claude. Bishop is one of them.)
+3. In the top right, click **Add**, then **Add marketplace**.
+4. In the box, type `adamhilliard/bishop` and click **Sync**. Type it and click Sync. Don't press Enter, and ignore any repository suggestions that pop up.
+5. **Bishop Job Search** appears in the list. Click **Install**.
+6. Start a **new conversation in Claude Code**. It won't appear in one that's already open. Don't use plain Claude chat for Bishop's work; performance degrades quickly there.
+7. Say: *"Help me set up a job search."*
 
-**Nothing happening?** Close Claude, open it again, and try step 10.
+**Nothing happening?** Close Claude, open it again, and try step 6.
 
-### In Claude Code, by typing
+**To update later:** open the same Plugins screen and click **Sync**.
+
+> **Don't type `/plugin` commands into the Claude app's chat box.** They only work in a terminal (see the last section below). The steps above need no terminal.
+
+<details>
+<summary><b>Bishop Job Search didn't appear? Drop the folder in instead.</b></summary>
+
+Download `bishop.zip` from the [latest release](https://github.com/adamhilliard/bishop/releases/latest) and unzip it into your skills directory:
+
+| | Path |
+|---|---|
+| **macOS / Linux** | `~/.claude/skills/` |
+| **Windows** | `%USERPROFILE%\.claude\skills\` |
+
+You should end up with `.claude/skills/bishop/.claude-plugin/plugin.json`. Fully quit and reopen Claude and it loads as `bishop@skills-dir`, no install step.
+
+</details>
+
+<details>
+<summary><b>Using the Claude Code terminal instead</b></summary>
+
+Open a terminal, run `claude`, then type:
 
 ```
 /plugin marketplace add adamhilliard/bishop
@@ -32,28 +49,9 @@ Free, MIT licensed, and it works at any career level, from first job to executiv
 /plugin install bishop@bishop
 ```
 
-If the install summary says `Run /reload-plugins to activate`, run that. Otherwise you're done.
+`bishop@bishop` is correct: the plugin's name, then the marketplace it came from. If the install summary says `Run /reload-plugins to activate`, run that. Update later with `/plugin marketplace update`.
 
-**To update later:** `/plugin marketplace update`, or click **Sync** again in Desktop.
-
-<details>
-<summary><b>No marketplace? Drop the folder in instead.</b></summary>
-
-Download `bishop.zip` from the [latest release](https://github.com/adamhilliard/bishop/releases/latest) and unzip it into your skills directory:
-
-| | Path |
-|---|---|
-| **macOS / Linux** | `~/.claude/skills/` |
-| **Windows** | `%USERPROFILE%\.claude\skills\` |
-
-You should end up with `.claude/skills/bishop/.claude-plugin/plugin.json`. Restart Claude Code and it loads as `bishop@skills-dir`, no install step.
-
-</details>
-
-<details>
-<summary><b>Just want to try it for one session?</b></summary>
-
-Point Claude Code at the zip. Nothing is written to your skills directory:
+To try it for one session without writing anything to your skills directory:
 
 ```bash
 claude --plugin-dir bishop.zip

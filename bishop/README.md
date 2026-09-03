@@ -6,24 +6,40 @@ Works at any career level, from first job to executive search.
 
 ## Install
 
-**About a minute, and the only typing is one paste.**
+**About a minute. The only typing is Bishop's address.**
 
-1. Open the Claude app on your computer.
-2. Click **Customize** in the left sidebar, then **Plugins**. (Plugins are free add-ons for Claude. Bishop is one of them.)
-3. Click **Add plugin**, then **Add marketplace**, then **Add from repo**. Nothing here costs anything.
-4. Paste `adamhilliard/bishop` into the box. That's Bishop's address.
-5. Click **Sync**, then click **Install** on **Bishop Job Search**.
-6. Start a **new conversation**. Bishop won't show up in one that's already open.
+1. Open the Claude app on your computer. **First time using Claude Code?** In a chat, type *"Help me set up Claude Code"* and follow the prompts.
+2. Click **Customize** in the left sidebar, then the **Plugins** tab. (Plugins are free add-ons for Claude. Bishop is one of them.)
+3. In the top right, click **Add**, then **Add marketplace**. Nothing here costs anything.
+4. In the box, type `adamhilliard/bishop` and click **Sync**. Type it and click Sync. Don't press Enter, and ignore any repository suggestions that pop up.
+5. **Bishop Job Search** appears in the list. Click **Install**.
+6. Start a **new conversation in Claude Code**. Bishop won't show up in one that's already open.
 7. Say: *"Help me set up a job search."*
 
 **Stuck?** Close Claude, open it again, and try step 6.
 
 **To update later:** open that same Plugins screen and click **Sync**.
 
-<details>
-<summary><b>Prefer to type? Two lines instead of the clicks.</b></summary>
+> **Don't type `/plugin` commands into the Claude app's chat box.** They only work in a terminal. The steps above need no terminal.
 
-In Claude Code, type these into the chat box and press enter after each:
+<details>
+<summary><b>Bishop Job Search didn't appear? Drop the folder in instead.</b></summary>
+
+Download `bishop.zip` from the [latest release](https://github.com/adamhilliard/bishop/releases/latest) and unzip it into your skills directory:
+
+| | Path |
+|---|---|
+| **macOS / Linux** | `~/.claude/skills/` |
+| **Windows** | `%USERPROFILE%\.claude\skills\` |
+
+You should end up with `.claude/skills/bishop/.claude-plugin/plugin.json`. Fully quit and reopen Claude and it loads with no install step.
+
+</details>
+
+<details>
+<summary><b>Using the Claude Code terminal instead (advanced).</b></summary>
+
+Open a terminal, run `claude`, then type:
 
 ```
 /plugin marketplace add adamhilliard/bishop
@@ -35,21 +51,7 @@ In Claude Code, type these into the chat box and press enter after each:
 
 The odd-looking `bishop@bishop` is correct: it's the plugin's name, then where it came from. If the summary says `Run /reload-plugins to activate`, run that. Update later with `/plugin marketplace update`.
 
-</details>
-
-<details>
-<summary><b>Installing without the plugin screen (advanced).</b></summary>
-
-Download `bishop.zip` from the [latest release](https://github.com/adamhilliard/bishop/releases) and unzip it into your skills directory:
-
-| | Path |
-|---|---|
-| **macOS / Linux** | `~/.claude/skills/` |
-| **Windows** | `%USERPROFILE%\.claude\skills\` |
-
-You should end up with `.claude/skills/bishop/.claude-plugin/plugin.json`. Restart Claude Code and it loads with no install step.
-
-Or, to try it for one session without writing anything to your skills directory:
+To try it for one session without writing anything to your skills directory:
 
 ```bash
 claude --plugin-dir bishop.zip
@@ -97,7 +99,7 @@ Nothing leaves your computer: your profile, your saved roles, and your digest al
 
 Open the same Plugins screen where you installed it and click **Uninstall**. Nothing else to undo.
 
-(If you installed by typing, `/plugin uninstall bishop@bishop` does the same thing. If you dropped the folder in by hand, delete the `bishop` folder you unzipped.)
+(If you installed from the terminal, `/plugin uninstall bishop@bishop` there does the same thing. If you dropped the folder in by hand, delete the `bishop` folder you unzipped.)
 
 **Your search stays.** The project folder Bishop wrote is yours: plain markdown, readable and useful without the plugin. Removing the tooling doesn't touch it, and the scheduled tasks are yours to delete when you want them gone.
 
